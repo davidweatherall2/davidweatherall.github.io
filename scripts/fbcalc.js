@@ -48,8 +48,8 @@ function createCalc() {
 
 
 		$('.js-select').change(function() {
-			per = $(this).data('per');
-			sample = $(this).data('sample');
+			per = $(this).find(':selected').data('per');
+			sample = $(this).find(':selected').data('sample');
 
 			text = "FB: " + per + "% - Sample size: " + sample
 
