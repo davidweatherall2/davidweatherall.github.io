@@ -12,7 +12,7 @@ function createCalc() {
 		
 		calcHolder = $('.js-fbcalc');
 
-		options = "<div class='each'><select class='js-select'>"
+		options = "<div class='each'><select class='js-select'><option disabled selected>Select Champion</option>"
 
 		for (var i = 0; i < data.length; i++) {
 			option = "<option data-per=" + data[i]['fbPer'] + " data-sample=" + data[i]['sampleSize'] + ">" + data[i]['champName'] + "</option>"
