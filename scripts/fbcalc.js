@@ -45,6 +45,17 @@ function createCalc() {
 		structure += "</div>"
 
 		calcHolder.html(structure);
+
+
+		$('.js-select').change(function() {
+			per = $(this).data('per');
+			sample = $(this).data('sample');
+
+			text = "FB: " + per + "% - Sample size: " + sample
+
+			$(this).parent().find('.result').html(text);
+
+		});
 	});
 
 }
