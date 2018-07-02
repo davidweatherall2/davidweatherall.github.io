@@ -17,7 +17,7 @@ firstBloodTemplate = firstBloodTemplate.read()
 
 FBHTML = firstBloodTemplate.replace('posFB', diePosString).replace('teamFB', teamFBString).replace('champFB', firstBloodString)
 
-f = open('firstBlood.html', 'w')
+f = open('firstblood.html', 'w')
 f.write(FBHTML)
 f.close()
 
@@ -51,6 +51,6 @@ firstTowerTemplate = firstTowerTemplate.read()
 
 FTHTML = firstTowerTemplate.replace('firstTower', teamFTString)
 
-f = open('firstTower.html', 'w')
+f = open('firsttower.html', 'w')
 f.write(FTHTML)
 f.close()
