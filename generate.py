@@ -58,7 +58,7 @@ f.close()
 import firstsecondblood
 
 
-teamFSBString = teamFT.go()
+teamFSBString = firstsecondblood.go()
 
 firstSecondTemplate = open('templates/firstSecondBlood.html', 'r')
 firstSecondTemplate = firstSecondTemplate.read()
