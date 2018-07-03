@@ -9,99 +9,105 @@ def champidtoname(id):
 	return champdict[str(id)]
 
 
-y = {} #games played
-z = {} #games won
+def go():
+	y = {} #games played
+	z = {} #games won
+
+	htmlString = ''
 
 
-path = 'jsons/game/'
-games = os.listdir(path)
+	path = 'jsons/game/'
+	games = os.listdir(path)
 
 
-patches = input('patch: ')
-patches = patches.split(' ')
+	patches = input('patch: ')
+	patches = patches.split(' ')
 
 
-for game in games:
-	file = 'jsons/game/' + game
-	f = open(file, 'r')
-	text = f.read()
-	encjson = json.loads(text)
+	for game in games:
+		file = 'jsons/game/' + game
+		f = open(file, 'r')
+		text = f.read()
+		encjson = json.loads(text)
 
-	ignore = False
+		ignore = False
 
-	# if patches:
-	# 	for patch in patches:
-	# 		print('checking patch: ' + patch)
-	# 		if encjson['gameVersion'][:3] == patch:
-	# 			ignore = False
+		# if patches:
+		# 	for patch in patches:
+		# 		print('checking patch: ' + patch)
+		# 		if encjson['gameVersion'][:3] == patch:
+		# 			ignore = False
 
-	if not ignore:
-		if(encjson['teams'][0]['win'] == 'Win'):
-			winner = 0
-		else:
-			winner = 1
-
-
-		i = 0
-
-		while i < 5:
-			champId = encjson['participants'][i]['championId']
-			if champId not in y:
-				y[champId] = 0
-				z[champId] = 0
-
-			y[champId] += 1
-
-			if(winner == 0):
-				z[champId] += 1
-
-			i += 1
-
-		while i < 10:
-			champId = encjson['participants'][i]['championId']
-			if champId not in y:
-				y[champId] = 0
-				z[champId] = 0
-
-			y[champId] += 1
-
-			if(winner == 1):
-				z[champId] += 1
-
-			i += 1
-
-		
-		
-
-a = {}
-for eachteamname in y:
-	a[eachteamname] = round((z[eachteamname]/y[eachteamname])*100)
-q = sorted(z, key=a.get, reverse=True)
-os.system('clear')
-print('-|-------------------|-------|-----------|<br>')
-print('-| Champion Name     | Win % |Sample Size|<br>')
-print('-|-------------------|-------|-----------|<br>')
-
-for eachteamname in q:
-	if(y[eachteamname] > 0):
-		champName = champidtoname(eachteamname)
-		champSpaceNeeded = 15 - len(champName)
-		champSpaces = ''
-
-		i = 0
-		while i < champSpaceNeeded:
-			champSpaces += ' '
-			i += 1
+		if not ignore:
+			if(encjson['teams'][0]['win'] == 'Win'):
+				winner = 0
+			else:
+				winner = 1
 
 
-		sampleSpaceNeeded = 9 - len(str(y[eachteamname]))
-		sampleSpaces = ''
+			i = 0
 
-		i = 0
-		while i < sampleSpaceNeeded:
-			sampleSpaces += ' '
-			i += 1
+			while i < 5:
+				champId = encjson['participants'][i]['championId']
+				if champId not in y:
+					y[champId] = 0
+					z[champId] = 0
 
-		print(' |   ' + champName + champSpaces + " |  " + str(a[eachteamname]) + "%  |  " + str(y[eachteamname]) + sampleSpaces +"|<br>")
+				y[champId] += 1
 
-print('------------------------------------------<br>')
+				if(winner == 0):
+					z[champId] += 1
+
+				i += 1
+
+			while i < 10:
+				champId = encjson['participants'][i]['championId']
+				if champId not in y:
+					y[champId] = 0
+					z[champId] = 0
+
+				y[champId] += 1
+
+				if(winner == 1):
+					z[champId] += 1
+
+				i += 1
+
+			
+			
+
+	a = {}
+	for eachteamname in y:
+		a[eachteamname] = round((z[eachteamname]/y[eachteamname])*100)
+	q = sorted(z, key=a.get, reverse=True)
+	os.system('clear')
+	htmlString += '-|-------------------|-------|-----------|<br>'
+	htmlString += '-| Champion Name     | Win % |Sample Size|<br>'
+	htmlString += '-|-------------------|-------|-----------|<br>'
+
+	for eachteamname in q:
+		if(y[eachteamname] > 0):
+			champName = champidtoname(eachteamname)
+			champSpaceNeeded = 15 - len(champName)
+			champSpaces = ''
+
+			i = 0
+			while i < champSpaceNeeded:
+				champSpaces += ' '
+				i += 1
+
+
+			sampleSpaceNeeded = 9 - len(str(y[eachteamname]))
+			sampleSpaces = ''
+
+			i = 0
+			while i < sampleSpaceNeeded:
+				sampleSpaces += ' '
+				i += 1
+
+			htmlString += ' |   ' + champName + champSpaces + " |  " + str(a[eachteamname]) + "%  |  " + str(y[eachteamname]) + sampleSpaces +"|<br>"
+
+	htmlString += '------------------------------------------<br>'
+
+
+	return htmlString

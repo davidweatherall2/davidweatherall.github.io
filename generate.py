@@ -69,3 +69,19 @@ FSBHTML = firstSecondTemplate.replace('champFB', champFSBString)
 f = open('firstsecondblood.html', 'w')
 f.write(FSBHTML)
 f.close()
+
+
+import win
+
+
+winChampString = win.go()
+
+winTemplate = open('templates/win.html', 'r')
+winTemplate = winTemplate.read()
+
+
+winHTML = winTemplate.replace('winChamp', winChampString)
+
+f = open('win.html', 'w')
+f.write(winHTML)
+f.close()
