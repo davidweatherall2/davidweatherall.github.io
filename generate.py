@@ -64,7 +64,7 @@ firstSecondTemplate = open('templates/firstSecondBlood.html', 'r')
 firstSecondTemplate = firstSecondTemplate.read()
 
 
-FSBHTML = firstSecondTemplate.replace('firstTower', teamFSBString)
+FSBHTML = firstSecondTemplate.replace('champFB', teamFSBString)
 
 f = open('firstsecondblood.html', 'w')
 f.write(FSBHTML)
