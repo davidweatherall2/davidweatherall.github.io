@@ -58,13 +58,13 @@ f.close()
 import firstsecondblood
 
 
-teamFSBString = firstsecondblood.go()
+champFSBString = firstsecondblood.go()
 
 firstSecondTemplate = open('templates/firstSecondBlood.html', 'r')
 firstSecondTemplate = firstSecondTemplate.read()
 
 
-FSBHTML = firstSecondTemplate.replace('champFB', teamFSBString)
+FSBHTML = firstSecondTemplate.replace('champFB', champFSBString)
 
 f = open('firstsecondblood.html', 'w')
 f.write(FSBHTML)

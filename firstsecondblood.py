@@ -49,10 +49,10 @@ def go():
 					if event['victimId'] > 5:
 						if teamkill == -1:
 							teamkill = 0
-						if teamkill == 0:
+						elif teamkill == 0:
 							loopDone = True
 							break
-						if teamkill == 1:
+						elif teamkill == 1:
 							teamkill = -1
 							loopDone = True
 							break
@@ -60,10 +60,10 @@ def go():
 					else:
 						if teamkill == -1:
 							teamkill = 1
-						if teamkill == 1:
+						elif teamkill == 1:
 							loopDone = True
 							break
-						if teamkill == 0:
+						elif teamkill == 0:
 							teamkill = -1
 							loopDone = True
 							break
