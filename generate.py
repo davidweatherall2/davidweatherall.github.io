@@ -54,3 +54,18 @@ FTHTML = firstTowerTemplate.replace('firstTower', teamFTString)
 f = open('firsttower.html', 'w')
 f.write(FTHTML)
 f.close()
+
+import firstsecondblood
+
+
+teamFSBString = teamFT.go()
+
+firstSecondTemplate = open('templates/firstSecondBlood.html', 'r')
+firstSecondTemplate = firstSecondTemplate.read()
+
+
+FSBHTML = firstSecondTemplate.replace('firstTower', teamFSBString)
+
+f = open('firstsecondblood.html', 'w')
+f.write(FSBHTML)
+f.close()
