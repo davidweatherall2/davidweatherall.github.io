@@ -209,3 +209,8 @@ for region in api:
 	f = open('api/{}/full.json'.format(region), 'w')
 	f.write(json.dumps(api[region]))
 	f.close()
+
+for region in api_light:
+	f = open('api/{}/light.json'.format(region), 'w')
+	f.write(json.dumps(api[region]))
+	f.close()
