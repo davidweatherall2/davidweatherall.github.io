@@ -12,11 +12,29 @@ def platformRegion(regionID):
 	regions = {'TRLH1' : 'NALCS', 'ESPORTSTMNT06' : 'LCK', 'TRLH3' : 'EULCS' }
 	return regions[regionID]
 
+def get_teams(game_json):
+	team1 = game_json['participantIdentities'][0]['player']['summonerName'].split(' ')[0]
+	team2 = game_json['participantIdentities'][5]['player']['summonerName'].split(' ')[0]
+
+	return [team1, team2]
+
+def get_fb(timeline_json):
+	for frame in timeline_json['frames']:
+		for event in frame['events']:
+			if event['type'] == 'CHAMPION_KILL':
+				victimId = event['victimId']
+				killerIds = [event['killerId'] - 1]
+				for assister in event['assistingParticipantIds']:
+					killerIds.append(assister - 1)
+
+				return {'position' : event['position'], 'victimId' : victimId, 'killerIds' : killerIds, 'assistIds' : event['assistingParticipantIds'], 'killerId' : event['killerId']}
+	return False
+
 
 # print('scraping...')
 # scrape.scrape()
 
-path = 'jsons/game/'
+path = 'raw/game/'
 games = os.listdir(path)
 
 api = {
@@ -35,7 +53,7 @@ for game in games:
 
 	item = {}
 
-	file = 'jsons/game/' + game
+	file = 'raw/game/' + game
 
 	f = open(file, 'r')
 	text = f.read()
@@ -45,13 +63,14 @@ for game in games:
 
 
 
-	file = 'jsons/game/' + game
+	file = 'raw/timeline/' + game
 
 	f = open(file, 'r')
 	text = f.read()
 	timeline_json = json.loads(text)
 	f.close()
 
+	item['teamNames'] = get_teams(game_json)
 
 
 	if(game_json['teams'][0]['firstBlood'] is True):
@@ -113,18 +132,25 @@ for game in games:
 
 	item['timeline'] = '/api/{}/games/{}/timeline.json'.format(region, game_id)
 
-	api_light[region].append(item)
+	item_light = item.copy()
+	item_light['players'] = []
 
 	item['players'] = []
 
+
 	player_count = 0
+
+	fb_people = get_fb(timeline_json)
 
 	for player in game_json['participants']:
 		p_stats = player['stats']
 		player_item = {}
+		light_item = {}
 		player_item['name'] = game_json['participantIdentities'][player_count]['player']['summonerName']
+		light_item['name'] = game_json['participantIdentities'][player_count]['player']['summonerName']
 		player_item['role'] = player['timeline']['role']
 		player_item['champId'] = player['championId']
+		light_item['champId'] = player['championId']
 		player_item['spells'] = [player['spell1Id'], player['spell2Id']]
 		player_item['items'] = [p_stats['item1'], p_stats['item2'], p_stats['item3'], p_stats['item4'], p_stats['item5'], p_stats['item6']]
 		player_item['kills'] = p_stats['kills']
@@ -162,7 +188,24 @@ for game in games:
 		player_item['wardsPlaced'] = p_stats['wardsPlaced']
 		player_item['wardsKilled'] = p_stats['wardsKilled']
 		player_item['firstBloodKill'] = p_stats['firstBloodKill']
-		player_item['firstBloodAssist'] = p_stats['firstBloodAssist']
+		if player_count in fb_people['assistIds']:
+			player_item['firstBloodAssist'] = True
+		else:
+			player_item['firstBloodAssist'] = False
+		
+		if player_count in fb_people['assistIds']:
+			light_item['firstBloodInvolve'] = True
+		else:
+			light_item['firstBloodInvolve'] = False
+		
+		if player_count == fb_people['victimId']:
+			player_item['firstDeath'] = True
+			light_item['firstDeath'] = True
+		else:
+			player_item['firstDeath'] = False
+			light_item['firstDeath'] = False
+
+		player_item['firstBloodPosition'] = fb_people['position']
 		player_item['firstTowerKill'] = p_stats['firstTowerKill']
 		player_item['firstTowerAssist'] = p_stats['firstTowerAssist']
 		player_item['firstInhibitorKill'] = p_stats['firstInhibitorKill']
@@ -181,10 +224,13 @@ for game in games:
 			player_item['damageGivenPerMin'] = False
 
 		item['players'].append(player_item)
+		item_light['players'].append(light_item)
 
 		player_count += 0
 
 	api[platformRegion(game_json['platformId'])].append(item)
+	api_light[platformRegion(game_json['platformId'])].append(item_light)
+
 
 	game_path = 'api/{}/games/{}'.format(region, game_id)
 
@@ -204,7 +250,6 @@ for game in games:
 	f.close()
 
 
-
 for region in api:
 	f = open('api/{}/full.json'.format(region), 'w')
 	f.write(json.dumps(api[region]))
@@ -212,5 +257,5 @@ for region in api:
 
 for region in api_light:
 	f = open('api/{}/light.json'.format(region), 'w')
-	f.write(json.dumps(api[region]))
+	f.write(json.dumps(api_light[region]))
 	f.close()
