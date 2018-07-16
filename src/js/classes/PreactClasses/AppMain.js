@@ -3,15 +3,6 @@ import MatchUp from './MatchUp/index.js';
 import FirstBlood from './FirstBlood/index.js';
 
 class AppMain extends Component {
-	constructor() {
-		super();
-
-		this.store = createStore(reducer)
-
-		this.state = {
-			appType: 'matchUp'
-		};
-	}
 
 	getSpecificApp() {
 		switch(this.props.appType) {
@@ -19,7 +10,7 @@ class AppMain extends Component {
 				return <MatchUp store={this.props.store}/>;
 
 			case 'firstBlood':
-				return <FirstBlood store={this.props.store}/>;
+				return <FirstBlood />;
 		}
 	}
 

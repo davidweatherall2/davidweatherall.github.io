@@ -226,7 +226,7 @@ for game in games:
 		item['players'].append(player_item)
 		item_light['players'].append(light_item)
 
-		player_count += 0
+		player_count += 1
 
 	api[platformRegion(game_json['platformId'])].append(item)
 	api_light[platformRegion(game_json['platformId'])].append(item_light)

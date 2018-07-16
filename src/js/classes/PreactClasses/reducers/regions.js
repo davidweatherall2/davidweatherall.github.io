@@ -1,9 +1,15 @@
 export default function regions(state = [], action) {
   switch (action.type) {
-	case 'UPDATE_REGION':
+  	case 'UPDATE_REGION_PENDING':
+  		return {
+  			...state,
+  			loading: true,
+  		}
+	case 'UPDATE_REGION_FULFILLED':
 		return {
 			...state,
-			activeRegion : action.text
+			regionData : action.payload,
+			loading: false
 		}
 
 	default:

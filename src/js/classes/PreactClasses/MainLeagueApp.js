@@ -1,6 +1,6 @@
 import { h, render, Component } from 'preact';
 import { createStore } from 'redux'
-import reducer from './reducers/index'
+import appStore from './reducers/store'
 
 
 import AppMain from './AppMain';
@@ -12,7 +12,7 @@ class MainLeagueApp extends Component {
 	constructor() {
 		super();
 
-		this.store = createStore(reducer)
+		this.store = appStore
 
 		this.state = {
 			appType: 'matchUp'
@@ -22,11 +22,6 @@ class MainLeagueApp extends Component {
 
 	updateAppType(type) {
 		this.setState({appType : type });
-		this.store.dispatch({
-			type: 'UPDATE_REGION',
-			text: 'LCK'
-		})
-		console.log(this.store.getState());
 	}
  
 	render(props, state) {
