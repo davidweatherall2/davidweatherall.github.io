@@ -22,10 +22,12 @@ def get_fb(timeline_json):
 	for frame in timeline_json['frames']:
 		for event in frame['events']:
 			if event['type'] == 'CHAMPION_KILL':
-				victimId = event['victimId']
+				victimId = event['victimId'] - 1
 				killerIds = [event['killerId'] - 1]
 				for assister in event['assistingParticipantIds']:
 					killerIds.append(assister - 1)
+
+				print(killerIds)
 
 				return {'position' : event['position'], 'victimId' : victimId, 'killerIds' : killerIds, 'assistIds' : event['assistingParticipantIds'], 'killerId' : event['killerId']}
 	return False
@@ -71,6 +73,8 @@ for game in games:
 	f.close()
 
 	item['teamNames'] = get_teams(game_json)
+
+	item['time'] = int(str(game_json['gameCreation'])[:-3])
 
 
 	if(game_json['teams'][0]['firstBlood'] is True):
@@ -193,7 +197,7 @@ for game in games:
 		else:
 			player_item['firstBloodAssist'] = False
 		
-		if player_count in fb_people['assistIds']:
+		if player_count in fb_people['killerIds']:
 			light_item['firstBloodInvolve'] = True
 		else:
 			light_item['firstBloodInvolve'] = False
@@ -250,12 +254,15 @@ for game in games:
 	f.close()
 
 
+
 for region in api:
+	region_sorted = sorted(api[region], key=lambda k: k['time'])
 	f = open('api/{}/full.json'.format(region), 'w')
-	f.write(json.dumps(api[region]))
+	f.write(json.dumps(region_sorted))
 	f.close()
 
 for region in api_light:
+	region_sorted = sorted(api_light[region], key=lambda k: k['time'])
 	f = open('api/{}/light.json'.format(region), 'w')
-	f.write(json.dumps(api_light[region]))
+	f.write(json.dumps(region_sorted))
 	f.close()
