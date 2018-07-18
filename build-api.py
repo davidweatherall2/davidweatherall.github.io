@@ -74,7 +74,7 @@ for game in games:
 
 	item['teamNames'] = get_teams(game_json)
 
-	item['time'] = int(str(game_json['gameCreation'])[:-3])
+	item['time'] = game_json['gameCreation']
 
 
 	if(game_json['teams'][0]['firstBlood'] is True):

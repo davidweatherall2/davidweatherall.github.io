@@ -108,7 +108,7 @@ class MatchUp extends Component {
 	renderMatchup() {
 		if(this.props.team1 && this.props.team2) {
 			return (
-				<MatchElements team1={this.props.team1} team2={this.props.team2} regionData={this.props.regionData}/>
+				<MatchElements team1={this.props.team1} team2={this.props.team2} games={this.props.regionData}/>
 			);
 		} else {
 			return (

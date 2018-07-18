@@ -1,0 +1,16 @@
+.t {
+	&-align {
+		&--right {
+			text-align: right;
+		}
+		&--center {
+			text-align: center;
+		}
+	}
+
+	&-size {
+		&--small {
+			font-size: 1.2rem;
+		}
+	}
+}
