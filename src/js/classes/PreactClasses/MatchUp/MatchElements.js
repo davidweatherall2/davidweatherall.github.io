@@ -9,13 +9,13 @@ class MatchElements extends Component {
 		if(team2) {
 			Array.from(this.props.games, (game) => {
 				if(game.teamNames.includes(team) && game.teamNames.includes(team2)) {
-					cards.push(<MatchCard game={game} />);
+					cards.push(<MatchCard game={game} team={false}/>);
 				}
 			});
 		} else {
 			Array.from(this.props.games, (game) => {
 				if(game.teamNames.includes(team)) {
-					cards.push(<MatchCard game={game} />);
+					cards.push(<MatchCard game={game} team={team}/>);
 				}
 			});
 		}

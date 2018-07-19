@@ -13,4 +13,16 @@
 			font-size: 1.2rem;
 		}
 	}
+
+	&-colour {
+		&--green {
+			color: $green;
+		}
+		&--red {
+			color: $red;
+		}
+		&--blue {
+			color: $blue;
+		}
+	}
 }

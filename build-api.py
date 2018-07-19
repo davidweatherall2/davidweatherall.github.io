@@ -256,13 +256,13 @@ for game in games:
 
 
 for region in api:
-	region_sorted = sorted(api[region], key=lambda k: k['time'])
+	region_sorted = sorted(api[region], key=lambda k: k['time'], reverse=True)
 	f = open('api/{}/full.json'.format(region), 'w')
 	f.write(json.dumps(region_sorted))
 	f.close()
 
 for region in api_light:
-	region_sorted = sorted(api_light[region], key=lambda k: k['time'])
+	region_sorted = sorted(api_light[region], key=lambda k: k['time'], reverse=True)
 	f = open('api/{}/light.json'.format(region), 'w')
 	f.write(json.dumps(region_sorted))
 	f.close()
