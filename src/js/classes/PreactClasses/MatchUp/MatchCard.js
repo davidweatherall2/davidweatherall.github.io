@@ -4,11 +4,15 @@ class MatchCard extends Component {
 
 	constructor(props) {
 		super(props);
-		this.index = 0;
-		this.enemyIndex = 1;
-		if(this.props.team && this.props.game.teamNames[1] == this.props.team) {
-			this.index = 1;
-			this.enemyIndex = 0;
+		if(this.props.team) {
+			this.index = 0;
+			this.enemyIndex = 1;
+			if(this.props.game.teamNames[1] == this.props.team) {
+				this.index = 1;
+				this.enemyIndex = 0;
+			}
+		} else {
+			this.index = false;
 		}
 
 		this.teamColours = ['blue', 'red'];
@@ -17,6 +21,28 @@ class MatchCard extends Component {
 	getTime(unix) {
 		const date = new Date(unix);
 		return date.toLocaleString([], {day: 'numeric', month: 'long', year: 'numeric'});
+	}
+
+	
+
+	getBackground() {
+		if(this.props.team) {
+			return `bg-color--${this.teamColours[this.index]}`;
+		}
+		return `bg-color--default`;
+	}
+
+	getBorder() {
+		if(this.index !== false) {
+			if(this.props.game.win == this.index) {
+				return `bdr-color--green`;
+			} else {
+				return `bdr-color--red`;
+			}
+		} else {
+			console.log(`skipping coz this.index is ${this.index}`)
+			return `bdr-color--greyer`;
+		}
 	}
 
 	renderAchievements(teamNum, myTeam = false) {
@@ -79,16 +105,9 @@ class MatchCard extends Component {
 		);
 	}
 
-	getBackground() {
-		if(this.props.team) {
-			return `bg-color--${this.teamColours[this.index]}`;
-		}
-		return `bg-color--default`;
-	}
-
 	render() {
 		return (
-			<div className={`matches__card  ${this.getBackground()}`}> 
+			<div className={`matches__card  ${this.getBackground()}  ${this.getBorder()}`}> 
 				<div className="matches__card__date">
 					{this.getTime(this.props.game.time)}
 				</div>

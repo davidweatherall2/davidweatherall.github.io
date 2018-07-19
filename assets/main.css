@@ -26,7 +26,7 @@
   font-size: 1.2rem; }
 
 .t-colour--green {
-  color: green; }
+  color: lime; }
 
 .t-colour--red {
   color: red; }
@@ -35,7 +35,8 @@
   color: blue; }
 
 html {
-  font-size: 62.5%; }
+  font-size: 62.5%;
+  background: #f7f7f7; }
 
 body {
   font-family: 'Cabin', sans-serif;
@@ -53,10 +54,21 @@ body {
   .matches__card {
     margin: 20px 10px;
     padding: 20px;
-    background: #e2e2e2; }
+    background: white;
+    border: 2px solid white;
+    box-shadow: 3px 3px 4px rgba(142, 142, 142, 0.3); }
 
 .bg-color--blue {
-  background-color: #9999ff; }
+  background-color: #e6e6ff; }
 
 .bg-color--red {
-  background-color: #ff9999; }
+  background-color: #ffe6e6; }
+
+.bdr-color--green {
+  border-color: lime; }
+
+.bdr-color--red {
+  border-color: red; }
+
+.bdr-color--grey {
+  border-color: #e6e6e6; }

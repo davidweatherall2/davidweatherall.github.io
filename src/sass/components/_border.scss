@@ -1,0 +1,13 @@
+.bdr {
+	&-color {
+		&--green {
+			border-color: $green;
+		}
+		&--red {
+			border-color: $red;
+		}
+		&--grey {
+			border-color: $greyer;
+		}
+	}
+}

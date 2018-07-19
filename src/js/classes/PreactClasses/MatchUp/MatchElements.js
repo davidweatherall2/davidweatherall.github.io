@@ -26,12 +26,17 @@ class MatchElements extends Component {
 		return (
 			<div className="matches__columns">
 				<div className="matches__column">
+					<h2>{this.props.team1}'s Recent Matches</h2>
 					{this.renderCards(this.props.team1)}
+					}
 				</div>
 				<div className="matches__column">
+					<h2>Head to Head</h2>
 					{this.renderCards(this.props.team1, this.props.team2)}
 				</div>
 				<div className="matches__column">
+
+					<h2>{this.props.team2}'s Recent Matches</h2>
 					{this.renderCards(this.props.team2)}
 				</div>
 			</div>
