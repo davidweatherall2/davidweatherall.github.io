@@ -1,0 +1,10 @@
+.bg {
+	&-color {
+		&--blue {
+			background-color: lighten($blue, 30%);
+		}
+		&--red {
+			background-color: lighten($red, 30%);
+		}
+	}
+}

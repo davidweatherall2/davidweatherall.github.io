@@ -10,6 +10,8 @@ class MatchCard extends Component {
 			this.index = 1;
 			this.enemyIndex = 0;
 		}
+
+		this.teamColours = ['blue', 'red'];
 	}
 
 	getTime(unix) {
@@ -42,8 +44,7 @@ class MatchCard extends Component {
 						classes = 't-colour--red';
 					}
 				} else {
-					const teamColours = ['blue', 'red'];
-					classes = 't-colour--' + teamColours[teamNum];
+					classes = 't-colour--' + this.teamColours[teamNum];
 				}
 				achievements.push(<div className={classes}>{checks[check]}</div>);
 			}
@@ -55,36 +56,39 @@ class MatchCard extends Component {
 	renderMatchup() {
 		let team1 = this.props.game.teamNames[0];
 		let team2 = this.props.game.teamNames[1];
-		let team1colour = 't-colour--blue';
-		let team2colour = 't-colour--red';
 		
 		if(this.props.team) {
 			if(this.props.game.teamNames[0] != this.props.team) {
 				team2 = this.props.game.teamNames[0];
 				team1 = this.props.game.teamNames[1];
-				team1colour = 't-colour--red';
-				team2colour = 't-colour--blue';
 			}
 		}
 
 		return (
 			<div className="matches__column  flex  flex-justify--between">
-				<span className={team1colour}>
+				<span>
 					{team1}
 				</span>
 				<span>
 					vs
 				</span>
-				<span className={team2colour}>
+				<span>
 					{team2}
 				</span>
 			</div>
 		);
 	}
 
+	getBackground() {
+		if(this.props.team) {
+			return `bg-color--${this.teamColours[this.index]}`;
+		}
+		return `bg-color--default`;
+	}
+
 	render() {
 		return (
-			<div className="matches__card">
+			<div className={`matches__card  ${this.getBackground()}`}> 
 				<div className="matches__card__date">
 					{this.getTime(this.props.game.time)}
 				</div>
