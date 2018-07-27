@@ -1,5 +1,16 @@
 import { h, render, Component } from 'preact';
+import { connect } from 'preact-redux';
 
+import Players from './Players';
+
+@connect((store) => {
+    return {
+        activeRegion: store.config.activeRegion,
+        regionData: store.regions.regionData,
+        team1: store.config.team1,
+        team2: store.config.team2,
+    }
+})
 class MatchCard extends Component {
 
 	constructor(props) {
@@ -15,6 +26,8 @@ class MatchCard extends Component {
 			this.index = false;
 		}
 
+		this.setState({showPlayers: false})
+
 		this.teamColours = ['blue', 'red'];
 	}
 
@@ -23,7 +36,9 @@ class MatchCard extends Component {
 		return date.toLocaleString([], {day: 'numeric', month: 'long', year: 'numeric'});
 	}
 
-	
+	togglePlayers() {
+		this.setState({showPlayers: !this.state.showPlayers});
+	}
 
 	getBackground() {
 		if(this.props.team) {
@@ -105,10 +120,26 @@ class MatchCard extends Component {
 		);
 	}
 
+	renderShowMore() {
+		return (
+			<div className="card__showmore" onClick={this.togglePlayers.bind(this)}>Show More</div>
+		)
+	}
+
+	renderPlayers() {
+		if(this.state.showPlayers) {
+			console.log('showing');
+			return (
+				<Players game={this.props.game} index={this.index} activeRegion={this.props.activeRegion}/>
+			);
+		}
+		return '';
+	}
+
 	render() {
 		return (
-			<div className={`matches__card  ${this.getBackground()}  ${this.getBorder()}`}> 
-				<div className="matches__card__date">
+			<div className={`card  ${this.getBackground()}  ${this.getBorder()}`}> 
+				<div className="card__date">
 					{this.getTime(this.props.game.time)}
 				</div>
 				<div className="matches__columns  flex-align--center">
@@ -120,6 +151,8 @@ class MatchCard extends Component {
 						{this.renderAchievements(this.enemyIndex, this.props.team)}
 					</div>
 				</div>
+				{this.renderPlayers()}
+				{this.renderShowMore()}
 			</div>
 		)
 	}

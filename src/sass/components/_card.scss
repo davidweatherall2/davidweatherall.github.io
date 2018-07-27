@@ -1,0 +1,63 @@
+.card {
+	position: relative;
+    margin: 20px 10px;
+    padding: 20px 20px 30px 20px;
+    background: $white;
+    border: 1px solid $white;
+    box-shadow: $box-shadow;
+    &__date {
+    	position: absolute;
+    	top: 0;
+    	left: 5px;
+    	font-size: 1.2rem;
+    }
+
+    &__showmore {
+
+	    position: absolute;
+	    right: 5px;
+	    bottom: 0;
+	    font-size: 1.2rem;
+	    text-transform: uppercase;
+	    cursor: pointer;
+	    &:hover {
+	    	text-decoration: underline;
+	    }
+    }
+
+    &__players {
+    	display: flex;
+    	justify-content: space-between;
+	    margin-top: 5px;
+		padding-top: 5px;
+		border-top: 1px solid $black;
+		table {
+	    	font-size: 1.2rem;
+	    	td {
+	    		padding: 3px;
+	    		&:nth-last-of-type(1) {
+	    			width: 100%;
+	    		}
+	    	}
+    	}
+    }
+    &__team {
+    	width: 50%;
+    	&:nth-of-type(2) {
+    		text-align: right;
+    		direction: rtl;
+    	}
+    }
+    &__champ {
+    	img {
+    		margin: 0 5px;
+    		width: 20px;
+    		height: 20px;
+    	}
+    }
+    &__svg {
+    	img {
+    		width: 15px;
+    	}
+    }
+}

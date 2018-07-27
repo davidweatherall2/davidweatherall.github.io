@@ -1,6 +1,7 @@
 import { h, render, Component } from 'preact';
 import { connect } from 'preact-redux';
 import MatchElements from './MatchElements';
+import TeamStats from './TeamStats';
 
 @connect((store) => {
     return {
@@ -16,6 +17,11 @@ class MatchUp extends Component {
 		this.props.dispatch({
 			type: 'UPDATE_REGION',
 			payload: fetch(`/api/${e.target.value}/light.json`).then(response => response.json())
+		});
+
+		this.props.dispatch({
+			type: 'UPDATE_REGION_STATS',
+			payload: fetch(`/api/${e.target.value}/stats.json`).then(response => response.json())
 		});
 
 		this.props.dispatch({
@@ -69,16 +75,12 @@ class MatchUp extends Component {
 	renderRegions() {
 		return (
 				<div>
-					<div>
-						Current Region is {this.props.activeRegion}
-					</div>
 					<select onChange={(e) => this.updateRegion(e)}>
 						<option disabled selected>Select Region</option>
 						<option value='LCK'>LCK</option>
 						<option value='EULCS'>EULCS</option>
 						<option value='NALCS'>NALCS</option>
 					</select>
-					<button>Click</button>
 				</div>
 			);
 	}
@@ -101,18 +103,29 @@ class MatchUp extends Component {
 						{teams}
 					</select>
 				</div>
-				)
+			);
+		} else {
+			return (
+				<div>
+					<select disabled></select>
+					<select disabled></select>
+				</div>
+			);
 		}
 	}
 
 	renderMatchup() {
 		if(this.props.team1 && this.props.team2) {
 			return (
-				<MatchElements team1={this.props.team1} team2={this.props.team2} games={this.props.regionData}/>
+				<MatchElements team1={this.props.team1} team2={this.props.team2} games={this.props.regionData} store={this.props.store}/>
 			);
-		} else {
+		}
+	}
+
+	renderStats() {
+		if(this.props.team1 && this.props.team2) {
 			return (
-				<div>Team 1 and 2 not selected</div>
+				<TeamStats team1={this.props.team1} team2={this.props.team2} store={this.props.store}/>
 			);
 		}
 	}
@@ -120,11 +133,16 @@ class MatchUp extends Component {
 	render() {
 		return (
 			<div>
-				<div>
-					{ this.renderRegions() }
+				<div class="matches__selects">
+					<div>
+						{ this.renderRegions() }
+					</div>
+					<div>
+						{this.renderTeams() }
+					</div>
 				</div>
 				<div>
-					{this.renderTeams() }
+					{this.renderStats() }
 				</div>
 				<div>
 					{this.renderMatchup() }

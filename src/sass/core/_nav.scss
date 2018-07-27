@@ -1,5 +1,21 @@
 .nav {
+	display: flex;
+	align-items: center;
 	width: 100%;
 	min-height: 100px;
-
+	&__links {
+		flex-grow: 1;
+	}
+	ul {
+		display: flex;
+		justify-content: space-evenly;
+		list-style-type: none;
+		margin: 0;
+	}
+	li {
+		cursor: pointer;
+		&:hover {
+			border-bottom: 1px solid black;
+		}
+	}
 }

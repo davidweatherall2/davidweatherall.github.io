@@ -12,11 +12,8 @@
 		max-width: 33%;
 	}
 
-	&__card {
-	    margin: 20px 10px;
-	    padding: 20px;
-	    background: $white;
-	    border: 2px solid $white;
-	    box-shadow: $box-shadow;
+	&__selects {
+		display: flex;
+		justify-content: center;
 	}
 }

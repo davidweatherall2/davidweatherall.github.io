@@ -24,12 +24,14 @@ def get_fb(timeline_json):
 			if event['type'] == 'CHAMPION_KILL':
 				victimId = event['victimId'] - 1
 				killerIds = [event['killerId'] - 1]
+				killerId = event['killerId'] - 1
+				assistIds = [];
 				for assister in event['assistingParticipantIds']:
 					killerIds.append(assister - 1)
+					assistIds.append(assister - 1)
 
-				print(killerIds)
 
-				return {'position' : event['position'], 'victimId' : victimId, 'killerIds' : killerIds, 'assistIds' : event['assistingParticipantIds'], 'killerId' : event['killerId']}
+				return {'position' : event['position'], 'victimId' : victimId, 'killerIds' : killerIds, 'assistIds' : assistIds, 'killerId' : killerId}
 	return False
 
 
@@ -49,6 +51,13 @@ api_light = {
 	'NALCS' : [],
 	'EULCS' : [],
 	'LCK' : []
+}
+
+
+api_stats = {
+	'NALCS' : {},
+	'EULCS' : {},
+	'LCK' : {}
 }
 
 for game in games:
@@ -72,47 +81,164 @@ for game in games:
 	timeline_json = json.loads(text)
 	f.close()
 
-	item['teamNames'] = get_teams(game_json)
+	teams = get_teams(game_json)
+	region = platformRegion(game_json['platformId'])
+
+	item['teamNames'] = teams
+
+	for team in teams:
+		if team not in api_stats[region]:
+			api_stats[region][team] = {
+				'matchesPlayed': 0,
+				'blueMatchesPlayed': 0,
+				'redMatchesPlayed': 0,
+
+				'firstBloods' : 0,
+				'blueFirstBloods' : 0,
+				'redFirstBloods' : 0,
+
+				'totalWins' : 0,
+				'blueWins' : 0,
+				'redWins' : 0,
+				
+				'firstDragons' : 0,
+				'blueFirstDragons' : 0,
+				'redFirstDragons' : 0,
+				
+				'firstBarons' : 0,
+				'blueFirstBarons' : 0,
+				'redFirstBarons' : 0,
+				
+				'firstInhibs' : 0,
+				'blueFirstInhibs' : 0,
+				'redFirstInhibs' : 0,
+				
+				'firstTowers' : 0,
+				'blueFirstTowers' : 0,
+				'redFirstTowers' : 0,
+				
+				'firstHeralds' : 0,
+				'blueFirstHeralds' : 0,
+				'redFirstHeralds' : 0,
+				
+				'towerKills' : 0,
+				'blueTowerKills' : 0,
+				'redTowerKills' : 0,
+
+				'inhibitorKills' : 0,
+				'blueInhibitorKills' : 0,
+				'redInhibitorKills' : 0,
+
+				'dragonKills' : 0,
+				'blueDragonKills' : 0,
+				'redDragonKills' : 0,
+
+				'baronKills' : 0,
+				'blueBaronKills' : 0,
+				'redBaronKills' : 0,
+
+				'playersMatchesPlayed' : {},
+				'bluePlayersMatchesPlayed' : {},
+				'redPlayersMatchesPlayed' : {},
+
+				'firstBloodPlayers' : {},
+				'blueFirstBloodPlayers' : {},
+				'redFirstBloodPlayers' : {},
+
+				'firstBloodAssistPlayers' : {},
+				'blueFirstBloodAssistPlayers' : {},
+				'redFirstBloodAssistPlayers' : {},
+
+				'firstDeathPlayers' : {},
+				'blueFirstDeathPlayers' : {},
+				'redFirstDeathPlayers' : {},
+
+				'firstTowerPlayers' : {},
+				'blueFirstTowerPlayers' : {},
+				'redFirstTowerPlayers' : {},
+
+				'firstBloodPositions' : [],
+				'firstDeathPositions' : [],
+			}
+
+		api_stats[region][team]['matchesPlayed'] += 1
+
+
+	api_stats[region][teams[0]]['blueMatchesPlayed'] += 1
+	api_stats[region][teams[1]]['redMatchesPlayed'] += 1
+
+
+
+
+
 
 	item['time'] = game_json['gameCreation']
 
 
 	if(game_json['teams'][0]['firstBlood'] is True):
 		item['firstBlood'] = 0
+		api_stats[region][teams[0]]['firstBloods'] += 1
+		api_stats[region][teams[0]]['blueFirstBloods'] += 1
 	else:
 		item['firstBlood'] = 1
+		api_stats[region][teams[1]]['firstBloods'] += 1
+		api_stats[region][teams[1]]['redFirstBloods'] += 1
 
 	if(game_json['teams'][0]['win'] == 'Win'):
 		item['win'] = 0
+		api_stats[region][teams[0]]['totalWins'] += 1
+		api_stats[region][teams[0]]['blueWins'] += 1
 	else:
 		item['win'] = 1
+		api_stats[region][teams[1]]['totalWins'] += 1
+		api_stats[region][teams[1]]['redWins'] += 1
 		
 	if(game_json['teams'][0]['firstTower'] is True):
 		item['firstTower'] = 0
+		api_stats[region][teams[0]]['firstTowers'] += 1
+		api_stats[region][teams[0]]['blueFirstTowers'] += 1
 	else:
 		item['firstTower'] = 1
+		api_stats[region][teams[1]]['firstTowers'] += 1
+		api_stats[region][teams[1]]['redFirstTowers'] += 1
 		
 	if(game_json['teams'][0]['firstDragon'] is True):
 		item['firstDragon'] = 0
+		api_stats[region][teams[0]]['firstDragons'] += 1
+		api_stats[region][teams[0]]['blueFirstDragons'] += 1
 	else:
 		item['firstDragon'] = 1
+		api_stats[region][teams[1]]['firstDragons'] += 1
+		api_stats[region][teams[1]]['redFirstDragons'] += 1
 		
 	if(game_json['teams'][0]['firstInhibitor'] is True):
 		item['firstInhibitor'] = 0
+		api_stats[region][teams[0]]['firstInhibs'] += 1
+		api_stats[region][teams[0]]['blueFirstInhibs'] += 1
 	else:
 		item['firstInhibitor'] = 1
+		api_stats[region][teams[1]]['firstInhibs'] += 1
+		api_stats[region][teams[1]]['redFirstInhibs'] += 1
 		
 	if(game_json['teams'][0]['firstBaron'] is True):
 		item['firstBaron'] = 0
+		api_stats[region][teams[0]]['firstBarons'] += 1
+		api_stats[region][teams[0]]['blueFirstBarons'] += 1
 	elif(game_json['teams'][0]['firstBaron'] is True):
 		item['firstBaron'] = 1
+		api_stats[region][teams[1]]['firstBarons'] += 1
+		api_stats[region][teams[1]]['redFirstBarons'] += 1
 	else:
 		item['firstBaron'] = False
 		
 	if(game_json['teams'][0]['firstRiftHerald'] is True):
 		item['firstRiftHerald'] = 0
+		api_stats[region][teams[0]]['firstHeralds'] += 1
+		api_stats[region][teams[0]]['blueFirstHeralds'] += 1
 	elif(game_json['teams'][1]['firstRiftHerald'] is True):
 		item['firstRiftHerald'] = 1
+		api_stats[region][teams[1]]['firstHeralds'] += 1
+		api_stats[region][teams[1]]['redFirstHeralds'] += 1
 	else:
 		item['firstRiftHerald'] = False
 
@@ -120,6 +246,30 @@ for game in games:
 	item['inhibitorKills'] = [game_json['teams'][0]['inhibitorKills'], game_json['teams'][1]['inhibitorKills']]
 	item['baronKills'] = [game_json['teams'][0]['baronKills'], game_json['teams'][1]['baronKills']]
 	item['dragonKills'] = [game_json['teams'][0]['dragonKills'], game_json['teams'][1]['dragonKills']]
+
+
+	api_stats[region][teams[0]]['towerKills'] += game_json['teams'][0]['towerKills']
+	api_stats[region][teams[1]]['towerKills'] += game_json['teams'][1]['towerKills']
+	api_stats[region][teams[0]]['blueTowerKills'] += game_json['teams'][0]['towerKills']
+	api_stats[region][teams[1]]['redTowerKills'] += game_json['teams'][1]['towerKills']
+
+
+	api_stats[region][teams[0]]['dragonKills'] += game_json['teams'][0]['dragonKills']
+	api_stats[region][teams[1]]['dragonKills'] += game_json['teams'][1]['dragonKills']
+	api_stats[region][teams[0]]['blueDragonKills'] += game_json['teams'][0]['dragonKills']
+	api_stats[region][teams[1]]['redDragonKills'] += game_json['teams'][1]['dragonKills']
+
+
+	api_stats[region][teams[0]]['inhibitorKills'] += game_json['teams'][0]['inhibitorKills']
+	api_stats[region][teams[1]]['inhibitorKills'] += game_json['teams'][1]['inhibitorKills']
+	api_stats[region][teams[0]]['blueInhibitorKills'] += game_json['teams'][0]['inhibitorKills']
+	api_stats[region][teams[1]]['redInhibitorKills'] += game_json['teams'][1]['inhibitorKills']
+
+
+	api_stats[region][teams[0]]['baronKills'] += game_json['teams'][0]['baronKills']
+	api_stats[region][teams[1]]['baronKills'] += game_json['teams'][1]['baronKills']
+	api_stats[region][teams[0]]['blueBaronKills'] += game_json['teams'][0]['baronKills']
+	api_stats[region][teams[1]]['redBaronKills'] += game_json['teams'][1]['baronKills']
 
 	item['bans'] = []
 
@@ -131,12 +281,16 @@ for game in games:
 		item['bans'].append(bans)
 
 
-	region = platformRegion(game_json['platformId'])
 	game_id = game_json['gameId']
 
-	item['timeline'] = '/api/{}/games/{}/timeline.json'.format(region, game_id)
+	item['gameId'] = game_id
 
 	item_light = item.copy()
+
+	item['timeline'] = '/api/{}/games/{}/timeline.json'.format(region, game_id)
+	item['timeline'] = '/api/{}/games/{}/timeline.json'.format(region, game_id)
+	item['timeline'] = '/api/{}/games/{}/timeline.json'.format(region, game_id)
+
 	item_light['players'] = []
 
 	item['players'] = []
@@ -147,11 +301,50 @@ for game in games:
 	fb_people = get_fb(timeline_json)
 
 	for player in game_json['participants']:
+
+		if player_count < 5:
+			statsTeamNum = 0
+		else:
+			statsTeamNum = 1
+
+		summonerName = game_json['participantIdentities'][player_count]['player']['summonerName']
+
+		if summonerName not in api_stats[region][teams[statsTeamNum]]['playersMatchesPlayed']:
+			api_stats[region][teams[statsTeamNum]]['playersMatchesPlayed'][summonerName] = 0
+			api_stats[region][teams[statsTeamNum]]['bluePlayersMatchesPlayed'][summonerName] = 0
+			api_stats[region][teams[statsTeamNum]]['redPlayersMatchesPlayed'][summonerName] = 0
+
+
+			api_stats[region][teams[statsTeamNum]]['firstBloodPlayers'][summonerName] = 0
+			api_stats[region][teams[statsTeamNum]]['blueFirstBloodPlayers'][summonerName] = 0
+			api_stats[region][teams[statsTeamNum]]['redFirstBloodPlayers'][summonerName] = 0
+
+			api_stats[region][teams[statsTeamNum]]['firstBloodAssistPlayers'][summonerName] = 0
+			api_stats[region][teams[statsTeamNum]]['blueFirstBloodAssistPlayers'][summonerName] = 0
+			api_stats[region][teams[statsTeamNum]]['redFirstBloodAssistPlayers'][summonerName] = 0
+
+			api_stats[region][teams[statsTeamNum]]['firstTowerPlayers'][summonerName] = 0
+			api_stats[region][teams[statsTeamNum]]['blueFirstTowerPlayers'][summonerName] = 0
+			api_stats[region][teams[statsTeamNum]]['redFirstTowerPlayers'][summonerName] = 0
+
+			api_stats[region][teams[statsTeamNum]]['firstDeathPlayers'][summonerName] = 0
+			api_stats[region][teams[statsTeamNum]]['blueFirstDeathPlayers'][summonerName] = 0
+			api_stats[region][teams[statsTeamNum]]['redFirstDeathPlayers'][summonerName] = 0
+
+
+
+		api_stats[region][teams[statsTeamNum]]['playersMatchesPlayed'][summonerName] += 1
+		if statsTeamNum == 0:
+			api_stats[region][teams[statsTeamNum]]['bluePlayersMatchesPlayed'][summonerName] += 0
+		else:
+			api_stats[region][teams[statsTeamNum]]['redPlayersMatchesPlayed'][summonerName] += 0
+
+
 		p_stats = player['stats']
 		player_item = {}
 		light_item = {}
-		player_item['name'] = game_json['participantIdentities'][player_count]['player']['summonerName']
-		light_item['name'] = game_json['participantIdentities'][player_count]['player']['summonerName']
+		player_item['name'] = summonerName
+		light_item['name'] = summonerName
 		player_item['role'] = player['timeline']['role']
 		player_item['champId'] = player['championId']
 		light_item['champId'] = player['championId']
@@ -192,8 +385,27 @@ for game in games:
 		player_item['wardsPlaced'] = p_stats['wardsPlaced']
 		player_item['wardsKilled'] = p_stats['wardsKilled']
 		player_item['firstBloodKill'] = p_stats['firstBloodKill']
+
+
+		if p_stats['firstBloodKill']:
+
+			api_stats[region][teams[statsTeamNum]]['firstBloodPlayers'][summonerName] += 1
+			if statsTeamNum == 0:
+				api_stats[region][teams[statsTeamNum]]['blueFirstBloodPlayers'][summonerName] += 1
+			else:
+				api_stats[region][teams[statsTeamNum]]['redFirstBloodPlayers'][summonerName] += 1
+
+
 		if player_count in fb_people['assistIds']:
 			player_item['firstBloodAssist'] = True
+
+
+			api_stats[region][teams[statsTeamNum]]['firstBloodAssistPlayers'][summonerName] += 1
+			if statsTeamNum == 0:
+				api_stats[region][teams[statsTeamNum]]['blueFirstBloodAssistPlayers'][summonerName] += 1
+			else:
+				api_stats[region][teams[statsTeamNum]]['redFirstBloodAssistPlayers'][summonerName] += 1
+
 		else:
 			player_item['firstBloodAssist'] = False
 		
@@ -205,6 +417,14 @@ for game in games:
 		if player_count == fb_people['victimId']:
 			player_item['firstDeath'] = True
 			light_item['firstDeath'] = True
+
+
+			api_stats[region][teams[statsTeamNum]]['firstDeathPlayers'][summonerName] += 1
+			if statsTeamNum == 0:
+				api_stats[region][teams[statsTeamNum]]['blueFirstDeathPlayers'][summonerName] += 1
+			else:
+				api_stats[region][teams[statsTeamNum]]['redFirstDeathPlayers'][summonerName] += 1
+
 		else:
 			player_item['firstDeath'] = False
 			light_item['firstDeath'] = False
@@ -212,6 +432,15 @@ for game in games:
 		player_item['firstBloodPosition'] = fb_people['position']
 		player_item['firstTowerKill'] = p_stats['firstTowerKill']
 		player_item['firstTowerAssist'] = p_stats['firstTowerAssist']
+
+		if p_stats['firstTowerKill'] or p_stats['firstTowerAssist']:
+			api_stats[region][teams[statsTeamNum]]['firstTowerPlayers'][summonerName] += 1
+			if statsTeamNum == 0:
+				api_stats[region][teams[statsTeamNum]]['blueFirstTowerPlayers'][summonerName] += 1
+			else:
+				api_stats[region][teams[statsTeamNum]]['redFirstTowerPlayers'][summonerName] += 1
+
+
 		player_item['firstInhibitorKill'] = p_stats['firstInhibitorKill']
 		player_item['firstInhibitorAssist'] = p_stats['firstInhibitorAssist']
 		player_item['csPerMin'] = player['timeline']['creepsPerMinDeltas']
@@ -266,3 +495,10 @@ for region in api_light:
 	f = open('api/{}/light.json'.format(region), 'w')
 	f.write(json.dumps(region_sorted))
 	f.close()
+
+
+for region in api_stats:
+	f = open('api/{}/stats.json'.format(region), 'w')
+	f.write(json.dumps(api_stats[region]))
+	f.close()
+

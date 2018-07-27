@@ -3,13 +3,24 @@ export default function regions(state = [], action) {
   	case 'UPDATE_REGION_PENDING':
   		return {
   			...state,
-  			loading: true,
+  			regionLoading: true,
   		}
 	case 'UPDATE_REGION_FULFILLED':
 		return {
 			...state,
 			regionData : action.payload,
-			loading: false
+			regionLoading: false
+		}
+	case 'UPDATE_REGION_STATS_PENDING':
+  		return {
+  			...state,
+  			statsLoading: true,
+  		}
+	case 'UPDATE_REGION_STATS_FULFILLED':
+		return {
+			...state,
+			regionStats : action.payload,
+			statsLoading: false
 		}
 
 	default:

@@ -8,6 +8,7 @@ class LeagueReactApp {
 	}
 
 	bindEvents() {
+		console.log('rendering');
 		render(<MainLeagueApp />, this.element);
 	}
 }

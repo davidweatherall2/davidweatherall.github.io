@@ -4,15 +4,24 @@ import FirstBlood from './FirstBlood/index.js';
 
 class NavBar extends Component {
 
+	getLinks() {
+		let options = {
+			matchUp : 'Match Up',
+			firstBlood : 'First Blood',
+		}
+		let links = []
+
+		for (const option in options) {
+			links.push(<li onClick={() => this.props.updateAppType(option)}>{options[option]}</li>);
+		}
+		return links;
+	}
+
 	render() {
 		return (
-			<div>
-				<button onClick={() => this.props.updateAppType('matchUp')}>Match Up</button>
-				<button onClick={() => this.props.updateAppType('firstBlood')}>First Blood</button>
-				<button onClick={() => this.props.updateAppType('firstDragon')}>First Dragon</button>
-				<button onClick={() => this.props.updateAppType('firstTower')}>First Tower</button>
-				<button onClick={() => this.props.updateAppType('win')}>Win</button>
-			</div>
+			<ul>
+				{this.getLinks() }
+			</ul>
 		);
 	}
 }

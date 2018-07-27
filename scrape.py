@@ -21,7 +21,6 @@ else:
 	match_array = []
 
 
-print(match_array)
 
 
 def getGame(game_id, gameHash, region):
