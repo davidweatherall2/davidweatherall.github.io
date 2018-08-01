@@ -10,6 +10,21 @@
 	&__column {
 		flex-grow: 1;
 		max-width: 33%;
+		&--half {
+			max-width: 50%;
+		}
+	}
+
+	&__table {
+		width: 100%;
+		padding: 0 5px;
+		font-size: 13px;
+		td, th {
+			text-align: right;
+			&:nth-of-type(1) {
+				text-align: left;
+			}
+		}
 	}
 
 	&__selects {

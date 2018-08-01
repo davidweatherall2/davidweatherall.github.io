@@ -129,10 +129,6 @@ def scrape():
 
 				for match_id in matches:
 
-					if match_id in match_array:
-						print('match id already in match_ids.json - skipping {}'.format(match_id))
-						continue
-
 					match_url_string = 	'https://api.lolesports.com/api/v2/highlanderMatchDetails?tournamentId={}&matchId={}'.format(tournament_id, match_id)
 
 					match_json_raw = getJson(match_url_string)

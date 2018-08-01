@@ -5,56 +5,48 @@ class StatsClass {
 
 	FB(team) {
 		const fb = Math.round(100 * (this.stats[team].firstBloods / this.stats[team].matchesPlayed))
-		const fbString = String(fb) + '%'
-		return fbString
+		return fb
 	}
 
 	blueFB(team) {
 		const fb = Math.round(100 * (this.stats[team].blueFirstBloods / this.stats[team].blueMatchesPlayed))
-		const fbString = String(fb) + '%'
-		return fbString
+		return fb
+		
 	}
 
 	redFB(team) {
 		const fb = Math.round(100 * (this.stats[team].redFirstBloods / this.stats[team].redMatchesPlayed))
-		const fbString = String(fb) + '%'
-		return fbString
+		return fb
 	}
 
 	Tower(team) {
 		const Tower = Math.round(100 * (this.stats[team].firstTowers / this.stats[team].matchesPlayed))
-		const TowerString = String(Tower) + '%'
-		return TowerString
+		return Tower
 	}
 
 	blueTower(team) {
 		const Tower = Math.round(100 * (this.stats[team].blueFirstTowers / this.stats[team].blueMatchesPlayed))
-		const TowerString = String(Tower) + '%'
-		return TowerString
+		return Tower
 	}
 
 	redTower(team) {
 		const Tower = Math.round(100 * (this.stats[team].redFirstTowers / this.stats[team].redMatchesPlayed))
-		const TowerString = String(Tower) + '%'
-		return TowerString
+		return Tower
 	}
 
 	Dragon(team) {
 		const Dragon = Math.round(100 * (this.stats[team].firstDragons / this.stats[team].matchesPlayed))
-		const DragonString = String(Dragon) + '%'
-		return DragonString
+		return Dragon
 	}
 
 	blueDragon(team) {
 		const Dragon = Math.round(100 * (this.stats[team].blueFirstDragons / this.stats[team].blueMatchesPlayed))
-		const DragonString = String(Dragon) + '%'
-		return DragonString
+		return Dragon
 	}
 
 	redDragon(team) {
 		const Dragon = Math.round(100 * (this.stats[team].redFirstDragons / this.stats[team].redMatchesPlayed))
-		const DragonString = String(Dragon) + '%'
-		return DragonString
+		return Dragon
 	}
 }
 

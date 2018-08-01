@@ -3,13 +3,22 @@
     margin: 20px 10px;
     padding: 20px 20px 30px 20px;
     background: $white;
-    border: 1px solid $white;
+    border-left: 2px solid $white;
     box-shadow: $box-shadow;
     &__date {
     	position: absolute;
     	top: 0;
     	left: 5px;
     	font-size: 1.2rem;
+    }
+
+    &__vs {
+    	align-self: center;
+    }
+
+    &__logo {
+    	width: 40px;
+    	height: 40px;
     }
 
     &__showmore {

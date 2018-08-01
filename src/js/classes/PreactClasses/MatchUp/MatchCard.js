@@ -13,8 +13,13 @@ import Players from './Players';
 })
 class MatchCard extends Component {
 
-	constructor(props) {
-		super(props);
+	constructor() {
+		super();
+
+		this.teamColours = ['blue', 'red'];
+	}
+
+	getIndex(getEnemy = false) {
 		if(this.props.team) {
 			this.index = 0;
 			this.enemyIndex = 1;
@@ -26,9 +31,12 @@ class MatchCard extends Component {
 			this.index = false;
 		}
 
-		this.setState({showPlayers: false})
+		if(getEnemy) {
+			return this.enemyIndex;
+		}
 
-		this.teamColours = ['blue', 'red'];
+		return this.index;
+
 	}
 
 	getTime(unix) {
@@ -42,20 +50,19 @@ class MatchCard extends Component {
 
 	getBackground() {
 		if(this.props.team) {
-			return `bg-color--${this.teamColours[this.index]}`;
+			return `bg-color--${this.teamColours[this.getIndex()]}`;
 		}
 		return `bg-color--default`;
 	}
 
 	getBorder() {
-		if(this.index !== false) {
-			if(this.props.game.win == this.index) {
+		if(this.getIndex() !== false) {
+			if(this.props.game.win == this.getIndex()) {
 				return `bdr-color--green`;
 			} else {
 				return `bdr-color--red`;
 			}
 		} else {
-			console.log(`skipping coz this.index is ${this.index}`)
 			return `bdr-color--greyer`;
 		}
 	}
@@ -107,15 +114,11 @@ class MatchCard extends Component {
 
 		return (
 			<div className="matches__column  flex  flex-justify--between">
-				<span>
-					{team1}
-				</span>
-				<span>
+				<img className="card__logo"  src={`/assets/img/teams/${team1}.png`} />
+				<span className="card__vs">
 					vs
 				</span>
-				<span>
-					{team2}
-				</span>
+				<img className="card__logo"  src={`/assets/img/teams/${team2}.png`} />
 			</div>
 		);
 	}
@@ -128,27 +131,30 @@ class MatchCard extends Component {
 
 	renderPlayers() {
 		if(this.state.showPlayers) {
-			console.log('showing');
 			return (
-				<Players game={this.props.game} index={this.index} activeRegion={this.props.activeRegion}/>
+				<Players game={this.props.game} index={this.getIndex()} activeRegion={this.props.activeRegion}/>
 			);
 		}
 		return '';
 	}
 
+	componentWillReceiveProps() {
+		this.setState({showPlayers: false});
+	}
+
 	render() {
 		return (
-			<div className={`card  ${this.getBackground()}  ${this.getBorder()}`}> 
+			<div className={`card  ${this.getBackground()}  ${this.getBorder()}`} data-count={this.props.count}> 
 				<div className="card__date">
 					{this.getTime(this.props.game.time)}
 				</div>
 				<div className="matches__columns  flex-align--center">
 					<div className="matches__column  t-size--small">
-						{this.renderAchievements(this.index, this.props.team)}
+						{this.renderAchievements(this.getIndex(), this.props.team)}
 					</div>
 					{this.renderMatchup()}
 					<div className="matches__column  t-align--right  t-size--small">
-						{this.renderAchievements(this.enemyIndex, this.props.team)}
+						{this.renderAchievements(this.getIndex(true), this.props.team)}
 					</div>
 				</div>
 				{this.renderPlayers()}

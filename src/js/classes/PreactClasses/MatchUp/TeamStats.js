@@ -1,6 +1,7 @@
 import { h, render, Component } from 'preact';
 import { connect } from 'preact-redux';
 import StatsClass from './StatsClass';
+import StatCircle from './StatCircle';
 
 @connect((store) => {
     return {
@@ -19,48 +20,208 @@ class TeamStats extends Component {
 		this.stats = new StatsClass(this.props.regionStats);
 	}
 
-	renderGeneralStats() {
+	getPlayerFBStats(teamName) {
+		const team = this.props.regionStats[teamName];
+		let players = [];
+		for (const player in team.playersMatchesPlayed) {
+			console.log(player);
+			const matchesPlayed = team.playersMatchesPlayed[player];
+			const firstBlood = 100 * ((team.firstBloodPlayers[player] + team.firstBloodAssistPlayers[player]) / matchesPlayed);
+			const firstBloodString = parseInt(firstBlood);
+			
+			const firstDeath = 100 * (team.firstDeathPlayers[player] / matchesPlayed);
+			const firstDeathString = parseInt(firstDeath);
+
+			players.push(
+				<tr>
+					<td>{player.replace(teamName, '')}</td>
+					<td>{firstBloodString}</td>
+					<td>{firstDeathString}</td>
+					<td>{matchesPlayed}</td>
+				</tr>
+			);
+		}
+
+		return (
+			<table class="matches__table">
+				<tr>
+					<th></th>
+					<th>FB%</th>
+					<th>FD%</th>
+					<th>SS</th>
+				</tr>
+				{players}
+			</table>
+
+		);
+	}
+
+	renderCircleStats() {
 		return (
 			<div className="matches__columns">
 				<div className="matches__column">
-					<div>{this.props.team1} First Blood: {this.stats.FB(this.props.team1)}</div>
-					<div>{this.props.team1} Red First Blood: {this.stats.redFB(this.props.team1)}</div>
-					<div>{this.props.team1} Blue First Blood: {this.stats.blueFB(this.props.team1)}</div>
-					<br/>
-					<div>{this.props.team2} First Blood: {this.stats.FB(this.props.team2)}</div>
-					<div>{this.props.team2} Red First Blood: {this.stats.redFB(this.props.team2)}</div>
-					<div>{this.props.team2} Blue First Blood: {this.stats.blueFB(this.props.team2)}</div>
+
+					<h2>First Blood:</h2>
+
+					<div class="matches__columns">
+
+						<div class="matches__column  matches__column--half">
+
+							<h3>{this.props.team1}</h3>
+
+							<StatCircle
+								blue={this.stats.blueFB(this.props.team1)}
+								red={this.stats.redFB(this.props.team1)}
+								fbText={`${this.stats.FB(this.props.team1)}%`}
+							/>
+
+						</div>
+
+						<div class="matches__column  matches__column--half">
+							<h3>{this.props.team2}</h3>
+
+							<StatCircle
+								blue={this.stats.blueFB(this.props.team2)}
+								red={this.stats.redFB(this.props.team2)}
+								fbText={`${this.stats.FB(this.props.team2)}%`}
+							/>
+						</div>
+					</div>
 				</div>
 				<div className="matches__column">
-					<div>{this.props.team1} First Dragon: {this.stats.Dragon(this.props.team1)}</div>
-					<div>{this.props.team1} Red First Dragon: {this.stats.redDragon(this.props.team1)}</div>
-					<div>{this.props.team1} Blue First Dragon: {this.stats.blueDragon(this.props.team1)}</div>
-					<br/>
-					<div>{this.props.team2} First Dragon: {this.stats.Dragon(this.props.team2)}</div>
-					<div>{this.props.team2} Red First Dragon: {this.stats.redDragon(this.props.team2)}</div>
-					<div>{this.props.team2} Blue First Dragon: {this.stats.blueDragon(this.props.team2)}</div>
+
+					<h2>First Dragon:</h2>
+
+					<div class="matches__columns">
+
+						<div class="matches__column  matches__column--half">
+
+							<h3>{this.props.team1}</h3>
+
+							<StatCircle
+								blue={this.stats.blueDragon(this.props.team1)}
+								red={this.stats.redDragon(this.props.team1)}
+								fbText={`${this.stats.Dragon(this.props.team1)}%`}
+							/>
+
+						</div>
+
+						<div class="matches__column  matches__column--half">
+
+							<h3>{this.props.team2}</h3>
+
+							<StatCircle
+								blue={this.stats.blueDragon(this.props.team2)}
+								red={this.stats.redDragon(this.props.team2)}
+								fbText={`${this.stats.Dragon(this.props.team2)}%`}
+							/>
+
+						</div>
+
+					</div>
+
 				</div>
 				<div className="matches__column">
-					<div>{this.props.team1} First Tower: {this.stats.Tower(this.props.team1)}</div>
-					<div>{this.props.team1} Red First Tower: {this.stats.redTower(this.props.team1)}</div>
-					<div>{this.props.team1} Blue First Tower: {this.stats.blueTower(this.props.team1)}</div>
-					<br/>
-					<div>{this.props.team2} First Tower: {this.stats.Tower(this.props.team2)}</div>
-					<div>{this.props.team2} Red First Tower: {this.stats.redTower(this.props.team2)}</div>
-					<div>{this.props.team2} Blue First Tower: {this.stats.blueTower(this.props.team2)}</div>
+
+					<h2>First Tower:</h2>
+
+					<div class="matches__columns">
+
+						<div class="matches__column  matches__column--half">
+
+							<h3>{this.props.team1}</h3>
+
+							<StatCircle
+								blue={this.stats.blueTower(this.props.team1)}
+								red={this.stats.redTower(this.props.team1)}
+								fbText={`${this.stats.Tower(this.props.team1)}%`}
+							/>
+
+						</div>
+
+						<div class="matches__column  matches__column--half">
+
+							<h3>{this.props.team2}</h3>
+
+							<StatCircle
+								blue={this.stats.blueTower(this.props.team2)}
+								red={this.stats.redTower(this.props.team2)}
+								fbText={`${this.stats.Tower(this.props.team2)}%`}
+							/>
+
+						</div>
+
+					</div>
+
 				</div>
 			</div>
 		);
 	}
 
 	renderPlayerStats() {
-		return '';
+		return (
+			<div className="matches__columns">
+				<div className="matches__column">
+
+					<div class="matches__columns">
+
+						<div class="matches__column  matches__column--half  bdr-right">
+
+							{this.getPlayerFBStats(this.props.team1)}
+
+						</div>
+
+						<div class="matches__column  matches__column--half">
+							{this.getPlayerFBStats(this.props.team2)}
+						</div>
+					</div>
+				</div>
+				<div className="matches__column">
+
+					<div class="matches__columns">
+
+						<div class="matches__column  matches__column--half">
+
+							
+
+						</div>
+
+						<div class="matches__column  matches__column--half">
+
+							
+
+						</div>
+
+					</div>
+
+				</div>
+				<div className="matches__column">
+
+					<div class="matches__columns">
+
+						<div class="matches__column  matches__column--half">
+
+							
+
+						</div>
+
+						<div class="matches__column  matches__column--half">
+
+							
+
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+		);
 	}
 
 	render() {
 		return (
 			<div>
-				<div>{ this.renderGeneralStats() }</div>
+				<div>{ this.renderCircleStats() }</div>
 				<div>{ this.renderPlayerStats() }</div>
 			</div>
 		);

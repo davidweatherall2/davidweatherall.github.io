@@ -50,7 +50,6 @@ class Players extends Component {
 		const KDA = `${playerData.kills}/${playerData.deaths}/${playerData.kills}`;
 		const champNane = this.getChamp(playerData.champId);
 		const champImage = `http://ddragon.leagueoflegends.com/cdn/8.14.1/img/champion/${champNane}.png`
-		console.log(playerData);
 		return (
 			<tr class="card__player">
 				<td>{playerName}</td>
@@ -86,7 +85,8 @@ class Players extends Component {
 			}
 			return (
 				<div class="card__players">
-					<table class="card__team">
+					<table class="card__team">{this.props.index}
+
 						{this.props.index == 0 ? team1Players : team2Players}
 					</table>
 					<table class="card__team">
