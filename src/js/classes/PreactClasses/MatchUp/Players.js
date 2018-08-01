@@ -85,8 +85,7 @@ class Players extends Component {
 			}
 			return (
 				<div class="card__players">
-					<table class="card__team">{this.props.index}
-
+					<table class="card__team">
 						{this.props.index == 0 ? team1Players : team2Players}
 					</table>
 					<table class="card__team">
