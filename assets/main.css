@@ -218,3 +218,9 @@ h2, h3 {
 
 .bdr-right {
   border-right: 1px solid; }
+
+.colour__blue {
+  color: blue; }
+
+.colour__red {
+  color: red; }

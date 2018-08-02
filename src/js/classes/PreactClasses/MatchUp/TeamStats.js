@@ -24,7 +24,6 @@ class TeamStats extends Component {
 		const team = this.props.regionStats[teamName];
 		let players = [];
 		for (const player in team.playersMatchesPlayed) {
-			console.log(player);
 			const matchesPlayed = team.playersMatchesPlayed[player];
 			const firstBlood = 100 * ((team.firstBloodPlayers[player] + team.firstBloodAssistPlayers[player]) / matchesPlayed);
 			const firstBloodString = parseInt(firstBlood);
@@ -54,6 +53,48 @@ class TeamStats extends Component {
 			</table>
 
 		);
+	}
+
+	getPositionTowerStats(teamName) {
+		const team = this.props.regionStats[teamName];
+		let positions = [];
+
+		positions = this.getPositionTowerStat(positions, team, 'firstTowerPosition', 'firstEnemyTowerPosition', 'matchesPlayed', '')
+		positions = this.getPositionTowerStat(positions, team, 'firstBlueTowerPosition', 'firstBlueEnemyTowerPosition', 'blueMatchesPlayed', 'colour__blue')
+		positions = this.getPositionTowerStat(positions, team, 'firstRedTowerPosition', 'firstRedEnemyTowerPosition', 'redMatchesPlayed', 'colour__red')
+
+		return (
+			<table class="matches__table">
+				<tr>
+					<th></th>
+					<th>GET%</th>
+					<th>LOSE%</th>
+				</tr>
+				{positions}
+			</table>
+
+		);
+	}
+
+	getPositionTowerStat(positions, team, var1, var2, var3, classStyle) {
+		console.log(team);
+		for (const position in team.firstTowerPosition) {
+
+			const matchesPlayed = team[var3];
+
+			const firstTowerPercentage = parseInt((team[var1][position] / matchesPlayed) * 100)
+			const firstEnemyTowerPercentage = parseInt((team[var2][position] / matchesPlayed) * 100)
+
+			positions.push(
+				<tr className={classStyle}>
+					<td>{position.replace('_LANE', '')}</td>
+					<td>{`${firstTowerPercentage}%`}</td>
+					<td>{`${firstEnemyTowerPercentage}%`}</td>
+				</tr>
+			);
+		}
+
+		return positions;
 	}
 
 	renderCircleStats() {
@@ -201,13 +242,13 @@ class TeamStats extends Component {
 
 						<div class="matches__column  matches__column--half">
 
-							
+							{this.getPositionTowerStats(this.props.team1)}							
 
 						</div>
 
 						<div class="matches__column  matches__column--half">
 
-							
+							{this.getPositionTowerStats(this.props.team2)}
 
 						</div>
 

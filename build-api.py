@@ -18,6 +18,26 @@ def get_teams(game_json):
 
 	return [team1, team2]
 
+def opposite(number):
+	if number == 0:
+		return 1
+	else:
+		return 0
+
+def team_id(num):
+	if num == 100:
+		return 0
+	else:
+		return 1
+
+def get_ft(timeline_json):
+	for frame in timeline_json['frames']:
+		for event in frame['events']:
+			if event['type'] == 'BUILDING_KILL' and event['buildingType'] == 'TOWER_BUILDING':
+				return {'team' : event['teamId'], 'position' : event['laneType']}
+
+	return False
+
 def get_fb(timeline_json):
 	for frame in timeline_json['frames']:
 		for event in frame['events']:
@@ -153,9 +173,37 @@ for game in games:
 				'blueFirstDeathPlayers' : {},
 				'redFirstDeathPlayers' : {},
 
-				'firstTowerPlayers' : {},
-				'blueFirstTowerPlayers' : {},
-				'redFirstTowerPlayers' : {},
+				'firstTowerPosition' : {
+					'TOP_LANE' : 0,
+					'BOT_LANE' : 0,
+					'MID_LANE' : 0
+				},
+				'firstBlueTowerPosition' : {
+					'TOP_LANE' : 0,
+					'BOT_LANE' : 0,
+					'MID_LANE' : 0
+				},
+				'firstRedTowerPosition' : {
+					'TOP_LANE' : 0,
+					'BOT_LANE' : 0,
+					'MID_LANE' : 0
+				},
+
+				'firstEnemyTowerPosition' : {
+					'TOP_LANE' : 0,
+					'BOT_LANE' : 0,
+					'MID_LANE' : 0
+				},
+				'firstBlueEnemyTowerPosition' : {
+					'TOP_LANE' : 0,
+					'BOT_LANE' : 0,
+					'MID_LANE' : 0
+				},
+				'firstRedEnemyTowerPosition' : {
+					'TOP_LANE' : 0,
+					'BOT_LANE' : 0,
+					'MID_LANE' : 0
+				},
 
 				'firstBloodPositions' : [],
 				'firstDeathPositions' : [],
@@ -285,6 +333,24 @@ for game in games:
 
 	item['gameId'] = game_id
 
+	ft_status = get_ft(timeline_json)
+	ft_enemy = team_id(ft_status['team'])
+	ft_team = opposite(ft_enemy)
+	ft_position = ft_status['position']
+
+	api_stats[region][teams[ft_team]]['firstTowerPosition'][ft_position] += 1
+	api_stats[region][teams[ft_enemy]]['firstEnemyTowerPosition'][ft_position] += 1
+
+	if ft_team == 0:
+		api_stats[region][teams[ft_team]]['firstBlueTowerPosition'][ft_position] += 1
+		api_stats[region][teams[ft_enemy]]['firstRedEnemyTowerPosition'][ft_position] += 1
+
+	else:
+		api_stats[region][teams[ft_team]]['firstRedTowerPosition'][ft_position] += 1
+		api_stats[region][teams[ft_enemy]]['firstBlueEnemyTowerPosition'][ft_position] += 1
+
+
+
 	item_light = item.copy()
 
 	item['timeline'] = '/api/{}/games/{}/timeline.json'.format(region, game_id)
@@ -322,10 +388,6 @@ for game in games:
 			api_stats[region][teams[statsTeamNum]]['firstBloodAssistPlayers'][summonerName] = 0
 			api_stats[region][teams[statsTeamNum]]['blueFirstBloodAssistPlayers'][summonerName] = 0
 			api_stats[region][teams[statsTeamNum]]['redFirstBloodAssistPlayers'][summonerName] = 0
-
-			api_stats[region][teams[statsTeamNum]]['firstTowerPlayers'][summonerName] = 0
-			api_stats[region][teams[statsTeamNum]]['blueFirstTowerPlayers'][summonerName] = 0
-			api_stats[region][teams[statsTeamNum]]['redFirstTowerPlayers'][summonerName] = 0
 
 			api_stats[region][teams[statsTeamNum]]['firstDeathPlayers'][summonerName] = 0
 			api_stats[region][teams[statsTeamNum]]['blueFirstDeathPlayers'][summonerName] = 0
@@ -432,13 +494,6 @@ for game in games:
 		player_item['firstBloodPosition'] = fb_people['position']
 		player_item['firstTowerKill'] = p_stats['firstTowerKill']
 		player_item['firstTowerAssist'] = p_stats['firstTowerAssist']
-
-		if p_stats['firstTowerKill'] or p_stats['firstTowerAssist']:
-			api_stats[region][teams[statsTeamNum]]['firstTowerPlayers'][summonerName] += 1
-			if statsTeamNum == 0:
-				api_stats[region][teams[statsTeamNum]]['blueFirstTowerPlayers'][summonerName] += 1
-			else:
-				api_stats[region][teams[statsTeamNum]]['redFirstTowerPlayers'][summonerName] += 1
 
 
 		player_item['firstInhibitorKill'] = p_stats['firstInhibitorKill']
