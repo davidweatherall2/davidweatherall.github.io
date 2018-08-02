@@ -55,6 +55,14 @@ class TeamStats extends Component {
 		);
 	}
 
+	getDragonStats() {
+		const team1Stats = this.props.regionStats[this.props.team1]
+		const team2Stats = this.props.regionStats[this.props.team2]
+
+		return '';
+
+	}
+
 	getPositionTowerStats(teamName) {
 		const team = this.props.regionStats[teamName];
 		let positions = [];
@@ -219,28 +227,14 @@ class TeamStats extends Component {
 				</div>
 				<div className="matches__column">
 
-					<div class="matches__columns">
-
-						<div class="matches__column  matches__column--half">
-
-							
-
-						</div>
-
-						<div class="matches__column  matches__column--half">
-
-							
-
-						</div>
-
-					</div>
+					{this.getDragonStats()}
 
 				</div>
 				<div className="matches__column">
 
 					<div class="matches__columns">
 
-						<div class="matches__column  matches__column--half">
+						<div class="matches__column  matches__column--half bdr-right">
 
 							{this.getPositionTowerStats(this.props.team1)}							
 
