@@ -75,11 +75,20 @@ h2, h3 {
   min-height: 100vh; }
   .matches__columns {
     display: flex; }
+    @media screen and (max-width: 640px) {
+      .matches__columns {
+        flex-wrap: wrap; } }
   .matches__column {
     flex-grow: 1;
     max-width: 33%; }
     .matches__column--half {
       max-width: 50%; }
+    @media screen and (max-width: 640px) {
+      .matches__column {
+        width: 100%;
+        max-width: 100%; }
+        .matches__column.no-break {
+          max-width: 50%; } }
   .matches__table {
     width: 100%;
     padding: 0 5px;
@@ -91,6 +100,9 @@ h2, h3 {
   .matches__selects {
     display: flex;
     justify-content: center; }
+  @media screen and (max-width: 640px) {
+    .matches {
+      display: none; } }
 
 .card {
   position: relative;

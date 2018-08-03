@@ -85,7 +85,6 @@ class TeamStats extends Component {
 	}
 
 	getPositionTowerStat(positions, team, var1, var2, var3, classStyle) {
-		console.log(team);
 		for (const position in team.firstTowerPosition) {
 
 			const matchesPlayed = team[var3];
@@ -106,6 +105,9 @@ class TeamStats extends Component {
 	}
 
 	renderCircleStats() {
+		if(!this.props.team1 || !this.props.team2) {
+			return '';
+		}
 		return (
 			<div className="matches__columns">
 				<div className="matches__column">
@@ -114,7 +116,7 @@ class TeamStats extends Component {
 
 					<div class="matches__columns">
 
-						<div class="matches__column  matches__column--half">
+						<div class="matches__column  matches__column--half  no-break">
 
 							<h3>{this.props.team1}</h3>
 
@@ -126,7 +128,7 @@ class TeamStats extends Component {
 
 						</div>
 
-						<div class="matches__column  matches__column--half">
+						<div class="matches__column  matches__column--half  no-break">
 							<h3>{this.props.team2}</h3>
 
 							<StatCircle
@@ -143,7 +145,7 @@ class TeamStats extends Component {
 
 					<div class="matches__columns">
 
-						<div class="matches__column  matches__column--half">
+						<div class="matches__column  matches__column--half  no-break">
 
 							<h3>{this.props.team1}</h3>
 
@@ -155,7 +157,7 @@ class TeamStats extends Component {
 
 						</div>
 
-						<div class="matches__column  matches__column--half">
+						<div class="matches__column  matches__column--half  no-break">
 
 							<h3>{this.props.team2}</h3>
 
@@ -176,7 +178,7 @@ class TeamStats extends Component {
 
 					<div class="matches__columns">
 
-						<div class="matches__column  matches__column--half">
+						<div class="matches__column  matches__column--half  no-break">
 
 							<h3>{this.props.team1}</h3>
 
@@ -188,7 +190,7 @@ class TeamStats extends Component {
 
 						</div>
 
-						<div class="matches__column  matches__column--half">
+						<div class="matches__column  matches__column--half  no-break">
 
 							<h3>{this.props.team2}</h3>
 
@@ -208,6 +210,9 @@ class TeamStats extends Component {
 	}
 
 	renderPlayerStats() {
+		if(!this.props.team1 || !this.props.team2) {
+			return '';
+		}
 		return (
 			<div className="matches__columns">
 				<div className="matches__column">

@@ -5,6 +5,9 @@
 
 	&__columns {
 		display: flex;
+		@media screen and (max-width: $mobile) {
+			flex-wrap: wrap;
+		}
 	}
 
 	&__column {
@@ -12,6 +15,13 @@
 		max-width: 33%;
 		&--half {
 			max-width: 50%;
+		}
+		@media screen and (max-width: $mobile) {
+			width: 100%;
+			max-width: 100%;
+			&.no-break {
+				max-width: 50%;
+			}
 		}
 	}
 
@@ -30,5 +40,9 @@
 	&__selects {
 		display: flex;
 		justify-content: center;
+	}
+
+	@media screen and (max-width: $mobile) {
+		display: none;
 	}
 }
