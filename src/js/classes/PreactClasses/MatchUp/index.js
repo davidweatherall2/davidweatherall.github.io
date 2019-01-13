@@ -78,6 +78,7 @@ class MatchUp extends Component {
 					<select onChange={(e) => this.updateRegion(e)}>
 						<option disabled selected>Select Region</option>
 						<option value='LCK'>LCK</option>
+						<option value='CBLOL'>CBLOL</option>
 						<option value='EULCS'>EULCS</option>
 						<option value='NALCS'>NALCS</option>
 					</select>

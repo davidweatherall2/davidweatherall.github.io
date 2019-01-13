@@ -9,7 +9,7 @@ def champidtoname(id):
 	return champdict[str(id)]
 
 def platformRegion(regionID):
-	regions = {'TRLH1' : 'NALCS', 'ESPORTSTMNT06' : 'LCK', 'TRLH3' : 'EULCS' }
+	regions = {'TRLH1' : 'NALCS', 'ESPORTSTMNT06' : 'LCK', 'TRLH3' : 'EULCS' , 'TRLT1' : 'CBLOL' }
 	return regions[regionID]
 
 def get_teams(game_json):
@@ -64,12 +64,14 @@ games = os.listdir(path)
 api = {
 	'NALCS' : [],
 	'EULCS' : [],
+	'CBLOL' : [],
 	'LCK' : []
 }
 
 api_light = {
 	'NALCS' : [],
 	'EULCS' : [],
+	'CBLOL' : [],
 	'LCK' : []
 }
 
@@ -77,6 +79,7 @@ api_light = {
 api_stats = {
 	'NALCS' : {},
 	'EULCS' : {},
+	'CBLOL' : {},
 	'LCK' : {}
 }
 
