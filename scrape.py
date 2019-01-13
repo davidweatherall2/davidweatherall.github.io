@@ -8,7 +8,7 @@ regions = {
 			'lck': {'url' : 'https://api.lolesports.com/api/v1/leagues?slug=lck', 'region_code' : 'ESPORTSTMNT06'},
 			'nalcs': {'url' : 'https://api.lolesports.com/api/v1/leagues?slug=na-lcs', 'region_code' : 'TRLH1'},
 			'eulcs': {'url' : 'https://api.lolesports.com/api/v1/leagues?slug=lec', 'region_code' : 'TRLH3'},
-			'brazil': {'url' : 'https://api.lolesports.com/api/v1/leagues?slug=cblol-brazil', 'region_code' : 'TRLT1'}
+			'brazil': {'url' : 'https://api.lolesports.com/api/v1/leagues?slug=cblol-brazil', 'region_code' : 'ESPORTSTMNT01'}
 		}
 
 data_path = 'raw/'

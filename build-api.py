@@ -9,7 +9,7 @@ def champidtoname(id):
 	return champdict[str(id)]
 
 def platformRegion(regionID):
-	regions = {'TRLH1' : 'NALCS', 'ESPORTSTMNT06' : 'LCK', 'TRLH3' : 'EULCS' , 'TRLT1' : 'CBLOL' }
+	regions = {'TRLH1' : 'NALCS', 'ESPORTSTMNT06' : 'LCK', 'TRLH3' : 'EULCS' , 'ESPORTSTMNT01' : 'CBLOL' }
 	return regions[regionID]
 
 def get_teams(game_json):
