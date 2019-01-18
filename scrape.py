@@ -6,7 +6,7 @@ import time
 
 regions = {
 			'lck': {'url' : 'https://api.lolesports.com/api/v1/leagues?slug=lck', 'region_code' : 'ESPORTSTMNT06'},
-			'nalcs': {'url' : 'https://api.lolesports.com/api/v1/leagues?slug=na-lcs', 'region_code' : 'TRLH1'},
+			'nalcs': {'url' : 'https://api.lolesports.com/api/v1/leagues?slug=lcs', 'region_code' : 'TRLH1'},
 			'eulcs': {'url' : 'https://api.lolesports.com/api/v1/leagues?slug=lec', 'region_code' : 'TRLH3'},
 			'brazil': {'url' : 'https://api.lolesports.com/api/v1/leagues?slug=cblol-brazil', 'region_code' : 'ESPORTSTMNT01'}
 		}
@@ -60,6 +60,8 @@ def getJson(url_string):
 			return getJson(url_string)
 		if(e.code == 404):
 			return False
+		print(e)
+		return False
 
 	print('got json')
 
@@ -69,31 +71,15 @@ def wipeDir():
 	os.system('rm -rf {}game/*'.format(data_path))
 	os.system('rm -rf {}timeline/*'.format(data_path))
 
-def addMatchJson(match_id):
-	if not os.path.isfile('{}match_ids.json'.format(data_path)):
-		f = open('{}match_ids.json'.format(data_path), 'w')
-		init_matches = {'matches' : []}
-		f.write(json.dumps(init_matches))
-		f.close()
-
-	f = open('{}match_ids.json'.format(data_path), 'r')
-	text = f.read()
-	match_json = json.loads(text)
-	f.close()
-
-	match_json['matches'].append(match_id)
-
-	f = open('{}match_ids.json'.format(data_path), 'w')
-	f.write(json.dumps(match_json))
-	f.close()
-
-
 def scrape():
 
 	print('Wipe previous data? y/n')
 
 	if input('') == 'y':
 		wipeDir()
+
+	region_tournaments = []
+	scheduled_matches = []
 
 	for region in regions:
 		print('region: ' + region)
@@ -112,7 +98,27 @@ def scrape():
 		print('Select Tournaments (seperate by spaces):')
 		tournaments = input('')
 
-		tournaments_array = tournaments.split(" ")
+		if tournaments:
+			tournaments_array = tournaments.split(" ")
+		else:
+			tournaments_array = []
+
+		region_tournaments.append({
+			'region_dict' : region_dict,
+			'tournaments_array': tournaments_array,
+			'json_raw' : json_raw,
+			'json_obj' : json_obj
+		})
+
+
+
+	for region_data in region_tournaments:
+
+		region_dict = region_data['region_dict']
+		tournaments_array = region_data['tournaments_array']
+		json_raw = region_data['json_raw']
+		json_obj = region_data['json_obj']
+		
 
 		for tournament_key in tournaments_array:
 
@@ -135,13 +141,22 @@ def scrape():
 					match_json_raw = getJson(match_url_string)
 
 					match_json = json.loads(match_json_raw)
+					if len(match_json['teams']) == 2:
+						scheduled_matches.append({
+							'region' : region,
+							'team1' : match_json['teams'][0]['name'],
+							'team1acro' : match_json['teams'][0]['acronym'],
+							'team2' : match_json['teams'][1]['name'],
+							'team2acro' : match_json['teams'][1]['acronym'],
+							'datetime' : match_json['scheduleItems'][0]['scheduledTime'],
+						})
 
 					for game in match_json['gameIdMappings']:
 
 						game_hash = game['gameHash']
 						game_id_hash = game['id']
 
-						game_id = matches[match_id]['games'][game_id_hash]['gameId']
+						game_id = matches[match_id]['games'][game_id_hash]['gameId'].replace('\t', '')
 
 						if game_id + '.json' in os.listdir(data_path + 'game'):
 							print('skipping: ' + game_id)
@@ -149,5 +164,8 @@ def scrape():
 
 						getGame(game_id, game_hash, region_dict['region_code'])
 
-					if len(match_json['gameIdMappings']) > 0:
-						addMatchJson(match_id)
+	f = open(data_path + 'scheduled_matches.json', 'w')
+	f.write(json.dumps(scheduled_matches))
+	f.close()
+
+	return scheduled_matches

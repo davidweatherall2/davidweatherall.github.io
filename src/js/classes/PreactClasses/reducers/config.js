@@ -18,6 +18,14 @@ export default function config(state = [], action) {
 			team2 : action.text
 		}
 
+	case 'UPDATE_TEAMS':
+		return {
+			...state,
+			team1: action.team1,
+			team2: action.team2,
+			activeRegion: action.region
+		}
+
 	default:
 		return state
 	}

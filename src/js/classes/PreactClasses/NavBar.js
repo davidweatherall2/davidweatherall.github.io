@@ -1,13 +1,11 @@
 import { h, render, Component } from 'preact';
-import MatchUp from './MatchUp/index.js';
-import FirstBlood from './FirstBlood/index.js';
 
 class NavBar extends Component {
 
 	getLinks() {
 		let options = {
 			matchUp : 'Match Up',
-			firstBlood : 'First Blood',
+			champs : 'Champs',
 		}
 		let links = []
 

@@ -2,6 +2,7 @@ import os
 import json
 
 import scrape
+import datetime
 
 
 def champidtoname(id):	
@@ -61,27 +62,16 @@ def get_fb(timeline_json):
 path = 'raw/game/'
 games = os.listdir(path)
 
-api = {
-	'NALCS' : [],
-	'EULCS' : [],
-	'CBLOL' : [],
-	'LCK' : []
-}
+regions = ['NALCS', 'EULCS', 'CBLOL', 'LCK']
 
-api_light = {
-	'NALCS' : [],
-	'EULCS' : [],
-	'CBLOL' : [],
-	'LCK' : []
-}
+api = {}
+api_light = {}
+api_stats = {}
 
-
-api_stats = {
-	'NALCS' : {},
-	'EULCS' : {},
-	'CBLOL' : {},
-	'LCK' : {}
-}
+for region in regions:
+	api[region] = []
+	api_light[region] = []
+	api_stats[region] = {}
 
 for game in games:
 
@@ -224,6 +214,8 @@ for game in games:
 
 
 	item['time'] = game_json['gameCreation']
+	item['patch'] = "{}.{}".format(game_json['gameVersion'].split('.')[0], game_json['gameVersion'].split('.')[1])
+	item['duration'] = game_json['gameDuration']
 
 
 	if(game_json['teams'][0]['firstBlood'] is True):
@@ -560,3 +552,38 @@ for region in api_stats:
 	f.write(json.dumps(api_stats[region]))
 	f.close()
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Build scheduled api
+
+schedule = open('raw/scheduled_matches.json', 'r')
+schedule = schedule.read()
+schedule_json = json.loads(schedule)
+
+sorted_array = sorted(
+	schedule_json,
+	key=lambda x: datetime.datetime.strptime(x['datetime'], '%Y-%m-%dT%H:%M:%S.%f%z'), reverse=False
+)
+
+new_array = []
+for item in sorted_array:
+	item['datetime'] = datetime.datetime.strptime(item['datetime'], "%Y-%m-%dT%H:%M:%S.%f%z").timestamp()
+	if item['datetime'] > int(datetime.datetime.now().timestamp()):
+		new_array.append(item)
+
+f = open('api/schedule.json', 'w')
+f.write(json.dumps(new_array))
+f.close()

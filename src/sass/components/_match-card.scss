@@ -1,0 +1,12 @@
+.match-card {
+    border: 1px solid;
+    margin: 10px 0;
+    padding: 10px;
+    text-align: center;
+    &__teams {
+        display: flex;
+    }
+    p {
+        width: 100%;
+    }
+}

@@ -213,6 +213,16 @@ h2, h3 {
   .circle path:hover {
     opacity: 0.8; }
 
+.match-card {
+  border: 1px solid;
+  margin: 10px 0;
+  padding: 10px;
+  text-align: center; }
+  .match-card__teams {
+    display: flex; }
+  .match-card p {
+    width: 100%; }
+
 .bg-color--blue {
   background-color: #e6e6ff; }
 

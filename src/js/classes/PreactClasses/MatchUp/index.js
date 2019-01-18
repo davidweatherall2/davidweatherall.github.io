@@ -75,7 +75,7 @@ class MatchUp extends Component {
 	renderRegions() {
 		return (
 				<div>
-					<select onChange={(e) => this.updateRegion(e)}>
+					<select onChange={(e) => this.updateRegion(e)} value={this.props.activeRegion}>
 						<option disabled selected>Select Region</option>
 						<option value='LCK'>LCK</option>
 						<option value='CBLOL'>CBLOL</option>

@@ -1,6 +1,6 @@
 import { h, render, Component } from 'preact';
 import MatchUp from './MatchUp/index.js';
-import FirstBlood from './FirstBlood/index.js';
+import Champs from './Champs/index.js';
 
 class AppMain extends Component {
 
@@ -9,8 +9,8 @@ class AppMain extends Component {
 			case 'matchUp':
 				return <MatchUp store={this.props.store}/>;
 
-			case 'firstBlood':
-				return <FirstBlood />;
+			case 'champs':
+				return <Champs />;
 		}
 	}
 
