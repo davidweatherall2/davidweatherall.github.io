@@ -15,6 +15,18 @@ export default function stats(state = {loading: 0}, action) {
 				}
 			}
 
+		case 'SET_ALL_PATCHES':
+			return {
+				...state,
+				activePatches: action.patches
+			}
+
+		case 'SET_ALL_REGIONS':
+			return {
+				...state,
+				activeRegions: action.regions
+			}
+
 		default:
 			return state
 		}

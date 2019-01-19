@@ -18,14 +18,14 @@ class MatchElement extends Component {
             type: 'UPDATE_TEAMS',
             team1: this.props.match.team1acro,
             team2: this.props.match.team2acro,
-            region: 'LCK'
+            region: this.props.match.region
         })
     }
  
     render() {
         return (
             <div className="match-card" onClick={this.handleCardClick.bind(this)}>
-                <div className="match-card__league">{this.state.region}</div>
+                <div className="match-card__league">{this.props.match.region}</div>
                 <div className="match-card__teams">
                     <p>{this.props.match.team1acro}</p>
                     <p>vs</p>

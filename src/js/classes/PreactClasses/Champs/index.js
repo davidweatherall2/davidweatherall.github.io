@@ -1,6 +1,9 @@
 import { h, render, Component } from 'preact';
 import { connect } from 'preact-redux';
 
+import StatsBlock from './StatsBlock';
+import TopNav from './TopNav';
+
 @connect((store) => {
     return {
         stats: store.stats.stats,
@@ -28,15 +31,19 @@ class Champs extends Component {
 	}
 
 	render() {
-		if(this.state.loading) {
+		if(this.props.loading || !this.props.stats) {
 			return (
 				<div>loading</div>
 			)
 		} else {
 			return (
-				<div>You selected champs</div>
+				<div>
+					<TopNav />
+					<StatsBlock />
+				</div>
 			)
 		}
+	}
 }
 
 
