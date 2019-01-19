@@ -5,11 +5,11 @@ import time
 
 
 regions = {
-			'LCK': {'url' : 'https://api.lolesports.com/api/v1/leagues?slug=lck', 'region_code' : 'ESPORTSTMNT01'},
-			'NALCS': {'url' : 'https://api.lolesports.com/api/v1/leagues?slug=lcs', 'region_code' : 'ESPORTSTMNT02'},
-			'EULCS': {'url' : 'https://api.lolesports.com/api/v1/leagues?slug=lec', 'region_code' : 'ESPORTSTMNT02'},
-			'CBLOL': {'url' : 'https://api.lolesports.com/api/v1/leagues?slug=cblol-brazil', 'region_code' : 'ESPORTSTMNT01'}
-		}
+	'LCK': {'url' : 'https://api.lolesports.com/api/v1/leagues?slug=lck', 'region_code' : 'ESPORTSTMNT01'},
+	'NALCS': {'url' : 'https://api.lolesports.com/api/v1/leagues?slug=lcs', 'region_code' : 'ESPORTSTMNT02'},
+	'EULCS': {'url' : 'https://api.lolesports.com/api/v1/leagues?slug=lec', 'region_code' : 'ESPORTSTMNT02'},
+	'CBLOL': {'url' : 'https://api.lolesports.com/api/v1/leagues?slug=cblol-brazil', 'region_code' : 'ESPORTSTMNT01'}
+}
 
 data_path = 'raw/'
 
