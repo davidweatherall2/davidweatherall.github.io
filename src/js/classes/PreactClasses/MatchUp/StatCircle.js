@@ -14,13 +14,21 @@ class StatCircle extends Component {
 
 	createSvgArc(startPerc, extraPerc) {
 
+		if(!Number.isInteger(startPerc)) {
+			startPerc = 0;
+		}
+		if(!Number.isInteger(extraPerc)) {
+			extraPerc = 0;
+		}
 
 		const x = 0;
 		const y = 0;
 		const r = 300;
-		let startAngle = ((startPerc / 100) * Math.PI) % (Math.PI * 2);
 
-		let endAngle = (((extraPerc + startPerc) / 100) * Math.PI) % (Math.PI * 2);
+		let startAngle = ((startPerc / 100) * Math.PI)
+
+		let endAngle = (((extraPerc + startPerc) / 100) * Math.PI)
+		
 
 		if (startAngle > endAngle) {
 			var s = startAngle;
@@ -32,7 +40,11 @@ class StatCircle extends Component {
 		}
 
 		var largeArc = endAngle - startAngle <= Math.PI ? 0 : 1;
-
+		console.log('nums: ');
+		console.log(startPerc);
+		console.log(extraPerc);
+		console.log(endAngle);
+		console.log(startAngle);
 		return [
 			"M",
 			x,
@@ -68,6 +80,7 @@ class StatCircle extends Component {
 	}
 
 	render() {
+		
 		return (
 			<div className="circle">
 				<svg id="theMap" width="100%" viewBox="0 0 600 600" preserveAspectRatio="xMidYMid meet">
