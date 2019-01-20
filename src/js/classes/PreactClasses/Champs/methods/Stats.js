@@ -10,39 +10,43 @@ class Stats {
     }
 
     calculate() {
-        this.calculateFBChamps();
+        this.calculateFirstChamps();
     }
 
-    calculateFBChamps() {
-        this.fbChampsObject = {}
+    calculateFirstChamps() {
+        this.firstChampsObject = {}
         Array.from(this.regions, region => {
             const regionMatches = this.stats[region];
             Array.from(regionMatches, match => {
                 if(this.patches.includes(match.patch)) {
-                    this.addFBStats(match);
+                    this.addFirstStats(match);
                 }
             })
         });
-        this.orderFBChamps();
+        this.orderFirstChamps();
     }
 
-    orderFBChamps() {
+    orderFirstChamps() {
         this.fbArray = [];
-        for(const champId in this.fbChampsObject) {
-            let champ = this.fbChampsObject[champId];
+        for(const champId in this.firstChampsObject) {
+            let champ = this.firstChampsObject[champId];
             champ['id'] = champId;
             this.fbArray.push(champ);
         }
-        this.fbArray.sort(this.sortFBByPercentage);
+        this.fbArray.sort(this.sortFunction.bind(this));
     }
 
-    sortFBByPercentage(a, b) {
-        var percentA = a.fbTeam / a.played;
-        var percentB = b.fbTeam / b.played;
-        if (percentA > percentB) {
+    sortFunction(a, b) {
+        let valA = '';
+        let valB = '';
+        if(this.orderBy === 'fbPercentage') {
+            valA = a.fbTeam / a.played;
+            valB = b.fbTeam / b.played;
+        }
+        if (valA > valB) {
             return -1;
         }
-        if (percentA < percentB) {
+        if (valA < valB) {
             return 1;
         }
 
@@ -50,44 +54,56 @@ class Stats {
         return 0;
     }
 
-    addFBStats(match) {
+    addFirstStats(match) {
         for (let playerIndex = 0; playerIndex < 10; playerIndex++) {
             const player = match['players'][playerIndex];
             const champId = player.champId;
-            if(this.fbChampsObject[champId] === undefined) {
-                this.fbChampsObject[champId] = this.getDefaultFBStat();
+            if(this.firstChampsObject[champId] === undefined) {
+                this.firstChampsObject[champId] = this.getDefaultFirstStat();
             }
-            this.fbChampsObject[champId]['played']++;
-            if(this.gotFirstBlood(match.firstBlood, playerIndex)) {
-                this.fbChampsObject[champId]['fbTeam']++;
+            this.firstChampsObject[champId]['played']++;
+            if(this.gotFirst(match.firstBlood, playerIndex)) {
+                this.firstChampsObject[champId]['fbTeam']++;
             }
             if(player.firstBloodKill) {
-                this.fbChampsObject[champId]['fbKiller']++;
+                this.firstChampsObject[champId]['fbKiller']++;
             }
             if(player.firstBloodAssist) {
-                this.fbChampsObject[champId]['fbAssist']++;
+                this.firstChampsObject[champId]['fbAssist']++;
             }
             if(player.firstDeath) {
-                this.fbChampsObject[champId]['firstDeath']++;
+                this.firstChampsObject[champId]['firstDeath']++;
+            }
+            if(this.gotFirst(match.firstTower, playerIndex)) {
+                this.firstChampsObject[champId]['ftTeam']++;
+            }
+            if(player.firstTowerKill || player.firstTowerAssist) {
+                this.firstChampsObject[champId]['ftKiller']++;
+            }
+            if(this.gotFirst(match.firstDragon, playerIndex)) {
+                this.firstChampsObject[champId]['fdTeam']++;
             }
         }
     }
 
-    gotFirstBlood(fbTeam, playerIndex) {
-        return (fbTeam === 0 && playerIndex < 5) || (fbTeam === 1 && playerIndex > 4)
+    gotFirst(firstTeam, playerIndex) {
+        return (firstTeam === 0 && playerIndex < 5) || (firstTeam === 1 && playerIndex > 4)
     }
 
-    getDefaultFBStat() {
+    getDefaultFirstStat() {
         return {
             played: 0,
             fbTeam: 0,
+            ftTeam: 0,
+            fdTeam: 0,
             fbKiller: 0,
             fbAssist: 0,
-            firstDeath: 0
+            firstDeath: 0,
+            ftKiller: 0
         }
     }
 
-    getFBChamps() {
+    getFirstChamps() {
         return this.fbArray;
     }
 }

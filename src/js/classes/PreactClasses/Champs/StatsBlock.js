@@ -33,12 +33,12 @@ class StatsBlock extends Component {
         return `${Math.floor(percentage)}%`;
     }
 
-    renderFBChamps() {
-        const FBChamps = this.statsClass.getFBChamps();
-        if(FBChamps) {
-            let FBArray = [];
-            Array.from(FBChamps, champ => {
-                FBArray.push(
+    renderfirstChamps() {
+        const firstChamps = this.statsClass.getFirstChamps();
+        if(firstChamps) {
+            let firstArray = [];
+            Array.from(firstChamps, champ => {
+                firstArray.push(
                     <tr>
                         <td>{idToChamp(champ.id)}</td>
                         <td>{champ.played}</td>
@@ -46,10 +46,13 @@ class StatsBlock extends Component {
                         <td>{this.getPercentage(champ.fbKiller, champ.played)}</td>
                         <td>{this.getPercentage(champ.fbAssist, champ.played)}</td>
                         <td>{this.getPercentage(champ.firstDeath, champ.played)}</td>
+                        <td>{this.getPercentage(champ.ftTeam, champ.played)}</td>
+                        <td>{this.getPercentage(champ.ftKiller, champ.played)}</td>
+                        <td>{this.getPercentage(champ.fdTeam, champ.played)}</td>
                     </tr>
                 )
             })
-            return FBArray;
+            return firstArray;
         }
     }
 
@@ -65,8 +68,11 @@ class StatsBlock extends Component {
                             <th>First Blood Killer</th>
                             <th>First Blood Assist</th>
                             <th>First Death</th>
+                            <th>First Tower Team</th>
+                            <th>First Tower Killer</th>
+                            <th>First Dragon Team</th>
                         </tr>
-                        {this.renderFBChamps()}
+                        {this.renderfirstChamps()}
                     </tbody>
                 </table>
             </div>
