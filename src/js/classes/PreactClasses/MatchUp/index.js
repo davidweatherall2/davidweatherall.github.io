@@ -81,6 +81,9 @@ class MatchUp extends Component {
 						<option value='CBLOL'>CBLOL</option>
 						<option value='EULCS'>EULCS</option>
 						<option value='NALCS'>NALCS</option>
+						<option value='TCL'>TCL</option>
+						<option value='LMS'>LMS</option>
+						<option value='OPL'>OPL</option>
 					</select>
 				</div>
 			);

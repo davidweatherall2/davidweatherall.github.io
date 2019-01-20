@@ -14,7 +14,7 @@ class Champs extends Component {
 
 	constructor(props) {
 		super(props);
-		this.regions = ['CBLOL', 'EULCS', 'LCK', 'NALCS']
+		this.regions = ['NALCS', 'EULCS', 'CBLOL', 'LCK', 'LMS', 'TCL', 'OPL']
 		if(!this.props.stats) {
 			this.fetchStats();
 		}

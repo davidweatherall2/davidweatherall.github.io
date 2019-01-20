@@ -64,7 +64,7 @@ game_map = json.loads(text)
 path = 'raw/game/'
 games = os.listdir(path)
 
-regions = ['NALCS', 'EULCS', 'CBLOL', 'LCK']
+regions = ['NALCS', 'EULCS', 'CBLOL', 'LCK', 'LMS', 'TCL', 'OPL']
 
 api = {}
 api_light = {}

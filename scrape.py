@@ -8,7 +8,10 @@ regions = {
 	'LCK': {'url' : 'https://api.lolesports.com/api/v1/leagues?slug=lck', 'region_code' : 'ESPORTSTMNT01'},
 	'NALCS': {'url' : 'https://api.lolesports.com/api/v1/leagues?slug=lcs', 'region_code' : 'ESPORTSTMNT02'},
 	'EULCS': {'url' : 'https://api.lolesports.com/api/v1/leagues?slug=lec', 'region_code' : 'ESPORTSTMNT02'},
-	'CBLOL': {'url' : 'https://api.lolesports.com/api/v1/leagues?slug=cblol-brazil', 'region_code' : 'ESPORTSTMNT01'}
+	'CBLOL': {'url' : 'https://api.lolesports.com/api/v1/leagues?slug=cblol-brazil', 'region_code' : 'ESPORTSTMNT01'},
+	'LMS' :  {'url' : 'https://api.lolesports.com/api/v1/leagues?slug=lms', 'region_code' : 'ESPORTSTMNT03'},
+	'TCL': {'url' : 'https://api.lolesports.com/api/v1/leagues?slug=turkiye-sampiyonluk-ligi', 'region_code' : 'ESPORTSTMNT03'},
+	'OPL': {'url' : 'https://api.lolesports.com/api/v1/leagues?slug=oce-opl', 'region_code' : 'ESPORTSTMNT01'}
 }
 
 data_path = 'raw/'
@@ -112,9 +115,12 @@ def scrape():
 			'json_obj' : json_obj
 		})
 
-
+	number_regions_scraped = 0
+	total_regions = len(region_tournaments)
 
 	for region_data in region_tournaments:
+
+		number_regions_scraped = number_regions_scraped + 1
 
 		region_dict = region_data['region_dict']
 		region_name = region_data['region_name']
@@ -145,16 +151,17 @@ def scrape():
 
 					match_json = json.loads(match_json_raw)
 
-					# print('week: {}, day: {}'.format(match_json['scheduleItems'][0]['tags']['blockLabel'], match_json['scheduleItems'][0]['tags']['subBlockLabel']))
-					if len(match_json['teams']) == 2:
-						scheduled_matches.append({
-							'region' : region_name,
-							'team1' : match_json['teams'][0]['name'],
-							'team1acro' : match_json['teams'][0]['acronym'],
-							'team2' : match_json['teams'][1]['name'],
-							'team2acro' : match_json['teams'][1]['acronym'],
-							'datetime' : match_json['scheduleItems'][0]['scheduledTime'],
-						})
+					if len(match_json['scheduleItems']) > 0:
+						# print('week: {}, day: {}'.format(match_json['scheduleItems'][0]['tags']['blockLabel'], match_json['scheduleItems'][0]['tags']['subBlockLabel']))
+						if len(match_json['teams']) == 2:
+							scheduled_matches.append({
+								'region' : region_name,
+								'team1' : match_json['teams'][0]['name'],
+								'team1acro' : match_json['teams'][0]['acronym'],
+								'team2' : match_json['teams'][1]['name'],
+								'team2acro' : match_json['teams'][1]['acronym'],
+								'datetime' : match_json['scheduleItems'][0]['scheduledTime'],
+							})
 
 					for game in match_json['gameIdMappings']:
 
@@ -169,6 +176,8 @@ def scrape():
 
 						getGame(game_id, game_hash, region_dict['region_code'])
 						game_map[game_id] = region_name
+
+					print('{} / {} region'.format(number_regions_scraped, total_regions))
 
 	f = open(data_path + 'scheduled_matches.json', 'w')
 	f.write(json.dumps(scheduled_matches))
