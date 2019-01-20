@@ -1,7 +1,9 @@
+import { idToChamp } from './ChampFuncs';
+
 class Stats {
     constructor(stats) {
         this.stats = stats;
-        this.orderBy = 'fbPercentage';
+        this.orderBy = 'alphabetically';
     }
 
     setStates(regions, patches) {
@@ -44,14 +46,19 @@ class Stats {
     sortFunction(a, b) {
         let valA = '';
         let valB = '';
-        if(this.orderBy === 'fbPercentage') {
-            valA = a.fbTeam / a.played;
-            valB = b.fbTeam / b.played;
-        }
-        if (valA > valB) {
-            return -1;
+        switch(this.orderBy) {
+            case 'fbPercentage':
+                valA = b.fbTeam / b.played;
+                valB = a.fbTeam / a.played;
+
+            case 'alphabetically':
+                valA = idToChamp(a.id);
+                valB = idToChamp(b.id);
         }
         if (valA < valB) {
+            return -1;
+        }
+        if (valA > valB) {
             return 1;
         }
 
