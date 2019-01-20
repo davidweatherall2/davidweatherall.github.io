@@ -8,7 +8,8 @@ import { idToChamp } from './methods/ChampFuncs';
     return {
         stats: store.stats.stats,
         activeRegions: store.stats.activeRegions,
-        activePatches: store.stats.activePatches
+        activePatches: store.stats.activePatches,
+        activeVariables: store.stats.activeVariables
     }
 })
 class StatsBlock extends Component {
@@ -33,6 +34,30 @@ class StatsBlock extends Component {
         return `${Math.floor(percentage)}%`;
     }
 
+    renderChampColumns() {
+        let columns = [];
+        Array.from(this.props.activeVariables, variable => {
+            columns.push(<th>{variable.friendlyName}</th>)
+        })
+        return columns;
+    }
+
+    renderChampCells(champ) {
+        let cells = [];
+
+        Array.from(this.props.activeVariables, variable => {
+            let cell = '';
+            if(variable.type === 'percent') {
+                cell = <td>{this.getPercentage(champ[variable.statName], champ.played)}</td>
+            }
+            if(variable.type === 'value') {
+                cell = <td>{champ[variable.statName]}</td>
+            }
+            cells.push(cell);
+        })
+        return cells;
+    }
+
     renderfirstChamps() {
         const firstChamps = this.statsClass.getFirstChamps();
         if(firstChamps) {
@@ -41,14 +66,7 @@ class StatsBlock extends Component {
                 firstArray.push(
                     <tr>
                         <td>{idToChamp(champ.id)}</td>
-                        <td>{champ.played}</td>
-                        <td>{this.getPercentage(champ.fbTeam, champ.played)}</td>
-                        <td>{this.getPercentage(champ.fbKiller, champ.played)}</td>
-                        <td>{this.getPercentage(champ.fbAssist, champ.played)}</td>
-                        <td>{this.getPercentage(champ.firstDeath, champ.played)}</td>
-                        <td>{this.getPercentage(champ.ftTeam, champ.played)}</td>
-                        <td>{this.getPercentage(champ.ftKiller, champ.played)}</td>
-                        <td>{this.getPercentage(champ.fdTeam, champ.played)}</td>
+                        {this.renderChampCells(champ)}
                     </tr>
                 )
             })
@@ -63,14 +81,7 @@ class StatsBlock extends Component {
                     <tbody>
                         <tr>
                             <th>Champ</th>
-                            <th>Games Played</th>
-                            <th>First Blood Team</th>
-                            <th>First Blood Killer</th>
-                            <th>First Blood Assist</th>
-                            <th>First Death</th>
-                            <th>First Tower Team</th>
-                            <th>First Tower Killer</th>
-                            <th>First Dragon Team</th>
+                            {this.renderChampColumns()}
                         </tr>
                         {this.renderfirstChamps()}
                     </tbody>

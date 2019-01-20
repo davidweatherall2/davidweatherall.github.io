@@ -27,6 +27,12 @@ export default function stats(state = {loading: 0}, action) {
 				activeRegions: action.regions
 			}
 
+		case 'SET_ALL_VARIABLES':
+			return {
+				...state,
+				activeVariables: action.variables
+			}
+
 		default:
 			return state
 		}

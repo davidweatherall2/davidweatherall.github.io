@@ -26,6 +26,11 @@ class Stats {
         this.orderFirstChamps();
     }
 
+    getPercentage(a, b) {
+        const percentage = (a / b) * 100;
+        return `${Math.floor(percentage)}%`;
+    }
+
     orderFirstChamps() {
         this.fbArray = [];
         for(const champId in this.firstChampsObject) {

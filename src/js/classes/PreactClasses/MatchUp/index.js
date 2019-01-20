@@ -74,19 +74,19 @@ class MatchUp extends Component {
 
 	renderRegions() {
 		return (
-				<div>
-					<select onChange={(e) => this.updateRegion(e)} value={this.props.activeRegion}>
-						<option disabled selected>Select Region</option>
-						<option value='LCK'>LCK</option>
-						<option value='CBLOL'>CBLOL</option>
-						<option value='EULCS'>EULCS</option>
-						<option value='NALCS'>NALCS</option>
-						<option value='TCL'>TCL</option>
-						<option value='LMS'>LMS</option>
-						<option value='OPL'>OPL</option>
-					</select>
-				</div>
-			);
+			<div>
+				<select onChange={(e) => this.updateRegion(e)} value={this.props.activeRegion}>
+					<option disabled selected>Select Region</option>
+					<option value='LCK'>LCK</option>
+					<option value='CBLOL'>CBLOL</option>
+					<option value='EULCS'>EULCS</option>
+					<option value='NALCS'>NALCS</option>
+					<option value='TCL'>TCL</option>
+					<option value='LMS'>LMS</option>
+					<option value='OPL'>OPL</option>
+				</select>
+			</div>
+		);
 	}
 
 	renderTeams() {

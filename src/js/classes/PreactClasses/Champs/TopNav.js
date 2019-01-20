@@ -5,6 +5,7 @@ import Filters from './methods/Filters';
 
 import Patches from './Patches';
 import Regions from './Regions';
+import Variables from './Variables';
 
 @connect((store) => {
     return {
@@ -21,6 +22,7 @@ class TopNav extends Component {
 
         this.regions = this.filters.getRegions();
         this.patches = this.filters.getPatches();
+        this.variables = this.filters.getVariables();
 	}
 
 	render() {
@@ -31,6 +33,9 @@ class TopNav extends Component {
                 </div>
                 <div>
                     Regions: <Regions regions={this.regions}/>
+                </div>
+                <div>
+                    Variables: <Variables variables={this.variables}/>
                 </div>
             </div>
         );
