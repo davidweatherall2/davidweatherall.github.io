@@ -9,7 +9,8 @@ import { idToChamp } from './methods/ChampFuncs';
         stats: store.stats.stats,
         activeRegions: store.stats.activeRegions,
         activePatches: store.stats.activePatches,
-        activeVariables: store.stats.activeVariables
+        activeVariables: store.stats.activeVariables,
+        minPlayed: store.stats.minPlayed
     }
 })
 class StatsBlock extends Component {
@@ -59,10 +60,11 @@ class StatsBlock extends Component {
     }
 
     renderfirstChamps() {
-        const firstChamps = this.statsClass.getFirstChamps();
+        const firstChamps = this.statsClass.getChamps();
         if(firstChamps) {
             let firstArray = [];
             Array.from(firstChamps, champ => {
+                if(this.props.minPlayed && this.props.minPlayed > champ.played) return;
                 firstArray.push(
                     <tr>
                         <td>{idToChamp(champ.id)}</td>
@@ -77,7 +79,7 @@ class StatsBlock extends Component {
 	render() {
 		return (
             <div>
-                <table>
+                <table className="table">
                     <tbody>
                         <tr>
                             <th>Champ</th>

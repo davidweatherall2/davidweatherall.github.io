@@ -17,7 +17,8 @@ class Filters {
             {statName: 'ftTeam', friendlyName: 'First Tower Team', type: 'percent'},
             {statName: 'ftKiller', friendlyName: 'First Tower Killer', type: 'percent'},
             {statName: 'fdTeam', friendlyName: 'First Dragon Team', type: 'percent'},
-            {statName: 'played', friendlyName: 'Games Played', type: 'value'}
+            {statName: 'played', friendlyName: 'Games Played', type: 'value'},
+            {statName: 'win', friendlyName: 'Win', type: 'percent'}
         ];
     }
 

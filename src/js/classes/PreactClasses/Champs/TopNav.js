@@ -6,6 +6,7 @@ import Filters from './methods/Filters';
 import Patches from './Patches';
 import Regions from './Regions';
 import Variables from './Variables';
+import MinPlayed from './MinPlayed';
 
 @connect((store) => {
     return {
@@ -27,7 +28,7 @@ class TopNav extends Component {
 
 	render() {
 		return (
-            <div>
+            <div className="topnav">
                 <div>
                     Patches: <Patches patches={this.patches}/>
                 </div>
@@ -36,6 +37,9 @@ class TopNav extends Component {
                 </div>
                 <div>
                     Variables: <Variables variables={this.variables}/>
+                </div>
+                <div>
+                    Min Played: <MinPlayed />
                 </div>
             </div>
         );

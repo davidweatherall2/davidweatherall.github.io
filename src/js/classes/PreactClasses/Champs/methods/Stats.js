@@ -12,20 +12,20 @@ class Stats {
     }
 
     calculate() {
-        this.calculateFirstChamps();
+        this.calculateChamps();
     }
 
-    calculateFirstChamps() {
+    calculateChamps() {
         this.firstChampsObject = {}
         Array.from(this.regions, region => {
             const regionMatches = this.stats[region];
             Array.from(regionMatches, match => {
                 if(this.patches.includes(match.patch)) {
-                    this.addFirstStats(match);
+                    this.addStats(match);
                 }
             })
         });
-        this.orderFirstChamps();
+        this.orderChamps();
     }
 
     getPercentage(a, b) {
@@ -33,7 +33,7 @@ class Stats {
         return `${Math.floor(percentage)}%`;
     }
 
-    orderFirstChamps() {
+    orderChamps() {
         this.fbArray = [];
         for(const champId in this.firstChampsObject) {
             let champ = this.firstChampsObject[champId];
@@ -66,15 +66,15 @@ class Stats {
         return 0;
     }
 
-    addFirstStats(match) {
+    addStats(match) {
         for (let playerIndex = 0; playerIndex < 10; playerIndex++) {
             const player = match['players'][playerIndex];
             const champId = player.champId;
             if(this.firstChampsObject[champId] === undefined) {
-                this.firstChampsObject[champId] = this.getDefaultFirstStat();
+                this.firstChampsObject[champId] = this.getDefaultStat();
             }
             this.firstChampsObject[champId]['played']++;
-            if(this.gotFirst(match.firstBlood, playerIndex)) {
+            if(this.playedGotVariable(match.firstBlood, playerIndex)) {
                 this.firstChampsObject[champId]['fbTeam']++;
             }
             if(player.firstBloodKill) {
@@ -86,23 +86,26 @@ class Stats {
             if(player.firstDeath) {
                 this.firstChampsObject[champId]['firstDeath']++;
             }
-            if(this.gotFirst(match.firstTower, playerIndex)) {
+            if(this.playedGotVariable(match.firstTower, playerIndex)) {
                 this.firstChampsObject[champId]['ftTeam']++;
             }
             if(player.firstTowerKill || player.firstTowerAssist) {
                 this.firstChampsObject[champId]['ftKiller']++;
             }
-            if(this.gotFirst(match.firstDragon, playerIndex)) {
+            if(this.playedGotVariable(match.firstDragon, playerIndex)) {
                 this.firstChampsObject[champId]['fdTeam']++;
+            }
+            if(this.playedGotVariable(match.win, playerIndex)) {
+                this.firstChampsObject[champId]['win']++;
             }
         }
     }
 
-    gotFirst(firstTeam, playerIndex) {
+    playedGotVariable(firstTeam, playerIndex) {
         return (firstTeam === 0 && playerIndex < 5) || (firstTeam === 1 && playerIndex > 4)
     }
 
-    getDefaultFirstStat() {
+    getDefaultStat() {
         return {
             played: 0,
             fbTeam: 0,
@@ -111,11 +114,12 @@ class Stats {
             fbKiller: 0,
             fbAssist: 0,
             firstDeath: 0,
-            ftKiller: 0
+            ftKiller: 0,
+            win: 0
         }
     }
 
-    getFirstChamps() {
+    getChamps() {
         return this.fbArray;
     }
 }

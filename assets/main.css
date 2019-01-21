@@ -223,9 +223,19 @@ h2, h3 {
   .match-card p {
     width: 100%; }
 
-table {
+.table {
   width: 100%;
-  text-align: center; }
+  text-align: center;
+  border-collapse: collapse; }
+  .table tr:nth-of-type(even) {
+    background: #e8e8e8; }
+  .table td {
+    padding: 5px 0; }
+
+.topnav {
+  display: flex;
+  justify-content: space-between;
+  width: 100%; }
 
 .bg-color--blue {
   background-color: #e6e6ff; }

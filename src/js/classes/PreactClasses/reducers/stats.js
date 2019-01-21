@@ -33,6 +33,12 @@ export default function stats(state = {loading: 0}, action) {
 				activeVariables: action.variables
 			}
 
+		case 'SET_MINPLAYED':
+			return {
+				...state,
+				minPlayed: action.minPlayed
+			}
+
 		default:
 			return state
 		}
