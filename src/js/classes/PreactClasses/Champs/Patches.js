@@ -44,7 +44,7 @@ class Patches extends Component {
         let patches = [];
         Array.from(this.props.patches, patch => {
             patches.push(
-                <div>
+                <div className="topnav__input-holder">
                     <input onChange={() => { this.togglePatch(patch)}} checked={this.isPatchActive(patch)} id={`patch-${patch}`} type="checkbox" />
                     <label for={`patch-${patch}`}>{patch}</label>
                 </div>

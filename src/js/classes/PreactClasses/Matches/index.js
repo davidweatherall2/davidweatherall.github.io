@@ -1,7 +1,7 @@
 import { h, render, Component } from 'preact';
 import { connect } from 'preact-redux';
 
-import MatchElement from './Matches/MatchElement';
+import MatchElement from './MatchElement';
 
 @connect((store) => {
     return {

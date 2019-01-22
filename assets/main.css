@@ -108,8 +108,8 @@ h2, h3 {
   position: relative;
   margin: 20px 10px;
   padding: 20px 20px 30px 20px;
-  background: white;
-  border-left: 2px solid white;
+  background: #fff;
+  border-left: 2px solid #fff;
   box-shadow: 3px 3px 4px rgba(142, 142, 142, 0.3); }
   .card__date {
     position: absolute;
@@ -231,11 +231,36 @@ h2, h3 {
     background: #e8e8e8; }
   .table td {
     padding: 5px 0; }
+  .table th {
+    cursor: pointer; }
+    .table th:hover, .table th.is-active {
+      text-decoration: underline; }
+  .table__holder {
+    padding-top: 100px; }
 
 .topnav {
+  position: absolute;
   display: flex;
+  align-items: flex-start;
   justify-content: space-between;
-  width: 100%; }
+  width: 100%;
+  height: 100px; }
+  .topnav__input-holder {
+    display: none; }
+    .topnav__input-holder:nth-of-type(1) {
+      padding-top: 20px; }
+  .topnav__dropdown {
+    width: 100%;
+    padding: 10px;
+    margin: 0 40px;
+    background: #fff;
+    border: 1px solid; }
+    .topnav__dropdown:hover .topnav__input-holder {
+      display: block; }
+  .topnav__holder {
+    position: relative; }
+  .topnav__title {
+    text-align: center; }
 
 .bg-color--blue {
   background-color: #e6e6ff; }

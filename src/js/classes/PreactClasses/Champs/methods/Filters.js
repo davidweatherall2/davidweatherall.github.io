@@ -10,15 +10,15 @@ class Filters {
 
     getVariables() {
         return [
-            {statName: 'fbTeam', friendlyName: 'First Blood Team', type: 'percent'},
-            {statName: 'fbKiller', friendlyName: 'First Blood Killer', type: 'percent'},
-            {statName: 'fbAssist', friendlyName: 'First Blood Assist', type: 'percent'},
-            {statName: 'firstDeath', friendlyName: 'First Death', type: 'percent'},
-            {statName: 'ftTeam', friendlyName: 'First Tower Team', type: 'percent'},
-            {statName: 'ftKiller', friendlyName: 'First Tower Killer', type: 'percent'},
-            {statName: 'fdTeam', friendlyName: 'First Dragon Team', type: 'percent'},
-            {statName: 'played', friendlyName: 'Games Played', type: 'value'},
-            {statName: 'win', friendlyName: 'Win', type: 'percent'}
+            {statName: 'fbTeam', friendlyName: 'First Blood Team', type: 'percent', defaultOrder : 'desc'},
+            {statName: 'fbKiller', friendlyName: 'First Blood Killer', type: 'percent', defaultOrder : 'desc'},
+            {statName: 'fbAssist', friendlyName: 'First Blood Assist', type: 'percent', defaultOrder : 'desc'},
+            {statName: 'firstDeath', friendlyName: 'First Death', type: 'percent', defaultOrder : 'desc'},
+            {statName: 'ftTeam', friendlyName: 'First Tower Team', type: 'percent', defaultOrder : 'desc'},
+            {statName: 'ftKiller', friendlyName: 'First Tower Killer', type: 'percent', defaultOrder : 'desc'},
+            {statName: 'fdTeam', friendlyName: 'First Dragon Team', type: 'percent', defaultOrder : 'desc'},
+            {statName: 'played', friendlyName: 'Games Played', type: 'value', defaultOrder : 'desc'},
+            {statName: 'win', friendlyName: 'Win', type: 'percent', defaultOrder : 'desc'}
         ];
     }
 

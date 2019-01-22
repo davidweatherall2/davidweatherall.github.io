@@ -44,7 +44,7 @@ class Variables extends Component {
         let variables = [];
         Array.from(this.props.variables, variable => {
             variables.push(
-                <div>
+                <div className="topnav__input-holder">
                     <input onChange={() => { this.toggleVariable(variable)}} checked={this.isVariableActive(variable)} id={`variable-${variable.friendlyName}`} type="checkbox" />
                     <label for={`variable-${variable.friendlyName}`}>{variable.friendlyName}</label>
                 </div>

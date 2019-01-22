@@ -44,7 +44,7 @@ class Regions extends Component {
         let regions = [];
         Array.from(this.props.regions, region => {
             regions.push(
-                <div>
+                <div className="topnav__input-holder">
                     <input onChange={() => { this.toggleRegion(region)}} checked={this.isRegionActive(region)} id={`region-${region}`} type="checkbox" />
                     <label for={`region-${region}`}>{region}</label>
                 </div>

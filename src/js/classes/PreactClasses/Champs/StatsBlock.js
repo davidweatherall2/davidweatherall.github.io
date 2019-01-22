@@ -35,15 +35,41 @@ class StatsBlock extends Component {
         return `${Math.floor(percentage)}%`;
     }
 
+    setActiveColumn(variable) {
+        this.statsClass.setOrder(variable);
+        this.updateChampQuery();
+    }
+
+    checkFirstChamps() {
+        console.log(this.state.champs);
+        if(!this.state.champs && this.statsClass) {
+            this.updateChampQuery();
+        }
+    }
+
+    updateChampQuery() {
+        this.setState({
+            champs: this.statsClass.getChamps()
+        });
+    }
+
+    isColumnActive(variable) {
+        if(this.statsClass && variable.statName === this.statsClass.getOrderVariable()) {
+            return true;
+        }
+        return false;
+    }
+
     renderChampColumns() {
         let columns = [];
         Array.from(this.props.activeVariables, variable => {
-            columns.push(<th>{variable.friendlyName}</th>)
+            columns.push(<th className={this.isColumnActive(variable) ? 'is-active' : ''} onClick={() => this.setActiveColumn(variable)}>{variable.friendlyName}</th>)
         })
         return columns;
     }
 
     renderChampCells(champ) {
+        console.log('render new');
         let cells = [];
 
         Array.from(this.props.activeVariables, variable => {
@@ -60,10 +86,10 @@ class StatsBlock extends Component {
     }
 
     renderfirstChamps() {
-        const firstChamps = this.statsClass.getChamps();
-        if(firstChamps) {
+        this.checkFirstChamps();
+        if(this.state.champs) {
             let firstArray = [];
-            Array.from(firstChamps, champ => {
+            Array.from(this.state.champs, champ => {
                 if(this.props.minPlayed && this.props.minPlayed > champ.played) return;
                 firstArray.push(
                     <tr>
@@ -77,12 +103,13 @@ class StatsBlock extends Component {
     }
 
 	render() {
+        const champColumn = {type : 'alphabetically', defaultOrder : 'asc', statName : 'alphabetically'}
 		return (
-            <div>
+            <div className="table__holder">
                 <table className="table">
                     <tbody>
                         <tr>
-                            <th>Champ</th>
+                            <th className={this.isColumnActive(champColumn) ? 'is-active' : ''} onClick={() => this.setActiveColumn(champColumn)}>Champ</th>
                             {this.renderChampColumns()}
                         </tr>
                         {this.renderfirstChamps()}
@@ -109,6 +136,7 @@ class StatsBlock extends Component {
         }
         if(changed) {
             this.calculateStats();
+            this.updateChampQuery();
         }
     }
 }

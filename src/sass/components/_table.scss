@@ -10,4 +10,13 @@
     td {
         padding: 5px 0;
     }
+    th {
+        cursor: pointer;
+        &:hover, &.is-active {
+            text-decoration: underline;
+        }
+    }
+    &__holder {
+        padding-top: 100px;
+    }
 }

@@ -4,11 +4,29 @@ class Stats {
     constructor(stats) {
         this.stats = stats;
         this.orderBy = 'alphabetically';
+        this.orderByVariable = 'alphabetically';
+        this.orderDirection = 'asc';
     }
 
     setStates(regions, patches) {
         this.regions = regions;
         this.patches = patches;
+    }
+
+    setOrder(variable) {
+        this.orderDirectio
+        if(this.orderBy === variable.type && this.orderByVariable === variable.statName) {
+            this.orderDirection = (this.orderDirection === 'desc') ? 'asc' : 'desc';
+        } else {
+            this.orderBy = variable.type;
+            this.orderByVariable = variable.statName;
+            this.orderDirection = variable.defaultOrder;
+        }
+        this.orderChamps();
+    }
+
+    getOrderVariable() {
+        return this.orderByVariable;
     }
 
     calculate() {
@@ -46,23 +64,24 @@ class Stats {
     sortFunction(a, b) {
         let valA = '';
         let valB = '';
-        switch(this.orderBy) {
-            case 'fbPercentage':
-                valA = b.fbTeam / b.played;
-                valB = a.fbTeam / a.played;
-
-            case 'alphabetically':
-                valA = idToChamp(a.id);
-                valB = idToChamp(b.id);
+        
+        if(this.orderBy === 'percent') {
+            valA = a[this.orderByVariable] / a.played;
+            valB = b[this.orderByVariable] / b.played;
+        } else if(this.orderBy === 'alphabetically') {
+            valA = idToChamp(a.id);
+            valB = idToChamp(b.id);
+        } else if(this.orderBy === 'value') {
+            valA = a[this.orderByVariable];
+            valB = b[this.orderByVariable];
         }
+
         if (valA < valB) {
-            return -1;
+            return (this.orderDirection === 'asc') ? -1 : 1;
         }
         if (valA > valB) {
-            return 1;
+            return (this.orderDirection === 'asc') ? 1 : -1;
         }
-
-        // names must be equal
         return 0;
     }
 

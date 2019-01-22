@@ -6,7 +6,7 @@ import appStore from './reducers/store'
 
 import AppMain from './AppMain';
 import NavBar from './NavBar';
-import Matches from './Matches';
+import Matches from './Matches/index.js';
 
 
 
@@ -24,7 +24,6 @@ class MainLeagueApp extends Component {
 
 
 	updateAppType(type) {
-		console.log(type);
 		this.setState({appType : type });
 	}
  

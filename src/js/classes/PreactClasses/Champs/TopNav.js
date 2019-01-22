@@ -28,18 +28,24 @@ class TopNav extends Component {
 
 	render() {
 		return (
-            <div className="topnav">
-                <div>
-                    Patches: <Patches patches={this.patches}/>
-                </div>
-                <div>
-                    Regions: <Regions regions={this.regions}/>
-                </div>
-                <div>
-                    Variables: <Variables variables={this.variables}/>
-                </div>
-                <div>
-                    Min Played: <MinPlayed />
+            <div className="topnav__holder">
+                <div className="topnav">
+                    <div className="topnav__dropdown">
+                        <div className="topnav__title">Patches</div>
+                        <Patches patches={this.patches}/>
+                    </div>
+                    <div className="topnav__dropdown">
+                        <div className="topnav__title">Regions</div>
+                        <Regions regions={this.regions}/>
+                    </div>
+                    <div className="topnav__dropdown">
+                        <div className="topnav__title">Variables</div>
+                        <Variables variables={this.variables}/>
+                    </div>
+                    <div className="topnav__dropdown">
+                        <div className="topnav__title">Min Played</div>
+                        <MinPlayed />
+                    </div>
                 </div>
             </div>
         );

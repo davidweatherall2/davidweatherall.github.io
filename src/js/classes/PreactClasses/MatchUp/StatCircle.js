@@ -95,6 +95,14 @@ class StatCircle extends Component {
 			</div>
 		);
 	}
+
+	componentWillReceiveProps(newProps) {
+		if(newProps.fbText !== this.props.fbText) {
+			this.setState({
+				circleText: newProps.fbText
+			})
+		}
+	}
 }
 
 export default StatCircle; 
