@@ -49,8 +49,8 @@
 
 html {
   font-size: 62.5%;
-  background: #f7f7f7;
-  color: #313131; }
+  background: #3a3a3a;
+  color: #fff; }
 
 body {
   margin: 0 25px;
@@ -62,8 +62,12 @@ select {
   padding: 10px;
   background: transparent;
   border: none;
-  border-bottom: 1px solid #313131;
+  border-bottom: 1px solid #fff;
+  color: #fff;
   margin: 5px; }
+
+option {
+  background: #252525; }
 
 h2, h3 {
   text-align: center;
@@ -217,18 +221,24 @@ h2, h3 {
   border: 1px solid;
   margin: 10px 0;
   padding: 10px;
-  text-align: center; }
+  text-align: center;
+  background: #252525;
+  cursor: pointer; }
+  .match-card:hover {
+    transform: translateY(-2px) translateX(-2px);
+    box-shadow: 3px 3px 4px 5px #252525; }
   .match-card__teams {
     display: flex; }
   .match-card p {
-    width: 100%; }
+    width: 100%;
+    margin: 5px 0; }
 
 .table {
   width: 100%;
   text-align: center;
   border-collapse: collapse; }
   .table tr:nth-of-type(even) {
-    background: #e8e8e8; }
+    background: #252525; }
   .table td {
     padding: 5px 0; }
   .table th {
@@ -253,7 +263,7 @@ h2, h3 {
     width: 100%;
     padding: 10px;
     margin: 0 40px;
-    background: #fff;
+    background: #252525;
     border: 1px solid; }
     .topnav__dropdown:hover .topnav__input-holder {
       display: block; }
@@ -263,10 +273,10 @@ h2, h3 {
     text-align: center; }
 
 .bg-color--blue {
-  background-color: #e6e6ff; }
+  background-color: #252590; }
 
 .bg-color--red {
-  background-color: #ffe6e6; }
+  background-color: #862121; }
 
 .bdr-color--green {
   border-color: lime; }

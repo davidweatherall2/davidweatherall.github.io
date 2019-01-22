@@ -4,7 +4,7 @@
     border-collapse: collapse;
     tr {
         &:nth-of-type(even) {
-            background: #e8e8e8;
+            background: $offBlack--alt;
         }
     }
     td {

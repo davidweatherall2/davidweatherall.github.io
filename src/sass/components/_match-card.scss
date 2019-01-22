@@ -3,10 +3,19 @@
     margin: 10px 0;
     padding: 10px;
     text-align: center;
+    background: $offBlack--alt;
+    cursor: pointer;
+
+    &:hover {
+        transform: translateY(-2px) translateX(-2px);
+        box-shadow: 3px 3px 4px 5px $offBlack--alt;
+    }
+
     &__teams {
         display: flex;
     }
     p {
         width: 100%;
+        margin: 5px 0;
     }
 }
