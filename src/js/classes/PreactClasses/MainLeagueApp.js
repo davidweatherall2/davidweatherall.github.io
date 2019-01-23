@@ -16,15 +16,21 @@ class MainLeagueApp extends Component {
 		super();
 
 		this.store = appStore
-
-		this.state = {
-			appType: 'matchUp'
-		};
+		if(window.localStorage.appType) {
+			this.state = {
+				appType: window.localStorage.appType
+			};
+		} else {
+			this.state = {
+				appType: 'matchUp'
+			};
+		}
 	}
 
 
 	updateAppType(type) {
 		this.setState({appType : type });
+		window.localStorage.appType = type;
 	}
  
 	render(props, state) {

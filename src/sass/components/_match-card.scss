@@ -7,7 +7,6 @@
     background: $offBlack--alt;
     cursor: pointer;
     animation: 2s pulse;
-    animation-iteration-count: 2;
 
     &:hover {
         transform: translateY(-2px) translateX(-2px);

@@ -10,13 +10,24 @@ class Patches extends Component {
 
 	constructor(props) {
 		super(props);
-        this.setDefaultPatches();
+        if(window.localStorage.patches) {
+            this.setLocalPatches();
+        } else {
+            this.setDefaultPatches();
+        }
 	}
 
     setDefaultPatches() {
         this.props.dispatch({
             type: 'SET_ALL_PATCHES',
             patches: this.props.patches
+        });
+    }
+
+    setLocalPatches() {
+        this.props.dispatch({
+            type: 'SET_ALL_PATCHES',
+            patches: window.localStorage.patches
         });
     }
 
@@ -38,6 +49,7 @@ class Patches extends Component {
             type: 'SET_ALL_PATCHES',
             patches: activePatches
         })
+        window.localStorage.patches = activePatches;
     }
 
     renderPatches() {

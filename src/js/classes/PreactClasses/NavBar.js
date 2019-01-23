@@ -6,6 +6,7 @@ class NavBar extends Component {
 		let options = {
 			matchUp : 'Match Up',
 			champs : 'Champs',
+			players: 'Players'
 		}
 		let links = []
 

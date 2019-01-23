@@ -60,15 +60,18 @@ class Matches extends Component {
         }
     }
 
-    getNextMatches(count = 10) {
+    getNextMatches(max = 10) {
         if(this.props.loading) {
             return 'Loading';
         }
         if(this.props.matches) {
             let matchElements = [];
-            for (let index = 0; index < count; index++) {
-                if(this.props.matches.length > index) {
+            let count = 0;
+            for (let index = 0; index < this.props.matches.length; index++) {
+                const match = this.props.matches[index];
+                if(count < max && this.props.matches[index].datetime > this.state.time) {
                     matchElements.push(<MatchElement store={this.props.store} match={this.props.matches[index]} time={this.getTimeDifference(this.props.matches[index].datetime, this.state.time)}/>);
+                    count++;
                 }
             }
             return matchElements;
@@ -77,7 +80,7 @@ class Matches extends Component {
     }
  
     render(props, state) {
-        return <span>{ this.getNextMatches(10) }</span>;
+        return <span>{ this.getNextMatches(25) }</span>;
     }
 }
 

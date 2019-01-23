@@ -10,7 +10,11 @@ class Variables extends Component {
 
 	constructor(props) {
 		super(props);
-        this.setDefaultVariables();
+        if(window.localStorage.variables) {
+            this.setLocalVariables();
+        } else {
+            this.setDefaultVariables();
+        }
 	}
 
     setDefaultVariables() {
@@ -19,9 +23,20 @@ class Variables extends Component {
             variables: this.props.variables
         });
     }
+    
+    setLocalVariables() {
+        console.log('seting local');
+        this.props.dispatch({
+            type: 'SET_ALL_VARIABLES',
+            variables: JSON.parse(window.localStorage.variables)
+        });
+    }
 
     isVariableActive(variable) {
-        if(this.props.activeVariables && this.props.activeVariables.includes(variable)) {
+        if(this.props.activeVariables) {
+            console.log('checker', this.props.activeVariables.some(activeVariable => activeVariable.statName === variable.statName));
+        }
+        if(this.props.activeVariables && this.props.activeVariables.some(activeVariable => activeVariable.statName === variable.statName)) {
             return 'checked';
         }
         return '';
@@ -29,8 +44,8 @@ class Variables extends Component {
 
     toggleVariable(variable) {
         let activeVariables = Object.assign([], this.props.activeVariables);
-        if(this.props.activeVariables.includes(variable)) {
-            activeVariables = activeVariables.filter(activeVariable => activeVariable !== variable)
+        if(this.props.activeVariables.some(activeVariable => activeVariable.statName === variable.statName)) {
+            activeVariables = activeVariables.filter(activeVariable => activeVariable.statName !== variable.statName)
         } else {
             activeVariables.push(variable);
         }
@@ -38,6 +53,8 @@ class Variables extends Component {
             type: 'SET_ALL_VARIABLES',
             variables: activeVariables
         })
+        console.log('active vars are ', activeVariables);
+        window.localStorage.variables = JSON.stringify(activeVariables);
     }
 
     renderVariables() {
