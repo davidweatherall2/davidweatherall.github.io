@@ -5,6 +5,9 @@
 	min-height: 100px;
 	&__links {
 		flex-grow: 1;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 1px;
 	}
 	ul {
 		display: flex;
@@ -14,8 +17,8 @@
 	}
 	li {
 		cursor: pointer;
-		&:hover {
-			border-bottom: 1px solid black;
+		&:hover, &.is-active {
+			border-bottom: 2px solid $white;
 		}
 	}
 }
