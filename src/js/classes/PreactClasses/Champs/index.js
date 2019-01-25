@@ -30,7 +30,31 @@ class Champs extends Component {
 		})
 	}
 
+	handleResetClick() {
+		window.localStorage.removeItem('variables');
+		window.localStorage.removeItem('patches');
+		window.localStorage.removeItem('regions');
+		this.props.dispatch({
+			type: 'RESET_CHAMPS'
+		});
+		this.setState({
+			reset: true
+		});
+		setTimeout(() => {
+			this.setState({
+				reset: false
+			});
+		}, 1);
+	}
+
 	render() {
+		if(this.state.reset) {
+			return (
+				<div>
+					Resetting
+				</div>
+			);
+		}
 		if(this.props.loading || !this.props.stats) {
 			return (
 				<div>loading</div>
@@ -38,6 +62,9 @@ class Champs extends Component {
 		} else {
 			return (
 				<div>
+					<div className="mb20">
+						<a onClick={this.handleResetClick.bind(this)}>Reset</a>
+					</div>
 					<TopNav />
 					<StatsBlock />
 				</div>

@@ -39,6 +39,15 @@ export default function stats(state = {loading: 0}, action) {
 				minPlayed: action.minPlayed
 			}
 
+		case 'RESET_STATS':
+			return {
+				...state,
+				activePatches: undefined,
+				activeRegions: undefined,
+				activeVariables: undefined,
+				minPlayed: undefined,
+			}
+
 		default:
 			return state
 		}
