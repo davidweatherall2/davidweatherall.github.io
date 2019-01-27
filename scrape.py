@@ -5,13 +5,13 @@ import time
 
 
 regions = {
-	'LCK': {'url' : 'https://api.lolesports.com/api/v1/leagues?slug=lck', 'region_code' : 'ESPORTSTMNT01'},
-	'NALCS': {'url' : 'https://api.lolesports.com/api/v1/leagues?slug=lcs', 'region_code' : 'ESPORTSTMNT02'},
-	'EULCS': {'url' : 'https://api.lolesports.com/api/v1/leagues?slug=lec', 'region_code' : 'ESPORTSTMNT02'},
-	'CBLOL': {'url' : 'https://api.lolesports.com/api/v1/leagues?slug=cblol-brazil', 'region_code' : 'ESPORTSTMNT01'},
-	'LMS' :  {'url' : 'https://api.lolesports.com/api/v1/leagues?slug=lms', 'region_code' : 'ESPORTSTMNT03'},
-	'TCL': {'url' : 'https://api.lolesports.com/api/v1/leagues?slug=turkiye-sampiyonluk-ligi', 'region_code' : 'ESPORTSTMNT03'},
-	'OPL': {'url' : 'https://api.lolesports.com/api/v1/leagues?slug=oce-opl', 'region_code' : 'ESPORTSTMNT01'}
+	'LCK': {'url' : 'https://api.lolesports.com/api/v1/leagues?slug=lck'},
+	'NALCS': {'url' : 'https://api.lolesports.com/api/v1/leagues?slug=lcs'},
+	'EULCS': {'url' : 'https://api.lolesports.com/api/v1/leagues?slug=lec'},
+	'CBLOL': {'url' : 'https://api.lolesports.com/api/v1/leagues?slug=cblol-brazil'},
+	'LMS' :  {'url' : 'https://api.lolesports.com/api/v1/leagues?slug=lms'},
+	'TCL': {'url' : 'https://api.lolesports.com/api/v1/leagues?slug=turkiye-sampiyonluk-ligi'},
+	'OPL': {'url' : 'https://api.lolesports.com/api/v1/leagues?slug=oce-opl'}
 }
 
 data_path = 'raw/'
@@ -27,13 +27,23 @@ else:
 
 
 
-def getGame(game_id, gameHash, region):
+def getGame(game_id, gameHash):
 
-	url_string = 'https://acs.leagueoflegends.com/v1/stats/game/{}/{}?gameHash={}'.format(region, game_id, gameHash)
-	print('getting api: {}'.format(url_string))
-	json_raw = getJson(url_string)
-	if json_raw == False:
-		return False
+	region_base = 'ESPORTSTMNT0'
+	region = ''
+	i = 1
+	while i < 6:
+		region = region_base + str(i)
+		print('checking region {}'.format(region))
+		url_string = 'https://acs.leagueoflegends.com/v1/stats/game/{}/{}?gameHash={}'.format(region, game_id, gameHash)
+		print('getting api: {}'.format(url_string))
+		json_raw = getJson(url_string)
+		if json_raw == False:
+			i += 1
+			if i == 6:
+				print('no match found')
+		else:
+			break
 
 	json_file = open(data_path + 'game/{}.json'.format(str(game_id)), 'wb')
 	json_file.write(json_raw.encode('utf-8'))
@@ -152,7 +162,7 @@ def scrape():
 					match_json = json.loads(match_json_raw)
 
 					if len(match_json['scheduleItems']) > 0:
-						# print('week: {}, day: {}'.format(match_json['scheduleItems'][0]['tags']['blockLabel'], match_json['scheduleItems'][0]['tags']['subBlockLabel']))
+						print('week: {}, day: {}'.format(match_json['scheduleItems'][0]['tags']['blockLabel'], match_json['scheduleItems'][0]['tags']['subBlockLabel']))
 						if len(match_json['teams']) == 2:
 							scheduled_matches.append({
 								'region' : region_name,
@@ -174,7 +184,7 @@ def scrape():
 							print('skipping: ' + game_id)
 							continue
 
-						getGame(game_id, game_hash, region_dict['region_code'])
+						getGame(game_id, game_hash)
 						game_map[game_id] = region_name
 
 					print('{} / {} region'.format(number_regions_scraped, total_regions))
