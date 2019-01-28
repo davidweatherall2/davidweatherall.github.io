@@ -80,6 +80,23 @@ def getJson(url_string):
 
 	return json_raw
 
+def addImage(match_json, region):
+	if not os.path.isdir("assets/img/logos"):
+		os.makedirs("assets/img/logos")
+
+	if not os.path.isdir("assets/img/logos/{}".format(region)):
+		os.makedirs("assets/img/logos/{}".format(region))
+
+	teams = [match_json['teams'][0]['']]
+
+	i = 0
+	while i < 1:
+		team_acro = match_json['teams'][i]["acronym"]
+		if not in os.listdir("assets/img/logos/{}/{}.png".format(region, team_acro)):
+			logo_link = match_json['teams'][i]["logoUrl"]
+			urllib.request.urlretrieve(logo_link, "assets/img/logos/{}/{}.png".format(region, team_acro))
+		i += 1
+
 def wipeDir():
 	os.system('rm -rf {}game/*'.format(data_path))
 	os.system('rm -rf {}timeline/*'.format(data_path))
@@ -160,6 +177,8 @@ def scrape():
 					match_json_raw = getJson(match_url_string)
 
 					match_json = json.loads(match_json_raw)
+
+					addImage(match_json, region_name)
 
 					if len(match_json['scheduleItems']) > 0:
 						print('week: {}, day: {}'.format(match_json['scheduleItems'][0]['tags']['blockLabel'], match_json['scheduleItems'][0]['tags']['subBlockLabel']))
