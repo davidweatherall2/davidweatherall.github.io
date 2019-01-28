@@ -1,12 +1,48 @@
 .match-card {
+    position: relative;
     border: 2px solid;
     margin: 10px 0;
     padding: 10px;
     font-weight: 600;
     text-align: center;
+    text-shadow: 1px 1px 5px $offBlack--alt;
     background: $offBlack--alt;
     cursor: pointer;
     animation: 2s pulse;
+
+    &__background {
+        width: 50%;
+        height: 100%;
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    &__content {
+        z-index: 2;
+        display: flex;
+    }
+
+    &__backgrounds {
+        position: relative;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        display: flex;
+        width: 100%;
+        height: 50px;
+    }
+
+    &__time {
+        flex-grow: 1;
+    }
+
+    &__league {
+        flex-shrink: 0;
+        padding-right: 5px;
+        border-right: 2px solid;
+        margin-right: 5px;
+    }
 
     &:hover {
         transform: translateY(-2px) translateX(-2px);
