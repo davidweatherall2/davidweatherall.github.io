@@ -25,6 +25,20 @@
 		}
 	}
 
+	&__result {
+		margin-top: 5px;
+		font-weight: 600;
+		letter-spacing: 1px;
+		text-align: center;
+		text-decoration: underline;
+		&--win {
+			color: $green;
+		}
+		&--lose {
+			color: $red;
+		}
+	}
+
 	&__table {
 		width: 100%;
 		padding: 0 5px;
