@@ -134,6 +134,16 @@ class MatchUp extends Component {
 		}
 	}
 
+	renderTeamsVS() {
+		if(this.props.team1 && this.props.team2) {
+			return (
+				<div>
+					{this.props.team1} vs {this.props.team2}
+				</div>
+			)
+		}
+	}
+
 	render() {
 		return (
 			<div>
@@ -144,6 +154,9 @@ class MatchUp extends Component {
 					<div>
 						{this.renderTeams() }
 					</div>
+				</div>
+				<div>
+					{this.renderTeamsVS()}
 				</div>
 				<div>
 					{this.renderStats() }

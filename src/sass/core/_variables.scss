@@ -1,7 +1,8 @@
-$red: red;
+$red: #ffb7b7;
 $red--dark: #862121;
 $blue: blue;
 $blue--dark: #252590;
+$blue--light: #a9a9ff;
 $green: lime;
 $white: white;
 $grey: #f7f7f7;
@@ -13,7 +14,7 @@ $trueBlack: #000000;
 $white: #fff;
 
 
-$box-shadow: 3px 3px 4px rgba(142, 142, 142, 0.3);
+$box-shadow: 3px 3px 4px rgba($trueBlack, 0.3);
 
 
 $mobile: 640px;

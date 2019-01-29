@@ -55,15 +55,21 @@ class MatchCard extends Component {
 		return `bg-color--default`;
 	}
 
-	getBorder() {
+	getResult() {
 		if(this.getIndex() !== false) {
 			if(this.props.game.win == this.getIndex()) {
-				return `bdr-color--green`;
+				return (
+					<div className="matches__result  matches__result--win">
+						WIN
+					</div>
+				);
 			} else {
-				return `bdr-color--red`;
+				return (
+					<div className="matches__result  matches__result--lose">
+						LOSE
+					</div>
+				);
 			}
-		} else {
-			return `bdr-color--greyer`;
 		}
 	}
 
@@ -113,12 +119,15 @@ class MatchCard extends Component {
 		}
 
 		return (
-			<div className="matches__column  flex  flex-justify--between">
-				<img className="card__logo"  src={`/assets/img/teams/${team1}.png`} />
-				<span className="card__vs">
-					vs
-				</span>
-				<img className="card__logo"  src={`/assets/img/teams/${team2}.png`} />
+			<div className="matches__column">
+				<div className="flex  flex-justify--between">
+					<img className="card__logo"  src={`/assets/img/logos/${this.props.activeRegion}/${team1}.png`} />
+					<span className="card__vs">
+						vs
+					</span>
+					<img className="card__logo"  src={`/assets/img/logos/${this.props.activeRegion}/${team2}.png`} />
+				</div>
+				{this.getResult()}
 			</div>
 		);
 	}
@@ -144,7 +153,7 @@ class MatchCard extends Component {
 
 	render() {
 		return (
-			<div className={`card  ${this.getBackground()}  ${this.getBorder()}`} data-count={this.props.count}> 
+			<div className={`card  ${this.getBackground()}`} data-count={this.props.count}> 
 				<div className="card__date">
 					{this.getTime(this.props.game.time)}
 				</div>

@@ -48,7 +48,7 @@
   color: lime; }
 
 .t-colour--red {
-  color: red; }
+  color: #ffb7b7; }
 
 .t-colour--blue {
   color: blue; }
@@ -115,6 +115,16 @@ a {
         max-width: 100%; }
         .matches__column.no-break {
           max-width: 50%; } }
+  .matches__result {
+    margin-top: 5px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-align: center;
+    text-decoration: underline; }
+    .matches__result--win {
+      color: lime; }
+    .matches__result--lose {
+      color: #ffb7b7; }
   .matches__table {
     width: 100%;
     padding: 0 5px;
@@ -135,8 +145,7 @@ a {
   margin: 20px 10px;
   padding: 20px 20px 30px 20px;
   background: #fff;
-  border-left: 2px solid #fff;
-  box-shadow: 3px 3px 4px rgba(142, 142, 142, 0.3); }
+  box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.3); }
   .card__date {
     position: absolute;
     top: 0;
@@ -240,14 +249,40 @@ a {
     opacity: 0.8; }
 
 .match-card {
+  position: relative;
   border: 2px solid;
   margin: 10px 0;
   padding: 10px;
   font-weight: 600;
   text-align: center;
+  text-shadow: 1px 1px 5px #252525;
   background: #252525;
   cursor: pointer;
   animation: 2s pulse; }
+  .match-card__background {
+    width: 50%;
+    height: 100%;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat; }
+  .match-card__content {
+    z-index: 2;
+    display: flex; }
+  .match-card__backgrounds {
+    position: relative;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    display: flex;
+    width: 100%;
+    height: 50px; }
+  .match-card__time {
+    flex-grow: 1; }
+  .match-card__league {
+    flex-shrink: 0;
+    padding-right: 5px;
+    border-right: 2px solid;
+    margin-right: 5px; }
   .match-card:hover {
     transform: translateY(-2px) translateX(-2px);
     box-shadow: 3px 3px 4px 5px #252525; }
@@ -320,7 +355,7 @@ a {
   border-color: lime; }
 
 .bdr-color--red {
-  border-color: red; }
+  border-color: #ffb7b7; }
 
 .bdr-color--grey {
   border-color: #e6e6e6; }
@@ -331,8 +366,11 @@ a {
 .colour__blue {
   color: blue; }
 
+.colour__light-blue {
+  color: #a9a9ff; }
+
 .colour__red {
-  color: red; }
+  color: #ffb7b7; }
 
 .mb20 {
   margin-bottom: 20px; }
