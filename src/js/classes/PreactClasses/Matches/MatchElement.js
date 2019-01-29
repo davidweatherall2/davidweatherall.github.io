@@ -26,8 +26,8 @@ class MatchElement extends Component {
         return (
             <div className="match-card" onClick={this.handleCardClick.bind(this)}>
                 <div className="match-card__backgrounds">
-                    <div className="match-card__background" style={`background-image: url('/assets/img/teams/${this.props.match.team1acro}.png')`}></div>
-                    <div className="match-card__background" style={`background-image: url('/assets/img/teams/${this.props.match.team2acro}.png')`}></div>
+                    <div className="match-card__background" style={`background-image: url('/assets/img/logos/${this.props.match.region}/${this.props.match.team1acro}.png')`}></div>
+                    <div className="match-card__background" style={`background-image: url('/assets/img/logos/${this.props.match.region}/${this.props.match.team2acro}.png')`}></div>
                 </div>
                 <div className="match-card__content">
                     <div className="match-card__league">{this.props.match.region}</div>

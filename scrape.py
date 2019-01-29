@@ -87,12 +87,10 @@ def addImage(match_json, region):
 	if not os.path.isdir("assets/img/logos/{}".format(region)):
 		os.makedirs("assets/img/logos/{}".format(region))
 
-	teams = [match_json['teams'][0]['']]
-
 	i = 0
-	while i < 1:
+	while i < 2:
 		team_acro = match_json['teams'][i]["acronym"]
-		if not in os.listdir("assets/img/logos/{}/{}.png".format(region, team_acro)):
+		if "{}.png".format(team_acro) not in os.listdir("assets/img/logos/{}/".format(region)):
 			logo_link = match_json['teams'][i]["logoUrl"]
 			urllib.request.urlretrieve(logo_link, "assets/img/logos/{}/{}.png".format(region, team_acro))
 		i += 1

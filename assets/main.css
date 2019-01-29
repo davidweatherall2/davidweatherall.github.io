@@ -366,6 +366,9 @@ a {
 .colour__blue {
   color: blue; }
 
+.colour__light-blue {
+  color: #a9a9ff; }
+
 .colour__red {
   color: #ffb7b7; }
 

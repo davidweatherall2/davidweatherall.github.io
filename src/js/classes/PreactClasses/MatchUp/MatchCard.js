@@ -121,11 +121,11 @@ class MatchCard extends Component {
 		return (
 			<div className="matches__column">
 				<div className="flex  flex-justify--between">
-					<img className="card__logo"  src={`/assets/img/teams/${team1}.png`} />
+					<img className="card__logo"  src={`/assets/img/logos/${this.props.activeRegion}/${team1}.png`} />
 					<span className="card__vs">
 						vs
 					</span>
-					<img className="card__logo"  src={`/assets/img/teams/${team2}.png`} />
+					<img className="card__logo"  src={`/assets/img/logos/${this.props.activeRegion}/${team2}.png`} />
 				</div>
 				{this.getResult()}
 			</div>
