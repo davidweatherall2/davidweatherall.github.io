@@ -1,11 +1,7 @@
 import { h, render, Component } from 'preact';
 import { connect } from 'preact-redux';
 
-import Stats from './methods/Stats';
 import { idToChamp } from './methods/ChampFuncs';
-
-import Calculator from './Calculator';
-import Table from './Table';
 
 @connect((store) => {
     return {
@@ -16,49 +12,37 @@ import Table from './Table';
         minPlayed: store.stats.minPlayed
     }
 })
-class StatsBlock extends Component {
+class Table extends Component {
 
 	constructor(props) {
 		super(props);
-        this.setState({
-            activeRegions: this.props.activeRegions,
-            activePatches: this.props.activePatches,
-            active: 'table'
-        });
-        this.statsClass = new Stats(this.props.stats);
-        this.calculateStats();
 	}
 
-    calculateStats() {
-        this.statsClass.setStates(this.state.activeRegions, this.state.activePatches);
-        this.statsClass.calculate();
-    }
-
-    getPercentage(a, b) {
+	getPercentage(a, b) {
         const percentage = (a / b) * 100;
         return `${Math.floor(percentage)}%`;
     }
 
     setActiveColumn(variable) {
-        this.statsClass.setOrder(variable);
+        this.props.statsClass.setOrder(variable);
         this.updateChampQuery();
     }
 
     checkFirstChamps() {
         console.log(this.state.champs);
-        if(!this.state.champs && this.statsClass) {
+        if(!this.state.champs && this.props.statsClass) {
             this.updateChampQuery();
         }
     }
 
     updateChampQuery() {
         this.setState({
-            champs: this.statsClass.getChamps()
+            champs: this.props.statsClass.getChamps()
         });
     }
 
     isColumnActive(variable) {
-        if(this.statsClass && variable.statName === this.statsClass.getOrderVariable()) {
+        if(this.props.statsClass && variable.statName === this.props.statsClass.getOrderVariable()) {
             return true;
         }
         return false;
@@ -104,59 +88,33 @@ class StatsBlock extends Component {
             })
             return firstArray;
         }
-    }
-
-    renderSwitcher() {
-        return (
-            <div>
-                <a onClick={() => { this.setState({active: 'table'})}}>Table</a>
-                <a onClick={() => { this.setState({active: 'calculator'})}}>Calculator</a>
-            </div>
-        );
-    }
-
-    renderContent() {
-        switch(this.state.active) {
-            case 'table':
-                console.log('sending new table');
-                return <Table statsClass={this.statsClass}/>
-            case 'calculator':
-                return <Calculator />
-            default: 
-                return ''
-        }
-    }
+	}
+	
+	checkStatsUpdated() {
+		if(!(this.props.statsClass.getChamps() === this.state.champs)) {
+			this.updateChampQuery();
+		}
+	}
 
 	render() {
-        return (
-            <div>
-                {this.renderSwitcher()}
-                {this.renderContent()}
+		this.checkStatsUpdated();
+        const champColumn = {type : 'alphabetically', defaultOrder : 'asc', statName : 'alphabetically'}
+		return (
+            <div className="table__holder">
+                <table className="table">
+                    <tbody>
+                        <tr>
+                            <th className={this.isColumnActive(champColumn) ? 'is-active' : ''} onClick={() => this.setActiveColumn(champColumn)}>Champ</th>
+                            {this.renderChampColumns()}
+                        </tr>
+                        {this.renderfirstChamps()}
+                    </tbody>
+                </table>
             </div>
-        );
-    }
-
-    componentWillReceiveProps(newProps) {
-        let changed = false;
-        if(this.state.activePatches !== newProps.activePatches) {
-            this.setState({
-                activePatches: newProps.activePatches
-            })
-            changed = true;
-        }
-
-        if(this.state.activeRegions !== newProps.activeRegions) {
-            this.setState({
-                activeRegions: newProps.activeRegions
-            })
-            changed = true;
-        }
-        if(changed) {
-            this.calculateStats();
-            this.updateChampQuery();
-        }
-    }
+        )
+	}
+	
 }
 
 
-export default StatsBlock;
+export default Table;

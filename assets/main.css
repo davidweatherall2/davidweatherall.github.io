@@ -341,7 +341,8 @@ a {
       .topnav__dropdown label:hover {
         text-decoration: underline; }
   .topnav__holder {
-    position: relative; }
+    position: relative;
+    height: 100px; }
   .topnav__title {
     text-align: center; }
 
