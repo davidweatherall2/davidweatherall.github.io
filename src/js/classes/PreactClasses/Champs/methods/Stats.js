@@ -3,9 +3,20 @@ import { idToChamp } from './ChampFuncs';
 class Stats {
     constructor(stats) {
         this.stats = stats;
+        this.setDefaultOrder();
+    }
+
+    isDefaultOrder() {
+        return (this.orderBy === 'alphabetically' &&
+            this.orderByVariable === 'alphabetically' &&
+            this.orderDirection === 'asc');
+    }
+
+    setDefaultOrder() {
         this.orderBy = 'alphabetically';
         this.orderByVariable = 'alphabetically';
         this.orderDirection = 'asc';
+        this.orderChamps();
     }
 
     setStates(regions, patches) {
@@ -14,7 +25,6 @@ class Stats {
     }
 
     setOrder(variable) {
-        this.orderDirectio
         if(this.orderBy === variable.type && this.orderByVariable === variable.statName) {
             this.orderDirection = (this.orderDirection === 'desc') ? 'asc' : 'desc';
         } else {
