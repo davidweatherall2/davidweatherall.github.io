@@ -1,0 +1,9 @@
+.calculator {
+	&__champs {
+		display: flex;
+		flex-wrap: wrap;
+	}
+	&__champ-holder {
+		width: 20%;
+	}
+}

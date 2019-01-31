@@ -5,9 +5,6 @@ import { idToChamp } from './methods/ChampFuncs';
 
 @connect((store) => {
     return {
-        stats: store.stats.stats,
-        activeRegions: store.stats.activeRegions,
-        activePatches: store.stats.activePatches,
         activeVariables: store.stats.activeVariables,
         minPlayed: store.stats.minPlayed
     }
@@ -24,25 +21,11 @@ class Table extends Component {
     }
 
     setActiveColumn(variable) {
-        this.props.statsClass.setOrder(variable);
-        this.updateChampQuery();
-    }
-
-    checkFirstChamps() {
-        console.log(this.state.champs);
-        if(!this.state.champs && this.props.statsClass) {
-            this.updateChampQuery();
-        }
-    }
-
-    updateChampQuery() {
-        this.setState({
-            champs: this.props.statsClass.getChamps()
-        });
+        this.props.setOrder(variable);
     }
 
     isColumnActive(variable) {
-        if(this.props.statsClass && variable.statName === this.props.statsClass.getOrderVariable()) {
+        if(variable.statName === this.props.getOrderVariable()) {
             return true;
         }
         return false;
@@ -74,10 +57,9 @@ class Table extends Component {
     }
 
     renderfirstChamps() {
-        this.checkFirstChamps();
-        if(this.state.champs) {
+        if(this.props.champsArray) {
             let firstArray = [];
-            Array.from(this.state.champs, champ => {
+            Array.from(this.props.champsArray, champ => {
                 if(this.props.minPlayed && this.props.minPlayed > champ.played) return;
                 firstArray.push(
                     <tr>
@@ -89,15 +71,8 @@ class Table extends Component {
             return firstArray;
         }
 	}
-	
-	checkStatsUpdated() {
-		if(!(this.props.statsClass.getChamps() === this.state.champs)) {
-			this.updateChampQuery();
-		}
-	}
 
 	render() {
-		this.checkStatsUpdated();
         const champColumn = {type : 'alphabetically', defaultOrder : 'asc', statName : 'alphabetically'}
 		return (
             <div className="table__holder">

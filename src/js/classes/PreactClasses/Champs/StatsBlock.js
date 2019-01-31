@@ -27,83 +27,21 @@ class StatsBlock extends Component {
         });
         this.statsClass = new Stats(this.props.stats);
         this.calculateStats();
-	}
+    }
+    
+    setDefaultOrder() {
+        if(!this.statsClass.isDefaultOrder()) {
+            this.statsClass.setDefaultOrder();
+            this.calculateStats();
+        }
+    }
 
     calculateStats() {
         this.statsClass.setStates(this.state.activeRegions, this.state.activePatches);
         this.statsClass.calculate();
-    }
-
-    getPercentage(a, b) {
-        const percentage = (a / b) * 100;
-        return `${Math.floor(percentage)}%`;
-    }
-
-    setActiveColumn(variable) {
-        this.statsClass.setOrder(variable);
-        this.updateChampQuery();
-    }
-
-    checkFirstChamps() {
-        console.log(this.state.champs);
-        if(!this.state.champs && this.statsClass) {
-            this.updateChampQuery();
-        }
-    }
-
-    updateChampQuery() {
         this.setState({
             champs: this.statsClass.getChamps()
         });
-    }
-
-    isColumnActive(variable) {
-        if(this.statsClass && variable.statName === this.statsClass.getOrderVariable()) {
-            return true;
-        }
-        return false;
-    }
-
-    renderChampColumns() {
-        let columns = [];
-        Array.from(this.props.activeVariables, variable => {
-            columns.push(<th className={this.isColumnActive(variable) ? 'is-active' : ''} onClick={() => this.setActiveColumn(variable)}>{variable.friendlyName}</th>)
-        })
-        return columns;
-    }
-
-    renderChampCells(champ) {
-        console.log('render new');
-        let cells = [];
-
-        Array.from(this.props.activeVariables, variable => {
-            let cell = '';
-            if(variable.type === 'percent') {
-                cell = <td>{this.getPercentage(champ[variable.statName], champ.played)}</td>
-            }
-            if(variable.type === 'value') {
-                cell = <td>{champ[variable.statName]}</td>
-            }
-            cells.push(cell);
-        })
-        return cells;
-    }
-
-    renderfirstChamps() {
-        this.checkFirstChamps();
-        if(this.state.champs) {
-            let firstArray = [];
-            Array.from(this.state.champs, champ => {
-                if(this.props.minPlayed && this.props.minPlayed > champ.played) return;
-                firstArray.push(
-                    <tr>
-                        <td>{idToChamp(champ.id)}</td>
-                        {this.renderChampCells(champ)}
-                    </tr>
-                )
-            })
-            return firstArray;
-        }
     }
 
     renderSwitcher() {
@@ -115,13 +53,22 @@ class StatsBlock extends Component {
         );
     }
 
+    getOrderVariable() {
+        return this.statsClass.getOrderVariable();
+    }
+
+    setOrder(variable) {
+        this.statsClass.setOrder(variable);
+        this.calculateStats();
+    }
+
     renderContent() {
         switch(this.state.active) {
             case 'table':
-                console.log('sending new table');
-                return <Table statsClass={this.statsClass}/>
+                return <Table setOrder={this.setOrder} getOrderVariable={this.getOrderVariable.bind(this)} champsArray={this.state.champs}/>
             case 'calculator':
-                return <Calculator />
+                this.setDefaultOrder();
+                return <Calculator champsArray={this.state.champs}/>
             default: 
                 return ''
         }
@@ -153,7 +100,6 @@ class StatsBlock extends Component {
         }
         if(changed) {
             this.calculateStats();
-            this.updateChampQuery();
         }
     }
 }
