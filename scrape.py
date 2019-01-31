@@ -88,12 +88,13 @@ def addImage(match_json, region):
 		os.makedirs("assets/img/logos/{}".format(region))
 
 	i = 0
-	while i < 2:
-		team_acro = match_json['teams'][i]["acronym"]
-		if "{}.png".format(team_acro) not in os.listdir("assets/img/logos/{}/".format(region)):
-			logo_link = match_json['teams'][i]["logoUrl"]
-			urllib.request.urlretrieve(logo_link, "assets/img/logos/{}/{}.png".format(region, team_acro))
-		i += 1
+	if len(match_json['teams']) > 1:
+		while i < 2:
+			team_acro = match_json['teams'][i]["acronym"]
+			if "{}.png".format(team_acro) not in os.listdir("assets/img/logos/{}/".format(region)):
+				logo_link = match_json['teams'][i]["logoUrl"]
+				urllib.request.urlretrieve(logo_link, "assets/img/logos/{}/{}.png".format(region, team_acro))
+			i += 1
 
 def wipeDir():
 	os.system('rm -rf {}game/*'.format(data_path))
