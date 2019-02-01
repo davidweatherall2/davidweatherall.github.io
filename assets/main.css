@@ -314,6 +314,12 @@ a {
       text-decoration: underline; }
   .table__holder {
     padding-top: 20px; }
+  .table__choices {
+    display: flex;
+    justify-content: center;
+    width: 100%; }
+    .table__choices a {
+      margin: 0 20px; }
 
 .topnav {
   position: absolute;
@@ -351,6 +357,9 @@ a {
   flex-wrap: wrap; }
 
 .calculator__champ-holder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 20%; }
 
 .calculator__list {

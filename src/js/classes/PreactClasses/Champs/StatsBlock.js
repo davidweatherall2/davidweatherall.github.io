@@ -46,7 +46,7 @@ class StatsBlock extends Component {
 
     renderSwitcher() {
         return (
-            <div>
+            <div className="table__choices">
                 <a onClick={() => { this.setState({active: 'table'})}}>Table</a>
                 <a onClick={() => { this.setState({active: 'calculator'})}}>Calculator</a>
             </div>

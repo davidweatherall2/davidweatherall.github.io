@@ -4,6 +4,9 @@
 		flex-wrap: wrap;
 	}
 	&__champ-holder {
+		display: flex;
+		flex-direction: column;
+		align-items: center;	
 		width: 20%;
 	}
 

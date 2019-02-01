@@ -19,4 +19,13 @@
     &__holder {
         padding-top: 20px;
     }
+
+    &__choices {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        a {
+            margin: 0 20px;
+        }
+    }
 }
