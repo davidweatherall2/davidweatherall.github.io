@@ -13,6 +13,7 @@ class Filters {
             {statName: 'fbTeam', friendlyName: 'First Blood Team', type: 'percent', defaultOrder : 'desc'},
             {statName: 'fbKiller', friendlyName: 'First Blood Killer', type: 'percent', defaultOrder : 'desc'},
             {statName: 'fbAssist', friendlyName: 'First Blood Assist', type: 'percent', defaultOrder : 'desc'},
+            {statName: 'fbInvolved', friendlyName: 'First Blood Involvement', type: 'percent', defaultOrder : 'desc'},
             {statName: 'firstDeath', friendlyName: 'First Death', type: 'percent', defaultOrder : 'desc'},
             {statName: 'ftTeam', friendlyName: 'First Tower Team', type: 'percent', defaultOrder : 'desc'},
             {statName: 'ftKiller', friendlyName: 'First Tower Killer', type: 'percent', defaultOrder : 'desc'},

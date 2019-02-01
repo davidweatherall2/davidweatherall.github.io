@@ -65,7 +65,7 @@ class StatsBlock extends Component {
     renderContent() {
         switch(this.state.active) {
             case 'table':
-                return <Table setOrder={this.setOrder} getOrderVariable={this.getOrderVariable.bind(this)} champsArray={this.state.champs}/>
+                return <Table setOrder={this.setOrder.bind(this)} getOrderVariable={this.getOrderVariable.bind(this)} champsArray={this.state.champs}/>
             case 'calculator':
                 this.setDefaultOrder();
                 return <Calculator champsArray={this.state.champs}/>

@@ -112,6 +112,9 @@ class Stats {
             if(player.firstBloodAssist) {
                 this.firstChampsObject[champId]['fbAssist']++;
             }
+            if(player.firstBloodAssist || player.firstBloodKill) {
+                this.firstChampsObject[champId]['fbInvolved']++;
+            }
             if(player.firstDeath) {
                 this.firstChampsObject[champId]['firstDeath']++;
             }
@@ -144,7 +147,8 @@ class Stats {
             fbAssist: 0,
             firstDeath: 0,
             ftKiller: 0,
-            win: 0
+            win: 0,
+            fbInvolved: 0
         }
     }
 
