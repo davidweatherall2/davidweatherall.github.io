@@ -1,0 +1,11 @@
+.stat {
+	display: block;
+	&--high {
+		color: $green;
+		font-weight: 700;
+	}
+	&--low {
+		color: $red;
+		font-weight: 700;
+	}
+}

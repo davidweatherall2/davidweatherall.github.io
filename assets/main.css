@@ -353,6 +353,23 @@ a {
 .calculator__champ-holder {
   width: 20%; }
 
+.calculator__list {
+  list-style: none;
+  margin: 5px;
+  padding: 5px;
+  border: 1px solid; }
+  .calculator__list li {
+    display: block; }
+
+.stat {
+  display: block; }
+  .stat--high {
+    color: lime;
+    font-weight: 700; }
+  .stat--low {
+    color: #ffb7b7;
+    font-weight: 700; }
+
 .bg-color--blue {
   background-color: #252590; }
 

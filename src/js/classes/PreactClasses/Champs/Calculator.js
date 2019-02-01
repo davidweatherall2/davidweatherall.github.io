@@ -91,16 +91,41 @@ class Calculator extends Component {
 		}
 	}
 
+	getSingleStat(variable, champId) {
+		let modifier = '';
+		const gamesPlayed = this.state.champsObject[champId].played;
+		const stat = this.getVariableStat(champId, variable);
+		console.log('variable is ', variable);
+		console.log('variable average is ', variable.average);
+		if(variable.average && variable.type === 'percent' && gamesPlayed > 10) {
+			const statInt = Number.parseInt(stat);
+			console.log('got here');
+			if(statInt > variable.average + 5) {
+				modifier = 'high';
+			}
+			if(statInt < variable.average - 5) {
+				modifier = 'low';
+			}
+		}
+		return (
+			<span className={`stat  stat--${modifier}`}>{variable.friendlyName}: {stat}</span>
+		);
+	}
+
 	getChampStats(champId) {
 		let champStats = [];
 		if(this.state.champsObject && this.state.champsObject[champId]) {
 			Array.from(this.props.activeVariables, variable => {
-				champStats.push(<li>{variable.friendlyName}: {this.getVariableStat(champId, variable)}</li>)
+				champStats.push(<li>{this.getSingleStat(variable, champId)}</li>)
 			});
 		} else {
 			champStats.push(<li>No stats found</li>)
 		}
-		return champStats;
+		return (
+			<ul className="calculator__list">
+				{champStats}
+			</ul>
+		);
 	}
 
 	render() {
