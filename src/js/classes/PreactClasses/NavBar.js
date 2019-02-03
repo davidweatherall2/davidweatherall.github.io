@@ -11,10 +11,15 @@ class NavBar extends Component {
 		let links = []
 
 		for (const option in options) {
-			links.push(<li onClick={() => this.props.updateAppType(option)}>{options[option]}</li>);
+			links.push(<li onClick={() => this.props.updateAppType(option)} className={this.isActive(option) ? 'is-active' : ''}>{options[option]}</li>);
 		}
 		return links;
 	}
+
+	isActive(option) {
+		return option === this.props.appType;
+	}
+
 
 	render() {
 		return (

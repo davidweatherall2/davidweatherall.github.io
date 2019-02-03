@@ -18,8 +18,12 @@
         margin: 0 40px;
         background: $offBlack--alt;
         border: 2px solid;
-        &:hover .topnav__input-holder {
-            display: flex;
+        &:hover {
+            transform: translateY(-2px) translateX(-2px);
+            box-shadow: 2px 2px 5px $offBlack--alt;
+            .topnav__input-holder {
+                display: flex;
+            }
         }
         label {
             width: 100%;

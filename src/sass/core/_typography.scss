@@ -10,10 +10,17 @@ h2 {
 }
 
 a {
+    padding: 5px;
 	color: $white;
     text-decoration: none;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 3px;
-    border-bottom: 2px solid;
+    border: 2px solid;
+    cursor: pointer;
+    &:hover {
+        background: $offBlack--alt;
+        transform: translateY(-2px) translateX(-2px);
+        box-shadow: 2px 2px 5px 0px $offBlack--alt;
+    }
 }

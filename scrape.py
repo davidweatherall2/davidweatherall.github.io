@@ -180,7 +180,7 @@ def scrape():
 					addImage(match_json, region_name)
 
 					if len(match_json['scheduleItems']) > 0:
-						print('week: {}, day: {}'.format(match_json['scheduleItems'][0]['tags']['blockLabel'], match_json['scheduleItems'][0]['tags']['subBlockLabel']))
+						# print('week: {}, day: {}'.format(match_json['scheduleItems'][0]['tags']['blockLabel'], match_json['scheduleItems'][0]['tags']['subBlockLabel']))
 						if len(match_json['teams']) == 2:
 							scheduled_matches.append({
 								'region' : region_name,

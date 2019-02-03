@@ -88,12 +88,18 @@ h2 {
   font-size: 20px; }
 
 a {
+  padding: 5px;
   color: #fff;
   text-decoration: none;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 3px;
-  border-bottom: 2px solid; }
+  border: 2px solid;
+  cursor: pointer; }
+  a:hover {
+    background: #252525;
+    transform: translateY(-2px) translateX(-2px);
+    box-shadow: 2px 2px 5px 0px #252525; }
 
 .matches {
   flex-shrink: 0;
@@ -339,8 +345,11 @@ a {
     margin: 0 40px;
     background: #252525;
     border: 2px solid; }
-    .topnav__dropdown:hover .topnav__input-holder {
-      display: flex; }
+    .topnav__dropdown:hover {
+      transform: translateY(-2px) translateX(-2px);
+      box-shadow: 2px 2px 5px #252525; }
+      .topnav__dropdown:hover .topnav__input-holder {
+        display: flex; }
     .topnav__dropdown label {
       width: 100%;
       cursor: pointer; }
