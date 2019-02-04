@@ -2,6 +2,7 @@ import json
 import os
 import urllib.request
 import time
+import datetime
 
 
 regions = {
@@ -110,6 +111,10 @@ def scrape():
 	region_tournaments = []
 	scheduled_matches = []
 	game_map = {}
+	scrape_updates = {
+		'currentTime': int(datetime.datetime.now().timestamp()),
+		'regions' : {}
+	}
 
 	for region in regions:
 		print('region: ' + region)
@@ -180,6 +185,7 @@ def scrape():
 					addImage(match_json, region_name)
 
 					if len(match_json['scheduleItems']) > 0:
+						match_time = match_json['scheduleItems'][0]['scheduledTime']
 						# print('week: {}, day: {}'.format(match_json['scheduleItems'][0]['tags']['blockLabel'], match_json['scheduleItems'][0]['tags']['subBlockLabel']))
 						if len(match_json['teams']) == 2:
 							scheduled_matches.append({
@@ -188,8 +194,18 @@ def scrape():
 								'team1acro' : match_json['teams'][0]['acronym'],
 								'team2' : match_json['teams'][1]['name'],
 								'team2acro' : match_json['teams'][1]['acronym'],
-								'datetime' : match_json['scheduleItems'][0]['scheduledTime'],
+								'datetime' : match_time,
 							})
+
+						if region not in scrape_updates['regions']:
+							scrape_updates['regions'][region] = []
+
+						if (int(datetime.datetime.now().timestamp()) - (3600 * 6)) > match_time:
+							scrape_updates['regions'][region].append({
+								'match_url' : match_url_string,
+								'datetime' : match_time
+							})
+						
 
 					for game in match_json['gameIdMappings']:
 
@@ -213,6 +229,10 @@ def scrape():
 
 	f = open(data_path + 'game_map.json', 'w')
 	f.write(json.dumps(game_map))
+	f.close()
+
+	f = open(data_path + 'scrape_updates.json', 'w')
+	f.write(json.dumps(scrape_updates))
 	f.close()
 
 	
