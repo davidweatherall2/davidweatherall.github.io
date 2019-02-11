@@ -111,8 +111,7 @@ a {
       .matches__columns {
         flex-wrap: wrap; } }
   .matches__column {
-    flex-grow: 1;
-    max-width: 33%; }
+    width: 100%; }
     .matches__column--half {
       max-width: 50%; }
     @media screen and (max-width: 640px) {

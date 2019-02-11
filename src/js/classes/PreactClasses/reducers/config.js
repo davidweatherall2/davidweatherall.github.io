@@ -21,9 +21,22 @@ export default function config(state = [], action) {
 	case 'UPDATE_TEAMS':
 		return {
 			...state,
-			team1: action.team1,
-			team2: action.team2,
-			activeRegion: action.region
+			newTeam1: action.team1,
+			newTeam2: action.team2,
+			newRegion: action.region
+		}
+
+	case 'RESET_NEW_REGION':
+		return {
+			...state,
+			newRegion: false
+		}
+
+	case 'RESET_NEW_TEAMS':
+		return {
+			...state,
+			newTeam1: false,
+			newTeam2: false,
 		}
 
 	default:

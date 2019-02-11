@@ -5,42 +5,60 @@ import TeamStats from './TeamStats';
 
 @connect((store) => {
     return {
-        activeRegion: store.config.activeRegion,
-        regionData: store.regions.regionData,
+		activeRegion: store.config.activeRegion,
+		newRegion: store.config.newRegion,
+		regionData: store.regions.regionData,
+		regionDataLoading: store.regions.statsLoading,
         team1: store.config.team1,
+        newTeam1: store.config.newTeam1,
         team2: store.config.team2,
+        newTeam2: store.config.newTeam2,
     }
 })
 class MatchUp extends Component {
 
-	updateRegion(e) {
+	handleUpdateChange(e) {
+		this.updateRegion(e.target.value);
+	}
+
+	updateRegion(region) {
 		this.props.dispatch({
 			type: 'UPDATE_REGION',
-			payload: fetch(`/api/${e.target.value}/light.json`).then(response => response.json())
+			payload: fetch(`/api/${region}/light.json`).then(response => response.json())
 		});
 
 		this.props.dispatch({
 			type: 'UPDATE_REGION_STATS',
-			payload: fetch(`/api/${e.target.value}/stats.json`).then(response => response.json())
+			payload: fetch(`/api/${region}/stats.json`).then(response => response.json())
 		});
 
 		this.props.dispatch({
 			type: 'UPDATE_REGION_TEXT',
-			text: e.target.value
+			text: region
 		});
 	}
 
-	updateTeam1(e) {
+	handleUpdateTeam1(e) {
+		this.updateTeam1(e.target.value);
+	}
+
+	handleUpdateTeam2(e) {
+		this.updateTeam2(e.target.value);
+	}
+
+	updateTeam1(team) {
+		console.log('team is ', team);
 		this.props.dispatch({
 			type: 'UPDATE_TEAM1',
-			text: e.target.value
+			text: team
 		});
 	}
 
-	updateTeam2(e) {
+	updateTeam2(team) {
+		console.log('team is ', team);
 		this.props.dispatch({
 			type: 'UPDATE_TEAM2',
-			text: e.target.value
+			text: team
 		});
 	}
 
@@ -75,7 +93,7 @@ class MatchUp extends Component {
 	renderRegions() {
 		return (
 			<div>
-				<select onChange={(e) => this.updateRegion(e)} value={this.props.activeRegion}>
+				<select onChange={this.handleUpdateChange.bind(this)} value={this.props.activeRegion}>
 					<option disabled selected value="">Select Region</option>
 					<option value='LCK'>LCK</option>
 					<option value='CBLOL'>CBLOL</option>
@@ -95,13 +113,13 @@ class MatchUp extends Component {
 			return (
 				<div>
 					<select
-					onChange={(e) => this.updateTeam1(e)} 
+					onChange={(e) => this.handleUpdateTeam1(e)} 
 					value={this.props.team1 ? this.props.team1 : 'select'}>
 						<option selected disabled value='select'>Select Team</option>
 						{teams}
 					</select>
 					<select
-					onChange={(e) => this.updateTeam2(e)}
+					onChange={(e) => this.handleUpdateTeam2(e)}
 					value={this.props.team2 ? this.props.team2 : 'select'}>
 						<option selected disabled value='select'>Select Team</option>
 						{teams}
@@ -166,6 +184,34 @@ class MatchUp extends Component {
 				</div>
 			</div>
 		)
+	}
+
+	checkNewRegionOrTeams(newProps) {
+		if(newProps.regionDataLoading) return;
+		if(newProps.newRegion && newProps.newRegion !== this.props.activeRegion) {
+			this.updateRegion(newProps.newRegion);
+		} else if(newProps.newRegion && newProps.newRegion === this.props.activeRegion) {
+			this.props.dispatch({
+				type: 'RESET_NEW_REGION'
+			})
+		} else if(newProps.newTeam1 || newProps.newTeam2) {
+			console.log('new props are ', newProps);
+			if(newProps.newTeam1) {
+				this.updateTeam1(newProps.newTeam1);
+			}
+			if(newProps.newTeam2) {
+				this.updateTeam2(newProps.newTeam2);
+			}
+			setTimeout(() => {
+				this.props.dispatch({
+					type: 'RESET_NEW_TEAMS'
+				})
+			}, 0);
+		}
+	}
+
+	componentWillReceiveProps(newProps) {
+		this.checkNewRegionOrTeams(newProps);
 	}
 }
 
