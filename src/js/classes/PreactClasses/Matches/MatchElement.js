@@ -5,6 +5,7 @@ import { connect } from 'preact-redux';
     return {
         team1: store.config.team1,
         team2: store.config.team2,
+        appType: store.config.appType
     }
 })
 
@@ -20,6 +21,12 @@ class MatchElement extends Component {
             team2: this.props.match.team2acro,
             region: this.props.match.region
         })
+        if(this.props.appType !== 'matchUp') {
+            this.props.dispatch({
+                type: 'SET_APP_TYPE',
+                appType: 'matchUp'
+            })
+        }
     }
  
     render() {

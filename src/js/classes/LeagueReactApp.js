@@ -1,5 +1,5 @@
 import { h, render, Component } from 'preact';
-import MainLeagueApp from './PreactClasses/MainLeagueApp';
+import LeagueAppController from './PreactClasses/LeagueAppController';
 
 class LeagueReactApp {
 	constructor(element) {
@@ -9,7 +9,7 @@ class LeagueReactApp {
 
 	bindEvents() {
 		console.log('rendering');
-		render(<MainLeagueApp />, this.element);
+		render(<LeagueAppController />, this.element);
 	}
 }
 

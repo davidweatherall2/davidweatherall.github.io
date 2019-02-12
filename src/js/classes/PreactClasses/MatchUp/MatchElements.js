@@ -15,18 +15,20 @@ class MatchElements extends Component {
 	renderCards(team, team2 = false) {
 		let cards = [];
 
-		if(team2) {
-			Array.from(this.props.games, (game) => {
-				if(game.teamNames.includes(team) && game.teamNames.includes(team2)) {
-					cards.push(<MatchCard game={game} team={false} store={this.props.store}/>);
-				}
-			});
-		} else {
-			Array.from(this.props.games, (game) => {
-				if(game.teamNames.includes(team)) {
-					cards.push(<MatchCard game={game} team={team} store={this.props.store}/>);
-				}
-			});
+		if(this.props.games) {
+			if(team2) {
+				Array.from(this.props.games, (game) => {
+					if(game.teamNames.includes(team) && game.teamNames.includes(team2)) {
+						cards.push(<MatchCard game={game} team={false} store={this.props.store}/>);
+					}
+				});
+			} else {
+				Array.from(this.props.games, (game) => {
+					if(game.teamNames.includes(team)) {
+						cards.push(<MatchCard game={game} team={team} store={this.props.store}/>);
+					}
+				});
+			}
 		}
 		return cards;
 	}

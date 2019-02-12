@@ -7,6 +7,11 @@ export default function config(state = [], action) {
 			team1 : false,
 			team2 : false,
 		}
+	case 'SET_APP_TYPE':
+		return {
+			...state,
+			appType: action.appType
+		}
 	case 'UPDATE_TEAM1':
 		return {
 			...state,

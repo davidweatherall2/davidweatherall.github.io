@@ -17,6 +17,11 @@ import TeamStats from './TeamStats';
 })
 class MatchUp extends Component {
 
+	constructor(props) {
+		super(props);
+		this.checkNewRegionOrTeams(this.props);
+	}
+
 	handleUpdateChange(e) {
 		this.updateRegion(e.target.value);
 	}
@@ -189,13 +194,15 @@ class MatchUp extends Component {
 	checkNewRegionOrTeams(newProps) {
 		if(newProps.regionDataLoading) return;
 		if(newProps.newRegion && newProps.newRegion !== this.props.activeRegion) {
+			console.log('step 1');
 			this.updateRegion(newProps.newRegion);
 		} else if(newProps.newRegion && newProps.newRegion === this.props.activeRegion) {
+			console.log('step 2');
 			this.props.dispatch({
 				type: 'RESET_NEW_REGION'
 			})
 		} else if(newProps.newTeam1 || newProps.newTeam2) {
-			console.log('new props are ', newProps);
+			console.log('step 3');
 			if(newProps.newTeam1) {
 				this.updateTeam1(newProps.newTeam1);
 			}
@@ -207,10 +214,13 @@ class MatchUp extends Component {
 					type: 'RESET_NEW_TEAMS'
 				})
 			}, 0);
+		} else {
+			console.log('step 4');
 		}
 	}
 
 	componentWillReceiveProps(newProps) {
+		console.log('got new props');
 		this.checkNewRegionOrTeams(newProps);
 	}
 }
