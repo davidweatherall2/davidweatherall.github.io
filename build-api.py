@@ -331,6 +331,8 @@ for game in games:
 	item['gameId'] = game_id
 
 	ft_status = get_ft(timeline_json)
+	if ft_status == False:
+		continue
 	ft_enemy = team_id(ft_status['team'])
 	ft_team = opposite(ft_enemy)
 	ft_position = ft_status['position']
