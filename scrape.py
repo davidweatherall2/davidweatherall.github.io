@@ -101,7 +101,7 @@ def wipeDir():
 	os.system('rm -rf {}game/*'.format(data_path))
 	os.system('rm -rf {}timeline/*'.format(data_path))
 
-def getMatchFromURL(match_url_string, region_name, match_object, scrape_updates = False, game_map = False, scheduled_matches = False):
+def getMatchFromURL(match_url_string, region_name, match_object, scrape_updates = False, game_map = False, scheduled_matches = False, extra_data):
 	match_json_raw = getJson(match_url_string)
 
 	match_json = json.loads(match_json_raw)
@@ -129,17 +129,20 @@ def getMatchFromURL(match_url_string, region_name, match_object, scrape_updates 
 			if (int(datetime.datetime.now().timestamp()) - (3600 * 6)) < int(datetime.datetime.strptime(match_time, '%Y-%m-%dT%H:%M:%S.%f%z').timestamp()):
 				scrape_updates['regions'][region_name].append({
 					'match_url' : match_url_string,
-					'match_object' : match_object,
-					'datetime' : match_time
+					'datetime' : match_time,
+					'extra_data' : extra_data
 				})
 		
 
 	for game in match_json['gameIdMappings']:
 
+		print('checking {}'.format(game['id']))
+
 		game_hash = game['gameHash']
 		game_id_hash = game['id']
 
 		if 'gameId' not in match_object['games'][game_id_hash]:
+			print(match_object['games'])
 			continue
 
 		game_id = match_object['games'][game_id_hash]['gameId'].replace('\t', '')
@@ -147,6 +150,8 @@ def getMatchFromURL(match_url_string, region_name, match_object, scrape_updates 
 		if game_id + '.json' in os.listdir(data_path + 'game'):
 			print('skipping: ' + game_id)
 			continue
+
+		print('managed to get here')
 
 		getGame(game_id, game_hash)
 		if game_map != False:
@@ -233,7 +238,14 @@ def scrape():
 
 					match_url_string = 	'https://api.lolesports.com/api/v2/highlanderMatchDetails?tournamentId={}&matchId={}'.format(tournament_id, match_id)
 
-					[scrape_updates, game_map, scheduled_matches] = getMatchFromURL(match_url_string, region_name, match_object, scrape_updates, game_map, scheduled_matches)
+					extra_data = {
+						'tournament_key' : tournament_key,
+						'tournament_id' : tournament_id,
+						'bracket' : bracket,
+						'match_id' : match_id
+					}
+
+					[scrape_updates, game_map, scheduled_matches] = getMatchFromURL(match_url_string, region_name, match_object, scrape_updates, game_map, scheduled_matches, extra_data)
 
 					print('{} / {} region'.format(number_regions_scraped, total_regions))
 
@@ -253,6 +265,12 @@ def scrape():
 
 	return scheduled_matches
 
+def getRegionData(region):
+	json_raw = getJson(regions[region]['url'])
+	json_obj = json.loads(json_raw)
+
+	return json_obj
+
 def update():
 	scrape_updates = open(data_path + 'scrape_updates.json', 'r')
 	scrape_updates = scrape_updates.read()
@@ -264,16 +282,21 @@ def update():
 
 	for region_name in scrape_updates['regions']:
 		print(region_name)
+		region_data = False
 		matches = scrape_updates['regions'][region_name]
 		for match in matches:
 			match_url_string = match['match_url']
-			match_object = match['match_object']
+			match_data = match['match_data']
 			match_time = match['datetime']
 
 			match_timestamp = int(datetime.datetime.strptime(match_time, '%Y-%m-%dT%H:%M:%S.%f%z').timestamp())
 			now_timestamp = int(datetime.datetime.now().timestamp())
 
 			if (now_timestamp > match_timestamp):
+				if region_data is False:
+					region_data = getRegionData(region)
+
+				match_object = region_data['highlanderTournaments'][match_data['tournament_key']]['brackets'][match_data['bracket']]['matches'][match_data['match_id']]
 
 				[a, game_map, a] = getMatchFromURL(match_url_string, region_name, match_object, False, game_map, False)
 
