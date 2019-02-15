@@ -101,7 +101,7 @@ def wipeDir():
 	os.system('rm -rf {}game/*'.format(data_path))
 	os.system('rm -rf {}timeline/*'.format(data_path))
 
-def getMatchFromURL(match_url_string, region_name, match_object, scrape_updates = False, game_map = False, scheduled_matches = False, extra_data):
+def getMatchFromURL(match_url_string, region_name, match_object, scrape_updates = False, game_map = False, scheduled_matches = False, extra_data = False):
 	match_json_raw = getJson(match_url_string)
 
 	match_json = json.loads(match_json_raw)
@@ -130,7 +130,7 @@ def getMatchFromURL(match_url_string, region_name, match_object, scrape_updates 
 				scrape_updates['regions'][region_name].append({
 					'match_url' : match_url_string,
 					'datetime' : match_time,
-					'extra_data' : extra_data
+					'match_data' : extra_data
 				})
 		
 
