@@ -47,7 +47,7 @@ class Players extends Component {
 		let playerName = playerData.name
 		playerName = this.removeTeam(playerName)
 		const firstBlood = this.getFB(playerData);
-		const KDA = `${playerData.kills}/${playerData.deaths}/${playerData.kills}`;
+		const KDA = `${playerData.kills}/${playerData.deaths}/${playerData.assists}`;
 		const champNane = this.getChamp(playerData.champId);
 		const champImage = `http://ddragon.leagueoflegends.com/cdn/8.14.1/img/champion/${champNane}.png`
 		return (
