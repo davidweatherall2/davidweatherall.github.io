@@ -294,7 +294,7 @@ def update():
 
 			if (now_timestamp > match_timestamp):
 				if region_data is False:
-					region_data = getRegionData(region)
+					region_data = getRegionData(region_name)
 
 				match_object = region_data['highlanderTournaments'][match_data['tournament_key']]['brackets'][match_data['bracket']]['matches'][match_data['match_id']]
 
