@@ -46,6 +46,9 @@ def getGame(game_id, gameHash):
 		else:
 			break
 
+	if json_raw == False:
+		return False
+
 	json_file = open(data_path + 'game/{}.json'.format(str(game_id)), 'wb')
 	json_file.write(json_raw.encode('utf-8'))
 	json_file.close
