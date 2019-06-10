@@ -101,8 +101,8 @@ def addImage(match_json, region):
 			i += 1
 
 def wipeDir():
-	os.system('rm -rf {}game/*'.format(data_path))
-	os.system('rm -rf {}timeline/*'.format(data_path))
+	os.system('del -r {}game/*'.format(data_path))
+	os.system('del -r {}timeline/*'.format(data_path))
 
 def getMatchFromURL(match_url_string, region_name, match_object, scrape_updates = False, game_map = False, scheduled_matches = False, extra_data = False):
 	match_json_raw = getJson(match_url_string)
