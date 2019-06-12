@@ -123,6 +123,26 @@ class LOLScraper:
 
         self.convertTemplateToCSV()
 
+    def updateTemplate(self):
+        f = open('{}data_map.json'.format(self.data_path), 'r', encoding="utf-8")
+        text = f.read()
+        match_infos = json.loads(text)
+        f.close()
+        
+        now_timestamp = int(datetime.datetime.now().timestamp())
+
+        for region in match_infos:
+            region_matches = match_infos[region]
+            for match_index, match in enumerate(region_matches):
+                match_timestamp = int(datetime.datetime.strptime(match['match_time'], '%Y-%m-%dT%H:%M:%S.%f%z').timestamp())
+
+                if now_timestamp > match_timestamp and len(match['game_infos']) == 0:
+                    match_infos[region][match_index] = self.getMatchData(match['match_id'], match['tournament_id'], match['match_object'])
+
+        f = open(self.data_path + 'data_map.json', 'w')
+        f.write(json.dumps(match_infos))
+        f.close()
+
     def getMatchesFromRegionData(self, region, region_data):
         matches_array = []
 
@@ -188,6 +208,10 @@ class LOLScraper:
 
         match_data['game_infos'] = game_infos
         match_data['match_url'] = match_url_string
+
+        match_data['match_object'] = match_object
+        match_data['match_id'] = match_id
+        match_data['tournament_id'] = tournament_id
 
         return match_data
 
