@@ -4,6 +4,7 @@ import urllib.request
 import time
 import datetime
 import csv
+import ast
 
 class LOLScraper:
 
@@ -137,7 +138,11 @@ class LOLScraper:
                 match_timestamp = int(datetime.datetime.strptime(match['match_time'], '%Y-%m-%dT%H:%M:%S.%f%z').timestamp())
 
                 if now_timestamp > match_timestamp and len(match['game_infos']) == 0:
-                    match_infos[region][match_index] = self.getMatchData(match['match_id'], match['tournament_id'], match['match_object'])
+                    json_eval = ast.literal_eval(match['match_object'])
+                    json_string = json.dumps(json_eval)
+                    loaded_match_obj = json.loads(json_string)
+                    
+                    match_infos[region][match_index] = self.getMatchData(match['match_id'], match['tournament_id'], loaded_match_obj)
 
         f = open(self.data_path + 'data_map.json', 'w')
         f.write(json.dumps(match_infos))
@@ -196,6 +201,9 @@ class LOLScraper:
             game_hash = game['gameHash']
             game_id_hash = game['id']
 
+            print(match_object)
+            print(type(match_object))
+
             if 'gameId' not in match_object['games'][game_id_hash]:
                 continue
 
@@ -209,7 +217,7 @@ class LOLScraper:
         match_data['game_infos'] = game_infos
         match_data['match_url'] = match_url_string
 
-        match_data['match_object'] = match_object
+        match_data['match_object'] = json.dumps(match_object)
         match_data['match_id'] = match_id
         match_data['tournament_id'] = tournament_id
 
@@ -217,7 +225,7 @@ class LOLScraper:
 
     def convertTemplateToCSV(self):
         with open('{}data_map.csv'.format(self.data_path), 'w', newline='', encoding="utf-8") as csvfile:
-            fieldnames = ['region', 'match_time', 'team1', 'team1acro', 'team2', 'team2acro', 'game_ids', 'game_hashes', 'match_url']
+            fieldnames = ['region', 'match_time', 'team1', 'team1acro', 'team2', 'team2acro', 'game_ids', 'game_hashes', 'match_url', 'match_id', 'tournament_id', 'match_object']
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
             writer.writeheader()
 
@@ -275,7 +283,11 @@ class LOLScraper:
                         'team2' : row['team2'],
                         'team2acro' : row['team2acro'],
                         'game_infos' : game_infos,
-                        'match_url' : row['match_url']
+                        'match_url' : row['match_url'],
+                        'match_id' : row['match_id'],
+                        'tournament_id' : row['tournament_id'],
+                        'match_object' : row['match_object'],
+                        
                     })
 
         f = open(self.data_path + 'data_map.json', 'w')
