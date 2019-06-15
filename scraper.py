@@ -124,6 +124,16 @@ class LOLScraper:
 
         self.convertTemplateToCSV()
 
+    def getLoadedMatchObj(self, match_object):
+        try:
+            json_obj = json.loads(match_object)
+        except json.decoder.JSONDecodeError as e:
+            json_eval = ast.literal_eval(match_object)
+            json_string = json.dumps(json_eval)
+            json_obj = json.loads(json_string)
+        
+        return json_obj
+
     def updateTemplate(self):
         f = open('{}data_map.json'.format(self.data_path), 'r', encoding="utf-8")
         text = f.read()
@@ -138,9 +148,7 @@ class LOLScraper:
                 match_timestamp = int(datetime.datetime.strptime(match['match_time'], '%Y-%m-%dT%H:%M:%S.%f%z').timestamp())
 
                 if now_timestamp > match_timestamp and len(match['game_infos']) == 0:
-                    json_eval = ast.literal_eval(match['match_object'])
-                    json_string = json.dumps(json_eval)
-                    loaded_match_obj = json.loads(json_string)
+                    loaded_match_obj = self.getLoadedMatchObj(match['match_object'])
                     
                     match_infos[region][match_index] = self.getMatchData(match['match_id'], match['tournament_id'], loaded_match_obj)
 
