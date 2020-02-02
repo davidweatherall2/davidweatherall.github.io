@@ -1,22 +1,42 @@
 import json
 import os
 import urllib.request
+import requests
 import time
 import datetime
 import csv
 import ast
+import re
 
 class LOLScraper:
 
     #Attributes
     regions = {
-        'LCK': {'url' : 'https://api.lolesports.com/api/v1/leagues?slug=lck'},
-        'NALCS': {'url' : 'https://api.lolesports.com/api/v1/leagues?slug=lcs'},
-        'EULCS': {'url' : 'https://api.lolesports.com/api/v1/leagues?slug=lec'},
-        'CBLOL': {'url' : 'https://api.lolesports.com/api/v1/leagues?slug=cblol-brazil'},
-        'LMS' :  {'url' : 'https://api.lolesports.com/api/v1/leagues?slug=lms'},
-        'TCL': {'url' : 'https://api.lolesports.com/api/v1/leagues?slug=turkiye-sampiyonluk-ligi'},
-        'OPL': {'url' : 'https://api.lolesports.com/api/v1/leagues?slug=oce-opl'}
+        'NALCS': [
+
+        ],
+        'EULCS': [
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT04/1130201?gameHash=3d2aa031c17d90ae',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT04/1130196?gameHash=31553f5bb6ba4420',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT04/1130193?gameHash=0995997660a65721',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT04/1120173?gameHash=b0bffc01c9d5acb8',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT04/1120155?gameHash=54dd5c01a9d8817e',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT04/1120150?gameHash=ab21332050c53eac',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT04/1120145?gameHash=e191a9fe9ad91551',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT04/1120126?gameHash=ce786a33e52b4435',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT05/1390263?gameHash=11c29bbfef59b453',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT05/1390257?gameHash=5f6a9d222f02b916',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT05/1390249?gameHash=840a42a71eb33082',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT05/1390241?gameHash=ce20c3ad794a4e79',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT05/1390233?gameHash=5f30125d96d86d60',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT05/1390213?gameHash=046907e6a70adc65',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT05/1390202?gameHash=2c584b319e1509d9',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT05/1390196?gameHash=4bc08e5d10033415',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT05/1390170?gameHash=686d45795a6ea625',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT05/1390161?gameHash=c77bd1d7e54d4801'
+        ],
+        'CBLOL': [],
+        'TCL': []
     }
     data_path = 'raw/'
     game_map = {}
@@ -30,43 +50,49 @@ class LOLScraper:
         for f in os.listdir(timelines_path):
             os.remove(os.path.join(timelines_path, f))
 
+    def getInfoFromUrl(self, url):
+        print(url)
+        result = re.search('match-details/(.*)/', url)
+        print(result)
+        region_code = result.group(1)
+
+        result = re.search("{}/(.*)\?gameHash".format(region_code), url)
+        game_id = result.group(1)
+        print(game_id)
+
+        game_hash = url.split("?gameHash=")[1]
+
+        return [game_id, game_hash, region_code]
+
+
     def scrapeGames(self):
+        self.deleteData()
         scraped_files = os.listdir('{}game'.format(self.data_path))
-
-        f = open('{}data_map.json'.format(self.data_path), 'r', encoding="utf-8")
-        text = f.read()
-        match_infos = json.loads(text)
         
-        for region in match_infos:
-            for match in match_infos[region]:
-                if match['game_infos']:
-                    for game_info in match['game_infos']:
-                        if '{}.json'.format(game_info['game_id']) in scraped_files:
-                            continue
-                        
-                        self.scrapeGame(game_info['game_id'], game_info['game_hash'], region)
+        for region in self.regions:
+            for match_history_link in self.regions[region]:
+                [game_id, game_hash, region_code] = self.getInfoFromUrl(match_history_link)
+                if '{}.json'.format(game_id) in scraped_files:
+                    continue
+                
+                self.scrapeGame(game_id, game_hash, region, region_code)
 
-        
         f = open('{}game_map.json'.format(self.data_path), 'w')
         f.write(json.dumps(self.game_map))
         f.close()
 
         return
 
-    def scrapeGame(self, game_id, game_hash, region):
+    def scrapeGame(self, game_id, game_hash, region, region_code):
         self.game_map[game_id] = region
-        region_codes = ['ESPORTSTMNT01', 'ESPORTSTMNT02', 'ESPORTSTMNT03', 'ESPORTSTMNT04', 'ESPORTSTMNT05', 'ESPORTSTMNT06']
-        for region_code in region_codes:
-            url_string = 'https://acs.leagueoflegends.com/v1/stats/game/{}/{}?gameHash={}'.format(region_code, game_id, game_hash)
-            json_raw = self.getJson(url_string)
-            if json_raw == False:
-                json_raw = ''
-            else:
-                break
+        url_string = 'https://acs.leagueoflegends.com/v1/stats/game/{}/{}?gameHash={}'.format(region_code, game_id, game_hash)
+        json_raw = self.getJson(url_string)
 
         if json_raw == '':
             print('no match found {}'.format(game_id))
             return False
+
+        print(json_raw)
 
         json_file = open(self.data_path + 'game/{}.json'.format(str(game_id)), 'wb')
         json_file.write(json_raw.encode('utf-8'))
@@ -84,18 +110,18 @@ class LOLScraper:
 
     def getJson(self, url_string):
         print('getting json {}'.format(url_string))
-        req = urllib.request.Request(url_string, headers={'User-Agent' : "Magic Browser"}) 
+        cookies = {
+            'id_token': 'eyJraWQiOiJzMSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI1OGRlODExZS1jODY4LTVhMjUtYmZiNy05YjJjNWFkOWNiNDEiLCJjb3VudHJ5IjoiZ2JyIiwicGxheWVyX3Bsb2NhbGUiOiJlbi1VUyIsImFtciI6WyJwYXNzd29yZCJdLCJpc3MiOiJodHRwczpcL1wvYXV0aC5yaW90Z2FtZXMuY29tIiwibG9sIjpbeyJjdWlkIjoyOTI1MzM5NywiY3BpZCI6IkVVVzEiLCJ1aWQiOjI5MjUzMzk3LCJ1bmFtZSI6ImR3ZXZ6IiwicHRyaWQiOm51bGwsInBpZCI6IkVVVzEiLCJzdGF0ZSI6IkVOQUJMRUQifV0sImxvY2FsZSI6ImVuX1VTIiwiYXVkIjoicnNvLXdlYi1jbGllbnQtcHJvZCIsImFjciI6InVybjpyaW90OmJyb256ZSIsInBsYXllcl9sb2NhbGUiOiJlbi1VUyIsImV4cCI6MTU4MDcyNDQwNywiaWF0IjoxNTgwNjM4MDA3LCJhY2N0Ijp7ImdhbWVfbmFtZSI6InlvdW5nIGtoYW4iLCJ0YWdfbGluZSI6IkVVVyJ9LCJqdGkiOiIxMlkzdVpVbmVjNCIsImxvZ2luX2NvdW50cnkiOiJnYnIifQ.ThbOBPpZhOL9udzqpVu4AXCs94BTLmDHvbIdrfdWkcnBd5q6GnT_u8kcLl1EcIYLt5nGER82ZcOZNxutsdf45UNnpVVKVaCSTvdnDS1JLtaK0Hl5W-yPiIMiOVmdXlLI5rr_gcPINsaQ78t5VDB_UzMSY1aqi0ABe8VWkA6VSQs'
+        }
+        req = requests.get(url_string, 
+            headers={'User-Agent' : "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36"},
+            cookies=cookies
+        )
 
-        try:
-            response_string = urllib.request.urlopen(req)
-            json_raw = response_string.read().decode()
-        except urllib.request.HTTPError as e:
-            if(e.code == 104):
-                print('error 104, sleeping for 20 seconds and retrying')
-                time.sleep(20)
-                return self.getJson(url_string)
-            if(e.code == 404):
-                return False
+        if req.status_code == 200:
+            json_raw = req.text
+        else:
+            print(req.status_code)
             return False
 
         return json_raw
