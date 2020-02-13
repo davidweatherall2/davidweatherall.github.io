@@ -32,7 +32,17 @@ class LOLScraper:
             'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1291812?gameHash=e540d208bbc69bb3',
             'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1291835?gameHash=a75ab48a22470022',
             'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1292345?gameHash=6f86444cce429244',
-            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1292354?gameHash=79845cdf9a6e88db'
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1292354?gameHash=79845cdf9a6e88db',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1304356?gameHash=fc584c5143087c0b',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1304374?gameHash=175112ba57cbce5e',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1304391?gameHash=72ad86120a14eb54',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1304391?gameHash=72ad86120a14eb54',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1304700?gameHash=b50bc9265ac35f9f',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1304739?gameHash=b80bb99cbce5bd71',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1304768?gameHash=6ed6e9d7108f27e0',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1304785?gameHash=13054e8f14fcae76',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1295383?gameHash=072ee1028f03f4c9',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1295402?gameHash=560c984fc1ba1168'
         ],
         'EULCS': [
             'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT04/1130201?gameHash=3d2aa031c17d90ae',
@@ -60,7 +70,11 @@ class LOLScraper:
             'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT04/1120629?gameHash=6b39ee929c2ebc47',
             'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT04/1120638?gameHash=eb17c2013b9ee77d',
             'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT04/1120649?gameHash=aab6f321110ef3ed',
-            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT04/1120649?gameHash=aab6f321110ef3ed'
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT04/1120705?gameHash=a6532b3af6accaf2',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT04/1120711?gameHash=79659ad2d107f0d9',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT04/1130676?gameHash=f3e34e47140460ff',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT04/1130696?gameHash=532d412c3f38c0c5',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT04/1130709?gameHash=1491ee8228ad66ec'
         ],
         'CBLOL': [
             'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1301305?gameHash=3f8d664b3b988446',
@@ -78,7 +92,18 @@ class LOLScraper:
             'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1301262?gameHash=c594a9a52f46cc50',
             'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1291682?gameHash=a8f2c06d04117279',
             'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1291682?gameHash=a8f2c06d04117279',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1291651?gameHash=5ec1b3473060dfd2',
             'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1291682?gameHash=a8f2c06d04117279',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1291703?gameHash=cfb2d078f289825c',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1291737?gameHash=cf67a15df43c2bb2',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1304264?gameHash=f5e69d8e2f6bae5e',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1304282?gameHash=f9ea42cec97e930f',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1304302?gameHash=617f3af3e7d2ab4d',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1304324?gameHash=01bf1a7465a412ba',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1304609?gameHash=7a5a6778a7074f09',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1304635?gameHash=4cda5972cf8dd6bd',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1304671?gameHash=67e29eccbbc8f667',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1304691?gameHash=1572b2bb76b73da1'
         ],
         'OPL': [
             'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1301183?gameHash=396641afdcdd99d9',
@@ -96,7 +121,15 @@ class LOLScraper:
             'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1303974?gameHash=28f566b2fa35a32a',
             'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1303974?gameHash=28f566b2fa35a32a',
             'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1303974?gameHash=28f566b2fa35a32a',
-            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1303974?gameHash=28f566b2fa35a32a'
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1303974?gameHash=28f566b2fa35a32a',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1303478?gameHash=8df5ef3d826ad211',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1303509?gameHash=d0849b1ba82d4826',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1303533?gameHash=3a712b015a672d8d',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1303581?gameHash=2bf61273d44c302f',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1303974?gameHash=28f566b2fa35a32a',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1303999?gameHash=619d5a2d571a1b01',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1304032?gameHash=30e5b243a407326c',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1304075?gameHash=a3d0d6acfb8b92f1'
         ],
         'TCL': [
             'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT04/1130182?gameHash=ccb50f6e86e4c3df',
@@ -104,12 +137,17 @@ class LOLScraper:
             'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT04/1130166?gameHash=1cff679b64acb047',
             'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT04/1130153?gameHash=00a7861ac0a23aef',
             'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT04/1130229?gameHash=1489421028163983',
-            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT04/1130229?gameHash=1489421028163983',
-            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT04/1130229?gameHash=1489421028163983',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT04/1130243?gameHash=5491d110de253089',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT04/1130253?gameHash=f8e39ae785d11c0c',
             'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT04/1130264?gameHash=a98718c088ce663c',
             'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT04/1130611?gameHash=a099e1df984018a1',
             'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT04/1130611?gameHash=a099e1df984018a1',
-            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT04/1130630?gameHash=b1b183ad3374db06'
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT04/1130630?gameHash=b1b183ad3374db06',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT04/1130643?gameHash=15bb88ac79a622a1',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT04/1130723?gameHash=c5113e7f25839c2e',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT04/1130734?gameHash=88de231d14ea4b07',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT04/1130739?gameHash=4ddb470392dd9248',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT04/1130748?gameHash=8f544ac73c53a606'
         ],
         'LCK': [
             'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1302595?gameHash=314d39ea940b354f',
@@ -130,11 +168,22 @@ class LOLScraper:
             'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1304035?gameHash=f8e3702e77f87cc7',
             'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1304079?gameHash=8339c23d8d925f8b',
             'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1304122?gameHash=bf7e80351592ce98',
-            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1294417?gameHash=746905a629b8f374'
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1294417?gameHash=746905a629b8f374',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1294710?gameHash=0d01dd80aa803997',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1294725?gameHash=3ae63821918e2b43',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1294738?gameHash=5fd20a0eec2c86f4',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1294750?gameHash=fa9335e1a61165a5',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1294784?gameHash=7d1bf4754cda9b46',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1294813?gameHash=51f4579db6e7049f',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1305569?gameHash=f31c49ce4aee06a3',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1305601?gameHash=71bed3e1854feff3',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1305601?gameHash=71bed3e1854feff3',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1305624?gameHash=399f9a58b6057d3a',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1295834?gameHash=34d00b8ff1d7fc4a',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1295840?gameHash=c3ab9745c9b9659e'
         ]
     }
     data_path = 'raw/'
-    game_map = {}
 
     def deleteData(self):
         games_path = '{}game'.format(self.data_path)
@@ -161,7 +210,10 @@ class LOLScraper:
 
 
     def scrapeGames(self):
-        self.deleteData()
+        print('Delete previous data? y/n')
+        if(input() == 'y'):
+            self.deleteData()
+
         scraped_files = os.listdir('{}game'.format(self.data_path))
         
         for region in self.regions:
@@ -172,14 +224,25 @@ class LOLScraper:
                 
                 self.scrapeGame(game_id, game_hash, region, region_code)
 
-        f = open('{}game_map.json'.format(self.data_path), 'w')
-        f.write(json.dumps(self.game_map))
-        f.close()
+        self.generateGameMap()
 
         return
 
+    def generateGameMap(self):
+
+        game_map = {}
+
+        for region in self.regions:
+            for match_history_link in self.regions[region]:
+                [game_id, game_hash, region_code] = self.getInfoFromUrl(match_history_link)
+
+                game_map[game_id] = region
+        
+        f = open('{}game_map.json'.format(self.data_path), 'w')
+        f.write(json.dumps(game_map))
+        f.close()
+
     def scrapeGame(self, game_id, game_hash, region, region_code):
-        self.game_map[game_id] = region
         url_string = 'https://acs.leagueoflegends.com/v1/stats/game/{}/{}?gameHash={}'.format(region_code, game_id, game_hash)
         json_raw = self.getJson(url_string)
 
