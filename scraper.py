@@ -13,6 +13,26 @@ class LOLScraper:
     #Attributes
     regions = {
         'NALCS': [
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT02/1281281?gameHash=6be05d6df4ef6b82',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT02/1281254?gameHash=a1b1aebb5ed0af3a',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1295402?gameHash=560c984fc1ba1168',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1295383?gameHash=072ee1028f03f4c9',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1304785?gameHash=13054e8f14fcae76',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1304768?gameHash=6ed6e9d7108f27e0',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1304739?gameHash=b80bb99cbce5bd71',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1304700?gameHash=b50bc9265ac35f9f',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1304399?gameHash=2536b98ac19e617d',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1304391?gameHash=72ad86120a14eb54',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1304374?gameHash=175112ba57cbce5e',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1304356?gameHash=fc584c5143087c0b',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1292354?gameHash=79845cdf9a6e88db',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1292345?gameHash=6f86444cce429244',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1291835?gameHash=a75ab48a22470022',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1291812?gameHash=e540d208bbc69bb3',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1291789?gameHash=51e5ed28085fd299',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1291748?gameHash=7a3c085cf703d7bd',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1291458?gameHash=49cc14d02ccd0674',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1291442?gameHash=28f7b485f710168f',
             'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1291426?gameHash=83c7c51530ea074e',
             'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1291406?gameHash=5220923eb35c42c6',
             'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT02/1271104?gameHash=20332c0660059ff8',
@@ -24,25 +44,7 @@ class LOLScraper:
             'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT02/1270607?gameHash=e51fbfc18213ad87',
             'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT02/1270592?gameHash=7fa61eb33bd32bfc',
             'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT02/1270576?gameHash=a054564b4232b1fc',
-            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT02/1270555?gameHash=48cc4673e669584b',
-            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1291442?gameHash=28f7b485f710168f',
-            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1291458?gameHash=49cc14d02ccd0674',
-            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1291748?gameHash=7a3c085cf703d7bd',
-            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1291748?gameHash=7a3c085cf703d7bd',
-            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1291812?gameHash=e540d208bbc69bb3',
-            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1291835?gameHash=a75ab48a22470022',
-            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1292345?gameHash=6f86444cce429244',
-            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1292354?gameHash=79845cdf9a6e88db',
-            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1304356?gameHash=fc584c5143087c0b',
-            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1304374?gameHash=175112ba57cbce5e',
-            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1304391?gameHash=72ad86120a14eb54',
-            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1304391?gameHash=72ad86120a14eb54',
-            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1304700?gameHash=b50bc9265ac35f9f',
-            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1304739?gameHash=b80bb99cbce5bd71',
-            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1304768?gameHash=6ed6e9d7108f27e0',
-            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1304785?gameHash=13054e8f14fcae76',
-            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1295383?gameHash=072ee1028f03f4c9',
-            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1295402?gameHash=560c984fc1ba1168'
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT02/1270555?gameHash=48cc4673e669584b'
         ],
         'EULCS': [
             'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT04/1130201?gameHash=3d2aa031c17d90ae',
@@ -250,6 +252,8 @@ class LOLScraper:
             print('no match found {}'.format(game_id))
             return False
 
+
+        print('json is: ')
         print(json_raw)
 
         json_file = open(self.data_path + 'game/{}.json'.format(str(game_id)), 'wb')
@@ -269,7 +273,7 @@ class LOLScraper:
     def getJson(self, url_string):
         print('getting json {}'.format(url_string))
         cookies = {
-            'id_token': 'eyJraWQiOiJzMSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI1OGRlODExZS1jODY4LTVhMjUtYmZiNy05YjJjNWFkOWNiNDEiLCJjb3VudHJ5IjoiZ2JyIiwicGxheWVyX3Bsb2NhbGUiOiJlbi1VUyIsImFtciI6WyJwYXNzd29yZCJdLCJpc3MiOiJodHRwczpcL1wvYXV0aC5yaW90Z2FtZXMuY29tIiwibG9sIjpbeyJjdWlkIjoyOTI1MzM5NywiY3BpZCI6IkVVVzEiLCJ1aWQiOjI5MjUzMzk3LCJ1bmFtZSI6ImR3ZXZ6IiwicHRyaWQiOm51bGwsInBpZCI6IkVVVzEiLCJzdGF0ZSI6IkVOQUJMRUQifV0sImxvY2FsZSI6ImVuX1VTIiwiYXVkIjoicnNvLXdlYi1jbGllbnQtcHJvZCIsImFjciI6InVybjpyaW90OmJyb256ZSIsInBsYXllcl9sb2NhbGUiOiJlbi1VUyIsImV4cCI6MTU4MDcyNDQwNywiaWF0IjoxNTgwNjM4MDA3LCJhY2N0Ijp7ImdhbWVfbmFtZSI6InlvdW5nIGtoYW4iLCJ0YWdfbGluZSI6IkVVVyJ9LCJqdGkiOiIxMlkzdVpVbmVjNCIsImxvZ2luX2NvdW50cnkiOiJnYnIifQ.ThbOBPpZhOL9udzqpVu4AXCs94BTLmDHvbIdrfdWkcnBd5q6GnT_u8kcLl1EcIYLt5nGER82ZcOZNxutsdf45UNnpVVKVaCSTvdnDS1JLtaK0Hl5W-yPiIMiOVmdXlLI5rr_gcPINsaQ78t5VDB_UzMSY1aqi0ABe8VWkA6VSQs'
+            'id_token': 'eyJraWQiOiJzMSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI1OGRlODExZS1jODY4LTVhMjUtYmZiNy05YjJjNWFkOWNiNDEiLCJjb3VudHJ5IjoiZ2JyIiwicGxheWVyX3Bsb2NhbGUiOiJlbi1VUyIsImFtciI6WyJwYXNzd29yZCJdLCJpc3MiOiJodHRwczpcL1wvYXV0aC5yaW90Z2FtZXMuY29tIiwibG9sIjpbeyJjdWlkIjoyOTI1MzM5NywiY3BpZCI6IkVVVzEiLCJ1aWQiOjI5MjUzMzk3LCJ1bmFtZSI6ImR3ZXZ6IiwicHRyaWQiOm51bGwsInBpZCI6IkVVVzEiLCJzdGF0ZSI6IkVOQUJMRUQifV0sImxvY2FsZSI6ImVuX1VTIiwiYXVkIjoicnNvLXdlYi1jbGllbnQtcHJvZCIsImFjciI6InVybjpyaW90OmJyb256ZSIsInBsYXllcl9sb2NhbGUiOiJlbi1VUyIsImV4cCI6MTU4MTY2NzU1OCwiaWF0IjoxNTgxNTgxMTU4LCJhY2N0Ijp7ImdhbWVfbmFtZSI6InlvdW5nIGtoYW4iLCJ0YWdfbGluZSI6IkVVVyJ9LCJqdGkiOiJ2WGw5bUdERHFJSSIsImxvZ2luX2NvdW50cnkiOiJnYnIifQ.fPGhZjVqbHRiBp5IEsawHGWrlkz8htXhPj7mvbb6KdCkv8_Z0tRn6VkpaAWd0T-1_Ge_7ESNZ5Nn1SBKhxzCSvZrkp06VLEEFN0u68AwNXoCQ0ve0FIVjkTl7OiJ8TbnUEj7huG8eGdCGM1Ob0K-fu6R0TY4Mr1ZJA6yanIfSTw'
         }
         req = requests.get(url_string, 
             headers={'User-Agent' : "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36"},
