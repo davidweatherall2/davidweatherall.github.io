@@ -13,6 +13,12 @@ class LOLScraper:
     #Attributes
     regions = {
         'NALCS': [
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT02/1281605?gameHash=e0c56dfd764b897f',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT02/1281574?gameHash=4020853380946f25',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT02/1281549?gameHash=619121e0c8b1a5bb',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT02/1281506?gameHash=c4160f449b403895',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT02/1281322?gameHash=e961b42dd7bcd270',
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT02/1281307?gameHash=3270b681b90ee794',
             'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT02/1281281?gameHash=6be05d6df4ef6b82',
             'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT02/1281254?gameHash=a1b1aebb5ed0af3a',
             'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT01/1295402?gameHash=560c984fc1ba1168',
@@ -44,7 +50,7 @@ class LOLScraper:
             'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT02/1270607?gameHash=e51fbfc18213ad87',
             'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT02/1270592?gameHash=7fa61eb33bd32bfc',
             'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT02/1270576?gameHash=a054564b4232b1fc',
-            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT02/1270555?gameHash=48cc4673e669584b'
+            'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT02/1270555?gameHash=48cc4673e669584b',
         ],
         'EULCS': [
             'http://matchhistory.na.leagueoflegends.com/en/#match-details/ESPORTSTMNT05/1400247?gameHash=86e4dc79396a85a2',
